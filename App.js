@@ -1,33 +1,49 @@
+
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { AppLoading } from "expo";
+import * as Expo from "expo";
+import { Asset } from "expo-asset";
+import * as Permissions from "expo-permissions";
+import Navigator from "./Navigation.js/index.js";
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyD47xlalTqy3QK4fFgfD9jImnI5prteLfw",
-  authDomain: "rentmeup.firebaseapp.com",
-  databaseURL: "https://rentmeup.firebaseio.com",
-  projectId: "rentmeup",
-  storageBucket: "rentmeup.appspot.com",
-  messagingSenderId: "259373225502",
-  appId: "1:259373225502:web:7e04123dc2de2f3e05000f",
-  measurementId: "G-K613V6TT4E"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false
+  };
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+  render() {
+    if (!this.state.isLoadingComplete) {
+      return (
+        <AppLoading
+          autoHideSplash={false}
+          startAsync={this._loadResourcesAsync}
+          onError={this._handleLoadingError}
+          onFinish={this._handleFinishLoading}
+        />
+      );
+    } else {
+      return <Navigator />;
+    }
   }
-});
+  _loadResourcesAsync = async () => {
+    try {
+      Expo.SplashScreen.hide();
+      return Promise.all([
+        await Asset.loadAsync([
+          // Asset.fromModule(require("./assets/saleem.jpg")).uri,
+   
+        ])
+      ]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  _handleLoadingError = error => {
+    console.warn(error);
+  };
+
+  _handleFinishLoading = () => {
+    this.setState({ isLoadingComplete: true });
+  };
+}
