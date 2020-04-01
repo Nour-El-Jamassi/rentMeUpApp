@@ -1,49 +1,84 @@
-
 import React from "react";
-import { AppLoading } from "expo";
-import * as Expo from "expo";
-import { Asset } from "expo-asset";
-import * as Permissions from "expo-permissions";
-import Navigator from "./Navigation.js/index.js";
+// import { createStackNavigator } from "react-navigation-stack";
+// import { createAppContainer } from "react-navigation";
+//pages import
+import HomeScreen from "./src/pages/home";
+// import Filter from "./src/pages/filter";
 
-export default class App extends React.Component {
-  state = {
-    isLoadingComplete: false
-  };
+//setting firebase
+import * as firebase from "firebase";
+import "firebase/firestore";
+import "firebase/storage";
+var firebaseConfig = {
+  apiKey: "AIzaSyD47xlalTqy3QK4fFgfD9jImnI5prteLfw",
+  authDomain: "rentmeup.firebaseapp.com",
+  databaseURL: "https://rentmeup.firebaseio.com",
+  projectId: "rentmeup",
+  storageBucket: "rentmeup.appspot.com",
+  messagingSenderId: "259373225502",
+  appId: "1:259373225502:web:7e04123dc2de2f3e05000f",
+  measurementId: "G-K613V6TT4E"
+};
+import { EstateProvider } from "./Provider/estateProvider";
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+// const StackPages = createStackNavigator({
+//     Home: HomeScreen,
+//    {
+//     defaultNavigationOptions: ({nativgation}) => {
+//       return{
+//         headerStyle:{ backgroundColor: "#6b52ae"},
+//         headerTitle:"App",
 
-  render() {
-    if (!this.state.isLoadingComplete) {
-      return (
-        <AppLoading
-          autoHideSplash={false}
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      );
-    } else {
-      return <Navigator />;
-    }
-  }
-  _loadResourcesAsync = async () => {
-    try {
-      Expo.SplashScreen.hide();
-      return Promise.all([
-        await Asset.loadAsync([
-          // Asset.fromModule(require("./assets/saleem.jpg")).uri,
-   
-        ])
-      ]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+//       }
 
-  _handleLoadingError = error => {
-    console.warn(error);
-  };
+//     }
+//   }
+// })
+// const DrawerNavigation = createDrawerNavigator(
+//   {
+//     Profile: Logout,
+//     Feedbacks: Logout,
+//     LogOut: Logout
+//   },
+//   {
+//     hideStatusBar: true,
+//     drawerBackgroundColor: "rgba(255,255,255,0)",
+//     overLayColor: "#6b52ae",
+//     contentOptions: {
+//       activeTintColor: "#fff",
+//       activeBackgroundColor: "#6b52ae"
+//     }
+//   }
+// );
+// export default createAppContainer(DrawerNavigation);
 
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true });
-  };
-}
+// const App = props => <HomeScreen />;
+// export default App;
+
+// const AppStack = createStackNavigator({
+//   FirstComponent: {
+//     screen: Home,
+//     navigationOptions: () => ({
+//       title: "Home"
+//     })
+//   }
+//   // SecondComponent: {
+//   //   screen: Filter,
+//   //   navigationOptions: () => ({
+//   //     title: "Filter"
+//   //   })
+//   // }
+// });
+
+// const AppContainer = createAppContainer(AppStack);
+
+const App = () => {
+  return (
+    <EstateProvider>
+      <HomeScreen />
+    </EstateProvider>
+  );
+};
+
+export default App;

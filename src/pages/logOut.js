@@ -11,7 +11,7 @@ import {
   PermissionsAndroid,
   AppRegistry
 } from "react-native";
-export default class Add extends React.Component {
+export default class LogOut extends React.Component {
   render() {
     return (
       <View>
