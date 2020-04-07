@@ -12,7 +12,7 @@ const AppNavigator = createSwitchNavigator(
   {
     Splash: Splash,
     Auth: mainStack,
-    Add:Add
+    Add:Addذ
   },
   {
     initialRouteName: "Add"
