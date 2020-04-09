@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import RadioGroup, { Radio } from "react-native-radio-input";
 import { LinearGradient } from "expo-linear-gradient";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import * as ImagePicker from "expo-image-picker";
+import { YellowBox } from 'react-native';
 
-import FileUploader from "react-firebase-file-uploader";
-// import ImagePicker from "react-native-image-crop-picker";
-
-// import { ImagePicker } from "expo-image-picker";
 import {
   ScrollView,
   StyleSheet,
@@ -19,11 +18,6 @@ import {
   KeyboardAvoidingView,
   CheckBox
 } from "react-native";
-// import { NODATA } from "dns";
-
-let data = new FormData();
-
-// let ImagePicker = NativeModules.ImageCropPicker;
 export default class Add extends Component {
                  state = {
                    type: "",
@@ -40,7 +34,9 @@ export default class Add extends Component {
                    downloadURLs: [],
                    avatarSource: null
                  };
-
+                 componentDidMount=()=>{
+                   YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
+                 }
                  getChecked = value => {
                    if (value == 0) {
                      this.setState({ downtown: !this.state.downtown });
@@ -54,60 +50,72 @@ export default class Add extends Component {
                    console.log("2" + this.state.overLookingSea);
                    // value = our checked value
                  };
-                 //  // openImagePicker = () => {
-                 //  //   ImagePicker.openPicker({
-                 //  //     multiple: true,
-                 //  //     waitAnimationEnd: false,
-                 //  //     includeExif: true,
-                 //  //     forceJpg: ture,
-                 //  //     maxFiles: 5,
-                 //  //     compressImageQuality: 0.8,
-                 //  //     madiaType: "photo"
-                 //  //   })
-                 //  //     .then(images => {
-                 //  //       Image.map((item, index) => {
-                 //  //         console.log(JSON.stringify(item));
-                 //  //       });
-                 //  //     })
-                 //  //     .catch(e => alert(e));
-                 //  // };
 
-                 //  options = {
-                 //    title: "Select Avatar",
-                 //    customButtons: [
-                 //      { name: "fb", title: "Choose Photo from Facebook" }
-                 //    ],
-                 //    storageOptions: {
-                 //      skipBackup: true,
-                 //      path: "images"
-                 //    }
-                 //  };
+                 handelChoosePhoto = async () => {
+                   //TO OPEN CAMERA
+                   //let res = await ImagePicker.launchCameraAsync();
+                   //TO SELLECT EXIST IMAGE ON UR DEVICE:D
+                   let res = await ImagePicker.launchImageLibraryAsync();
 
-                 //  openImagePicker = async () => {
-                 //    const result = await ImagePicker.launchImageLibraryAsync({
-                 //      allowsEditing: true,
-                 //      aspect: [4, 3]
-                 //    });
-
-                 //    if (!result.cancelled) {
-                 //      this.onChangeText("pictureUrl", result.uri);
-                 //    }
-                 //  };
-
-                 handleUploadError = error => {
-                   this.setState({ isUploading: false });
-                   console.error(error);
+                   if (!res.cancelled) {
+                     this.uploadImage(res.uri,"test")
+                       .then(() => {
+                         alert("success");
+                       })
+                       .catch(error => {
+                         alert(error);
+                       });
+                   }
                  };
-                 handleUploadSuccess = filename => {
-                   firebase.storage()
-                     .ref("images")
-                     .child(filename)
-                     .getDownloadURL()
-                     .then(url => {
-                       this.setState({ avatarURL: url });
+
+                 uploadImage = async (uri, imageName) => {
+                   const response = await fetch(uri);
+                   const blob = await response.blob();
+                   var ref = firebase
+                     .storage()
+                     .ref()
+                     .child("images/" + imageName);
+                   return ref.put(blob);
+                 };
+
+                 addPropertyToMap = () => {
+                   let user = firebase.auth().currentUser;
+                   let name, email, phone;
+
+                   if (user != null) {
+                     name = user.name;
+                     email = user.email;
+                     phone = user.mobile;
+                   }
+                   let { downloadURLs } = this.state;
+
+                   var db = firebase.firestore();
+
+                   db.collection("estates")
+                     .add({
+                       type: this.state.type,
+                       name: name,
+                       email: email,
+                       phone: phone,
+                       city: this.state.city,
+                       street: this.state.street,
+                       price: this.state.price,
+                       space: this.state.space,
+                       roomNum: this.state.roomNum,
+                       downtown: this.state.downtown,
+                       overLookingSea: this.state.overLookingSea,
+                       url: downloadURLs,
+                       lat: this.state.markerPosition.lat,
+                       lng: this.state.markerPosition.lng
+                     })
+                     .then(function(docRef) {
+                       console.log("Document written with ID: ", docRef.id);
+                     })
+                     .catch(function(error) {
+                       console.error("Error adding document: ", error);
                      });
                  };
-                 
+
                  render() {
                    const {
                      type,
@@ -332,15 +340,86 @@ export default class Add extends Component {
                                  />
                                </RadioGroup>
                              </View>
-                             <FileUploader
-                               className="uploader"
-                               accept="image/*"
-                               name="avatar"
-                               placeholder="select image"
-                               randomizeFilename
-                               storageRef={firebase.storage().ref("images")}
-                               onUploadError={this.handleUploadError}
-                               onUploadSuccess={this.handleUploadSuccess}
+                             <TouchableOpacity
+                               style={{
+                                 marginTop: 20,
+                                 marginBottom: 20,
+                                 width: "100%",
+                                 alignItems: "center"
+                               }}
+                               onPress={() => this.handelChoosePhoto()}
+                             >
+                               <Text
+                                 style={{
+                                   alignSelf: "center",
+                                   fontSize: 20,
+                                   color: "white",
+                                   borderColor: "#fff",
+                                   borderStyle: "solid",
+                                   borderRadius: 25,
+                                   borderWidth: 2,
+                                   width: 150,
+                                   padding: 18
+                                 }}
+                               >
+                                 chooes a pic
+                               </Text>
+                             </TouchableOpacity>
+
+                             <GooglePlacesAutocomplete
+                               placeholder="Search"
+                               minLength={2} // minimum length of text to search
+                               autoFocus={false}
+                               returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
+                               keyboardAppearance={"light"} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
+                               listViewDisplayed="auto" // true/false/undefined
+                               fetchDetails={true}
+                               renderDescription={row => row.description} // custom description render
+                               onPress={(data, details = null) => {
+                                 // 'details' is provided when fetchDetails = true
+                                 console.log(data, details);
+                               }}
+                               getDefaultValue={() => ""}
+                               query={{
+                                 // available options: https://developers.google.com/places/web-service/autocomplete
+                                 key: "AIzaSyA2loHLnnXg7c8A9LzTpkJ_N-kKvYlmO4s",
+                                 language: "en", // language of the results
+                                 types: "(cities)" // default: 'geocode'
+                               }}
+                               styles={{
+                                 textInputContainer: {
+                                   width: "100%"
+                                 },
+                                 description: {
+                                   fontWeight: "bold"
+                                 },
+                                 predefinedPlacesDescription: {
+                                   color: "#1faadb"
+                                 }
+                               }}
+                               currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+                               currentLocationLabel="Current location"
+                               nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                               GoogleReverseGeocodingQuery={
+                                 {
+                                   // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+                                 }
+                               }
+                               GooglePlacesSearchQuery={{
+                                 // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                                 rankby: "distance",
+                                 type: "cafe"
+                               }}
+                               GooglePlacesDetailsQuery={{
+                                 // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+                                 fields: "formatted_address"
+                               }}
+                               filterReverseGeocodingByTypes={[
+                                 "locality",
+                                 "administrative_area_level_3"
+                               ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                               //    predefinedPlaces={[homePlace, workPlace]}
+                               debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
                              />
                            </KeyboardAvoidingView>
                          </ScrollView>
