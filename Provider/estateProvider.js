@@ -11,6 +11,7 @@ class EstateProvider extends Component {
     price: 100,
     minprice: 0,
     maxprice: 0,
+    space: 0,
     minspace: 0,
     maxspace: 0,
     roomNum: 1,
@@ -37,27 +38,40 @@ class EstateProvider extends Component {
       this.setState({ estates });
       this.setState({ sortedEstates: this.state.estates });
     });
+    let maxprice = Math.max(...this.state.estates.map(item => item.price));
+    let maxspace = Math.max(...this.state.estates.map(item => item.space));
+    this.setState({ maxprice, maxspace });
     console.log("estatesProvider", this.state.estates);
+    console.log(
+      "maxprice",
+      this.state.maxprice,
+      "minprice",
+      this.state.minprice
+    );
+    console.log(
+      "maxprice",
+      this.state.maxspace,
+      "minspace",
+      this.state.minspace
+    );
     //getting feedbacks
     const { feedbacks } = this.state;
-    const snapshot = await firebase
+    const snapshotFeedbacks = await firebase
       .firestore()
       .collection("FeedBacks")
       .get();
-    const collection = {};
-    snapshot.forEach(doc => {
-      collection[doc.id] = doc.data();
-      feedbacks.push(collection[doc.id]);
+    const collectionFeedbacks = {};
+    snapshotFeedbacks.forEach(doc => {
+      collectionFeedbacks[doc.id] = doc.data();
+      feedbacks.push(collectionFeedbacks[doc.id]);
       this.setState({ feedbacks });
     });
+    console.log("estatesProvider", this.state.feedbacks);
   }
-  handleChange = (event, data) => {
-    const target = event.target;
-    const value = target.type === "radio" ? target.checked : data.value;
-    const name = event.target.name;
-    this.setState({ [name]: value }, () => {
-      this.filterEstates();
-    });
+  handleChange = (index, value, name) => {
+    console.log("value", value, "name", name, "id", index);
+
+    this.setState({ [name]: value });
   };
   filterEstates = () => {
     let {
@@ -76,7 +90,7 @@ class EstateProvider extends Component {
       sortedEstates
     } = this.state;
     //all estates
-    console.log(this.state.estates);
+
     // convert to integer
     console.log(
       "type",
@@ -93,7 +107,7 @@ class EstateProvider extends Component {
     );
     roomNum = parseInt(roomNum);
     price = parseInt(price);
-    console.log("state", type, city, street);
+
     const db = firebase.firestore();
 
     if (
@@ -123,7 +137,7 @@ class EstateProvider extends Component {
           });
         });
       this.setState({ sortedEstates });
-      console.log(sortedEstates);
+      console.log("sortedEstates", sortedEstates);
       // this.setState({ sortedEstates: this.state.tempEstates });
     }
     //filtering by type
@@ -146,7 +160,9 @@ class EstateProvider extends Component {
           overLookingSea: this.state.overLookingSea,
           images: this.state.images,
           handleChange: this.handleChange,
-          feedbacks: this.state.feedbacks
+          feedbacks: this.state.feedbacks,
+          space: this.state.space,
+          filterEstates: this.filterEstates
         }}
       >
         {this.props.children}

@@ -1,12 +1,10 @@
-
 import React, { Component } from "react";
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Map from "./mainMap";
 import * as theme from "../../theme";
 import { EstateContext } from "../../Provider/estateProvider";
-// import Filter from './filter'
-// import AnimatedButton from "../component/AnimatedButton";
+
 export default class Home extends Component {
   static contextType = EstateContext;
 
@@ -31,14 +29,15 @@ export default class Home extends Component {
   }
 
   render() {
-    const { estates } = this.context;
-    console.log("estatesHome", estates);
-    return (
-      <View style={styles.container}>
-        <Map estates={estates} />
-        {/* <Filter estates={estates}  /> */}
-      </View>
-    );
+    const { sortedEstates } = this.context;
+    console.log("estatesHome", sortedEstates);
+    if (sortedEstates) {
+      return (
+        <View style={styles.container}>
+          <Map estates={sortedEstates} />
+        </View>
+      );
+    }
   }
 }
 const styles = StyleSheet.create({

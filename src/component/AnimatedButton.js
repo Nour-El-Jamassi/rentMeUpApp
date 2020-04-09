@@ -1,3 +1,5 @@
+//To Do:
+//Animated does not work on Andriod
 import React, { Component } from "react";
 import {
   View,

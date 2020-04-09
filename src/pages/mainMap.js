@@ -1,3 +1,5 @@
+//ToDo:
+// flatlist does npt autscroll to index 3 saying it's out of index while it does exist
 import React, { Component } from "react";
 import {
   Text,

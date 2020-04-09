@@ -1,11 +1,10 @@
-
-  // cleanupImages() {
-  //   ImagePicker.clean().then(() => {
-  //     console.log('removed tmp images from tmp directory');
-  //   }).catch(e => {
-  //     alert(e);
-  //   });
-  // }
+// cleanupImages() {
+//   ImagePicker.clean().then(() => {
+//     console.log('removed tmp images from tmp directory');
+//   }).catch(e => {
+//     alert(e);
+//   });
+// }
 //pickmultiplePhotos
 // pickMultiple() {
 //   ImagePicker.openPicker({

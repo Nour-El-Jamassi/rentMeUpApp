@@ -1,3 +1,6 @@
+//ToDo:
+//Add ratings
+//improve styling
 import React from "react";
 import Carousel, {
   Pagination,
@@ -12,6 +15,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { EstateContext } from "../../Provider/estateProvider";
+import Constants from "expo-constants";
 
 const { width: screenWidth } = Dimensions.get("window");
 export default class Feedbacks extends React.Component {
@@ -24,19 +28,30 @@ export default class Feedbacks extends React.Component {
     }
   };
   _renderItem = ({ item, index }, parallaxProps) => {
-    console.log(item.item);
+    console.log("items", item, "index", index);
     return (
-      <View style={styles.item}>
+      <View
+        style={{
+          position: "relative",
+          width: screenWidth - 60,
+          height: screenWidth - 60,
+          elevation: 10
+        }}
+      >
         <ParallaxImage
           source={require("../../assets/userPic.png")}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
+          showSpinner={true}
           {...parallaxProps}
         />
-        <Text>{item.name}</Text>
+
+        <Text style={styles.name}>{item.name}</Text>
         {/* add rating  */}
-        <Text>{item.massage}</Text>
+        <Text style={styles.massage} numberOfLines={2}>
+          {item.massage}
+        </Text>
       </View>
     );
   };
@@ -44,7 +59,7 @@ export default class Feedbacks extends React.Component {
     const { activeSlide } = this.state;
     return (
       <Pagination
-        dotsLength={3}
+        dotsLength={feedbacks.length}
         activeDotIndex={activeSlide}
         containerStyle={{ backgroundColor: "white" }}
         dotStyle={{
@@ -52,7 +67,7 @@ export default class Feedbacks extends React.Component {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 8,
-          backgroundColor: "black"
+          backgroundColor: "#af9a7d"
         }}
         // inactiveDotStyle={
         //   {
@@ -67,44 +82,56 @@ export default class Feedbacks extends React.Component {
   render() {
     const { feedbacks } = this.context;
     console.log("Feedbacks", feedbacks);
-    return (
-      <View
-        style={{ marginTop: 100 }}
-        onLayout={() => {
-          this.setState({
-            viewport: {
-              width: Dimensions.get("window").width,
-              height: Dimensions.get("window").height
-            }
-          });
-        }}
-      >
-        <Carousel
-          autoplay={true}
-          layout={"tinder"}
-          layoutCardOffset={`3`}
-          ref={c => {
-            this._carousel = c;
+    if (feedbacks) {
+      return (
+        <View
+          style={{ marginTop: 100, flex: 1 }}
+          onLayout={() => {
+            this.setState({
+              viewport: {
+                width: Dimensions.get("window").width,
+                height: Dimensions.get("window").height
+              }
+            });
           }}
-          data={feedbacks}
-          renderItem={this._renderItem}
-          sliderWidth={this.state.viewport.width}
-          itemWidth={this.state.viewport.width - 60}
-          sliderHeight={screenWidth}
-          onSnapToItem={index => this.setState({ activeSlide: index })}
-          hasParallaxImages={true}
-        />
-        {this.pagination}
-      </View>
-    );
+        >
+          <Carousel
+            autoplay={true}
+            layout={"stack"}
+            layoutCardOffset={3}
+            ref={c => {
+              this._carousel = c;
+            }}
+            data={feedbacks}
+            renderItem={this._renderItem}
+            sliderWidth={this.state.viewport.width}
+            itemWidth={this.state.viewport.width - 60}
+            sliderHeight={screenWidth}
+            onSnapToItem={index => this.setState({ activeSlide: index })}
+            hasParallaxImages={true}
+          />
+          {this.pagination}
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1, alignItems: "center" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 20,
+              fontFamily: "monospace"
+            }}
+          >
+            Waiting for data
+          </Text>
+        </View>
+      );
+    }
   }
 }
 
 const styles = StyleSheet.create({
-  item: {
-    width: screenWidth - 60,
-    height: screenWidth - 60
-  },
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
@@ -114,6 +141,27 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
-    resizeMode: "cover"
+    resizeMode: "contain"
+  },
+  textContainerEven: {
+    backgroundColor: "#af9a7d",
+    justifyContent: "center",
+    paddingTop: 12,
+    paddingBottom: 20,
+    paddingHorizontal: 16,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8
+  },
+  name: {
+    color: "black",
+    fontSize: 13,
+    fontWeight: "bold",
+    letterSpacing: 0.5
+  },
+  massage: {
+    marginTop: 6,
+    color: "gray",
+    fontSize: 12,
+    fontStyle: "italic"
   }
 });
