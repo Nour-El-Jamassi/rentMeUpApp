@@ -141,7 +141,7 @@ class EstateMap extends Component {
         pagingEnabled
         scrollEnabled
         getItemLayout={(data, index) => {
-          return { length: 33, index, offset: 33 * index };
+          return { length: 70, index, offset: 400 * index };
         }}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
@@ -281,7 +281,7 @@ class EstateMap extends Component {
           </View> */}
           <View>
             <TouchableOpacity style={styles.payBtn}>
-              <Text style={styles.payText}>Call: {activeModal.phone}</Text>
+              <Text style={styles.payText}>Message: {activeModal.phone}</Text>
               <FontAwesome
                 name="angle-right"
                 size={theme.SIZES.icon * 1.75}
@@ -294,7 +294,7 @@ class EstateMap extends Component {
     );
   }
   onMarkerClick = estate => {
-    console.log("onclick", estate);
+    console.log("onclick", estate.index);
 
     this._map.animateToRegion({
       latitude: estate.lat,
@@ -303,7 +303,7 @@ class EstateMap extends Component {
       longitudeDelta: 0.035
     });
     console.log("current index", estate.index);
-    this._flatlist.scrollToIndex({ animated: true, index: estate.index });
+    this._flatlist.scrollToItem({ animated: true, item: estate });
   };
   render() {
     const { latitude, longitude } = this.state;
@@ -518,7 +518,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: theme.SIZES.base * 1,
-    backgroundColor: "red"
+    backgroundColor: "#af9a7d",
+    marginTop: theme.SIZES.base / 2
   },
   payText: {
     fontWeight: "600",

@@ -5,11 +5,10 @@ import React from "react";
 // import { createAppContainer } from "react-navigation";
 //pages import
 import HomeScreen from "./src/pages/home";
-// import Filter from "./src/pages/filter";
+import Filter from "./src/pages/filter";
 // import Feedbacks from "./src/pages/feedbacks";
-import Carsouel from "./src/component/imageCarsoul";
-import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
-import Add from "./src/pages/add";
+// import Carsouel from "./src/component/imageCarsoul";
+// import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
 //setting firebase
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -81,7 +80,7 @@ firebase.initializeApp(firebaseConfig);
 const App = () => {
   return (
     <EstateProvider>
-      <Carsouel />
+      <Filter />
     </EstateProvider>
   );
 };

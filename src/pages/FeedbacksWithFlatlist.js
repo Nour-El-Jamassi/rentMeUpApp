@@ -86,8 +86,12 @@ export default class FeedbacksWithFlatlist extends React.Component {
       />
     );
   }
+  onViewableItemsChanged = changed => {
+    console.log(Object.keys(changed.viewableItems));
+  };
 
   render() {
+    const index = 0;
     const { feedbacks } = this.context;
     console.log("feed", feedbacks);
     const { activeSlide } = this.state;
@@ -121,9 +125,12 @@ export default class FeedbacksWithFlatlist extends React.Component {
             }}
             data={feedbacks}
             extraData={this.state}
+            viewabilityConfig={{
+              itemVisiblePercentThreshold: 50
+            }}
             keyExtractor={(item, index) => `${index}`}
             renderItem={(item, index) => this._renderItem(item, index)}
-            onScroll={index => console.log("active", index)}
+            onViewableItemsChanged={this.onViewableItemsChanged}
           />
           {this.pagination}
         </View>

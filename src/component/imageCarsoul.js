@@ -8,12 +8,12 @@ import {
   StyleSheet,
   View,
   Text,
+  FlatList,
+  Image,
   TouchableOpacity
 } from "react-native";
 import Constants from "expo-constants";
-const image1 = require("../../assets/Gaza1.jpg");
-const image2 = require("../../assets/Gaza3.jpg");
-const image3 = require("../../assets/couch-.jpg");
+
 const { width: screenWidth } = Dimensions.get("window");
 export default class ImageCarousel extends React.Component {
   state = {
@@ -21,17 +21,17 @@ export default class ImageCarousel extends React.Component {
       {
         title: "Save Your Money",
         info: "Find the best estate with the lowest and most suitable price",
-        uri: image1
+        uri: require("../../assets/Gaza3.jpg")
       },
       {
         title: "Save Your Time",
         info: "We made the process easier, just with some clicks!",
-        uri: image2
+        uri: require("../../assets/Gaza1.jpg")
       },
       {
         title: "Best Estates",
         info: "Our estates match your needs",
-        uri: image3
+        uri: require("../../assets/couch-.jpg")
       }
     ],
     activeSlide: 0,
@@ -40,8 +40,8 @@ export default class ImageCarousel extends React.Component {
       height: Dimensions.get("window").height
     }
   };
-  _renderItem = ({ item, index }, parallaxProps) => {
-    console.log("url", image3, "item", item);
+  _renderItem = item => {
+    console.log("item", item);
     return (
       <View style={styles.item}>
         <Image source={item.uri} style={styles.Image} />
@@ -88,23 +88,18 @@ export default class ImageCarousel extends React.Component {
           horizontal
           pagingEnabled
           scrollEnabled
-          getItemLayout={(data, index) => {
-            return { length: 33, index, offset: 33 * index };
-          }}
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
-          snapToAlignment="center"
-          style={{ backgroundColor: "black", opacity: 0.5 }}
+          snapToAlignment="center" 
           data={this.state.images}
           extraData={this.state}
           keyExtractor={(item, index) => `${index}`}
-          renderItem={({ item }) => this._renderItem(item)}
+          renderItem={item => this._renderItem(item)}
           ref={flatlist => {
             this._flatlist = flatlist;
           }}
           onScroll={index => this.setState({ activeSlide: index })}
         />
-        {this.pagination}
 
         <View style={styles.fixToText}>
           <TouchableOpacity style={styles.buttonLeft} onPress={this.onPress}>

@@ -1,10 +1,16 @@
 //ToDo:
 //check if filtering acually works & map updates
 //price and space range slider
-import React from "react";
-import { View, Text, StyleSheet, Slider, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Slider,
+  TouchableOpacity,
+  Image
+} from "react-native";
 import Dropdown from "react-native-modal-dropdown";
-import { EstateContext } from "../../Provider/estateProvider";
 
 import * as theme from "../../theme";
 import { FontAwesome } from "@expo/vector-icons";
@@ -43,12 +49,17 @@ const Filter = () => {
   return (
     <EstateContext.Consumer>
       {estate => (
-        <View style={{ flex: 1, marginTop: 100 }}>
+        <View
+          style={{
+            flex: 1,
+            marginTop: 50
+          }}
+        >
           <View>
-            {/* <Image
+            <Image
               source={require("../../assets/logo1.png")}
-              style={{ width: 170, height: 100 }}
-            /> */}
+              style={{ width: 170, height: 100, marginBottom: 20 }}
+            />
           </View>
           {/* renderCities */}
           <View style={styles.container}>
@@ -189,15 +200,17 @@ const Filter = () => {
 export default Filter;
 const styles = StyleSheet.create({
   container: {
-    flex: 0.0999
+    flex: 0.0999,
+    marginTop: theme.SIZES.base * 2.5
   },
   label: {
-    flex: 1,
     fontSize: theme.SIZES.text,
     fontWeight: "bold",
     fontFamily: "monospace",
     paddingLeft: 10,
-    marginLeft: theme.SIZES.base
+    marginLeft: theme.SIZES.base,
+
+    marginTop: theme.SIZES.base
   },
   DropdownMenu: {
     flex: 1,
@@ -206,7 +219,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: theme.SIZES.base * 1.03,
     marginRight: theme.SIZES.base * 4,
-    marginLeft: theme.SIZES.base * 4
+    marginLeft: theme.SIZES.base * 4,
+    marginTop: theme.SIZES.base
   },
   DropdownOption: {
     padding: 5,
@@ -215,6 +229,7 @@ const styles = StyleSheet.create({
   DropdownStyle: {
     marginLeft: theme.SIZES.base,
     paddingHorizontal: theme.SIZES.base / 2,
+    width: 220,
     marginVertical: -(theme.SIZES.base + 1)
   },
   filterBtn: {

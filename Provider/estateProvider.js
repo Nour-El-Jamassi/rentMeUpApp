@@ -147,6 +147,7 @@ class EstateProvider extends Component {
       <EstateContext.Provider
         value={{
           estates: this.state.estates,
+          sortedEstates: this.state.sortedEstates,
           type: this.state.type,
           city: this.state.city,
           street: this.state.street,
