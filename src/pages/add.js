@@ -165,7 +165,7 @@ export default class Add extends Component {
                          >
                            <KeyboardAvoidingView
                              styles={{
-                               flex: 1,
+                              //  flex: 1,
 
                                alignItems: "center"
                              }}
@@ -364,7 +364,7 @@ export default class Add extends Component {
                                >
                                  chooes a pic
                                </Text>
-                             </TouchableOpacity>
+                            </TouchableOpacity>
 
                              <GooglePlacesAutocomplete
                                placeholder="Search"
@@ -388,7 +388,8 @@ export default class Add extends Component {
                                }}
                                styles={{
                                  textInputContainer: {
-                                   width: "100%"
+                                   width: "100%",
+                                   height:"100%"
                                  },
                                  description: {
                                    fontWeight: "bold"
