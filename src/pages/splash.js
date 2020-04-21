@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Image, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default class Splash extends Component {
   // check() {
@@ -8,7 +9,7 @@ export default class Splash extends Component {
   //   }, 2000);
   // }
 
-  componentWillMount() {
+  componentDidMount() {
     setTimeout(() => {
       this.props.navigation.navigate("Auth");
     }, 2000);
@@ -18,14 +19,24 @@ export default class Splash extends Component {
     const splashImg = require("../../assets/logo1.png");
     return (
       <LinearGradient
-        colors={["#7f3db6", "#ea4fc7"]}
+        colors={["#0F3A5B", "#af9a7d"]}
         // start={[150, 0]}
         // end={[0, 50]}
-        style={{ flex: 1 }}
+        style={{
+          flex: 1,
+
+          alignContent: "center",
+          justifyContent: "center"
+        }}
       >
         <View>
           <Image
-            style={{ height: "30%", width: "30%" }}
+            style={{
+              height: "50%",
+              width: "60%",
+              marginTop: 100,
+              alignSelf: "center"
+            }}
             source={splashImg}
           ></Image>
         </View>
