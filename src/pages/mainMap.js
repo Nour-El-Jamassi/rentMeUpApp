@@ -17,7 +17,7 @@ import {
 } from "react-native";
 import MapView from "react-native-maps";
 import Modal from "react-native-modal";
-import Dropdown from "react-native-modal-dropdown";
+// import Dropdown from "react-native-modal-dropdown";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 
 import * as theme from "../../theme";

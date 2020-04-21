@@ -90,7 +90,7 @@ export default class ImageCarousel extends React.Component {
           scrollEnabled
           showsHorizontalScrollIndicator={false}
           scrollEventThrottle={16}
-          snapToAlignment="center" 
+          snapToAlignment="center"
           data={this.state.images}
           extraData={this.state}
           keyExtractor={(item, index) => `${index}`}
@@ -102,11 +102,17 @@ export default class ImageCarousel extends React.Component {
         />
 
         <View style={styles.fixToText}>
-          <TouchableOpacity style={styles.buttonLeft} onPress={this.onPress}>
-            <Text style={styles.buttonText}> Sign Up </Text>
+          <TouchableOpacity
+            style={styles.buttonLeft}
+            onPress={() => this.props.navigation.navigate("Add")}
+          >
+            <Text style={styles.buttonText}> Add</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonRight} onPress={this.onPress}>
-            <Text style={styles.buttonText}> Log In </Text>
+          <TouchableOpacity
+            style={styles.buttonRight}
+            onPress={() => this.props.navigation.navigate("Home")}
+          >
+            <Text style={styles.buttonText}>Map</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -178,6 +184,6 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   buttonText: {
-    fontFamily: "monospace"
+    // fontFamily: "monospace"
   }
 });

@@ -18,13 +18,12 @@ export default class LogIn extends Component {
   state = { email: "tes144@gmail.com", password: "123456789" };
 
   Login = () => {
-  
     const { navigation } = this.props;
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        navigation.navigate("SignIn");
+        navigation.navigate("ImageCarousel");
       })
       .catch(function(error) {
         // Handle Errors here.
@@ -123,7 +122,7 @@ export default class LogIn extends Component {
                 <TextInput
                   style={{
                     // marginTop: "15%",
-                    height: "45%",
+                    height: "38%",
                     width: "100%",
                     borderColor: "#af9a7d",
                     borderStyle: "solid",
@@ -138,7 +137,7 @@ export default class LogIn extends Component {
                 <TextInput
                   style={{
                     marginTop: "6%",
-                    height: "45%",
+                    height: "38%",
                     width: "100%",
                     borderColor: "#af9a7d",
                     borderStyle: "solid",
@@ -155,7 +154,7 @@ export default class LogIn extends Component {
                   onPress={this.Login}
                   style={{
                     marginTop: "6%",
-                    height: "45%",
+                    height: "38%",
                     width: "100%",
                     //borderColor: "#dd80d4",
                     borderStyle: "solid",
@@ -186,6 +185,26 @@ export default class LogIn extends Component {
                     }}
                   >
                     Log In
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate("SignIn")}
+                  style={{
+                    marginTop: "1%",
+                    height: "38%",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      //   fontFamily: "Tajawal",
+                      fontSize: 20
+                    }}
+                  >
+                    Have An Account?
                   </Text>
                 </TouchableOpacity>
               </View>

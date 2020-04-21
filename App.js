@@ -1,5 +1,3 @@
-
-
 import React from "react";
 import { AppLoading } from "expo";
 import * as Expo from "expo";
@@ -7,7 +5,6 @@ import { Asset } from "expo-asset";
 import * as Permissions from "expo-permissions";
 import Navigator from "./Navigation";
 import firebase from "firebase";
-
 import "firebase/firestore";
 import "firebase/storage";
 var firebaseConfig = {
@@ -25,21 +22,10 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 
-// const AppStack = createStackNavigator({
-//   FirstComponent: {
-//     screen: Home,
-//     navigationOptions: () => ({
-//       title: "Home"
-//     })
-//   }
-//   // SecondComponent: {
-//   //   screen: Filter,
-//   //   navigationOptions: () => ({
-//   //     title: "Filter"
-//   //   })
-//   // }
-// });
-export default class App extends React.Component{
+export default class App extends React.Component {
+  state = {
+    isLoadingComplete: false
+  };
 
   render() {
     if (!this.state.isLoadingComplete) {
@@ -68,4 +54,11 @@ export default class App extends React.Component{
     }
   };
 
+  _handleLoadingError = error => {
+    console.warn(error);
+  };
+
+  _handleFinishLoading = () => {
+    this.setState({ isLoadingComplete: true });
+  };
 }

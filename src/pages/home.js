@@ -3,10 +3,10 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Map from "./mainMap";
 import * as theme from "../../theme";
-import { EstateContext } from "../../Provider/estateProvider";
+import { EstateProvider } from "../../Provider/estateProvider";
 
 export default class Home extends Component {
-  static contextType = EstateContext;
+  static contextType = EstateProvider;
 
   renderHeader() {
     return (
