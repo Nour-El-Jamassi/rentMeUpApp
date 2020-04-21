@@ -34,36 +34,83 @@ class EstateMap extends Component {
     isMapReady: false,
     iconLoaded: false
   };
-  async componentDidMount() {
-    this.requestLOCATIONPermission();
-    console.log("getting permissions");
-  }
+  // async componentDidMount() {
+  //   this.requestLOCATIONPermission();
+  //   console.log("getting permissions");
+  // }
   requestLOCATIONPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: "Rent Me Up",
-          message: "We need to access your current location to display the map",
-          buttonNeutral: "Ask Me Later",
-          buttonNegative: "Cancel",
-          buttonPositive: "OK"
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        navigator.geolocation.getCurrentPosition(
-          ({ coords: { latitude, longitude } }) =>
-            this.setState({ latitude, longitude }),
-          error => console.log("Error:", error)
-        );
-      } else {
-        console.log("location permission denied");
-      }
-    } catch (err) {
-      console.warn(err);
-    }
+    //   if (Platform.OS === "Android") {
+    //   try {
+    //     const granted = await PermissionsAndroid.request(
+    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    //       {
+    //         title: "Rent Me Up",
+    //         message: "We need to access your current location to display the map",
+    //         buttonNeutral: "Ask Me Later",
+    //         buttonNegative: "Cancel",
+    //         buttonPositive: "OK"
+    //       }
+    //     );
+    //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //       navigator.geolocation.getCurrentPosition(
+    //         ({ coords: { latitude, longitude } }) =>
+    //           this.setState({ latitude, longitude }),
+    //         error => console.log("Error:", error)
+    //       );
+    //     } else {
+    //       console.log("location permission denied");
+    //     }
+    //   } catch (err) {
+    //     console.warn(err);
+    //   }
+    // }
+    //   if (Platform.OS === "ios") {
+    //     Geolocation.requestAuthorization();
+    //     this.getGeoLocation();
+    //   } else {
+    //     let granted = await PermissionsAndroid.request(
+    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    //       {
+    //         title: "Rent Me Up",
+    //         message: "We need to access your current location to display the map",
+    //         buttonNeutral: "Ask Me Later",
+    //         buttonNegative: "Cancel",
+    //         buttonPositive: "OK"
+    //       }
+    //     );
+    //     if (androidGranted === PermissionsAndroid.RESULTS.GRANTED) {
+    //       this.getGeoLocation();
+    //     } else {
+    //       console.log("Location permission not granted!!!!");
+    //     }
+    //   }
+    // };
+    // getGeoLocation = () => {
+    //   navigator.geolocation.getCurrentPosition(
+    //     ({ coords: { latitude, longitude } }) =>
+    //       this.setState({ latitude, longitude }),
+    //     error => console.log("Error:", error)
+    //   );
+    // Geolocation.getCurrentPosition(
+    //   position => {
+    //     Geocoder.from({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude
+    //       this.setState()
+    //     })
+    //       .then(json => {
+    //         console.log(json);
+    //       })
+    //       .catch(error => {
+    //         console.log(error);
+    //       });
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   },
+    //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    // );
   };
-
   onMapLayout = () => {
     this.setState({ isMapReady: true });
   };
@@ -308,66 +355,53 @@ class EstateMap extends Component {
   render() {
     const { latitude, longitude } = this.state;
     const { estates } = this.props;
+
+    alert( estates);
     const ImageSrc = require("../../assets/Webp.net-resizeimage.png");
-    if (latitude) {
-      return (
-        <View style={styles.container}>
-          <MapView
-            ref={map => {
-              this._map = map;
-            }}
-            initialRegion={{
-              latitude,
-              longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421
-            }}
-            style={styles.map}
-          >
-            {estates.map(estate => (
-              <Marker
-                coordinate={{ latitude: estate.lat, longitude: estate.lng }}
-                image={ImageSrc}
-                onPress={() => this.onMarkerClick(estate)}
-              >
-                {console.log("index", estate.index)}
-                {/* {this.state.isMapReady &&
-              estates.map(estate => ( */}
-                {/* <Marker
-                  key={
-                    this.state.iconLoaded
-                      ? `"markerLoaded"-${estate.id}`
-                      : `marker-${estate.id}`
-                  }
-                  coordinate={{ latitude: estate.lat, longitude: estate.lng }}
-                  description={estate.type}
-                  onPress={() => this.onMarkerClick(marker, index)}
-                > */}
-                <Callout>
-                  <TouchableWithoutFeedback
-                    onPress={() => this.setState({ active: estate.index })}
-                  >
-                    <View style={styles.marker}>
-                      <Text style={styles.markerPrice}>${estate.price}</Text>
-                    </View>
-                  </TouchableWithoutFeedback>
-                </Callout>
-              </Marker>
-            ))}
-            {/* ))} */}
-            {/* </Marker> */}
-          </MapView>
-          {this.renderEstates()}
-          {this.renderModal()}
-        </View>
-      );
-    } else {
-      return (
-        <View style={{ justifyContent: "center" }}>
-          <Text> Permissions Needed</Text>
-        </View>
-      );
-    }
+    // if (latitude) {
+    return (
+      <View style={styles.container}>
+        <MapView
+          ref={map => {
+            this._map = map;
+          }}
+          initialRegion={{
+            latitude: 31.3547,
+            longitude: 34.3088,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          }}
+          style={styles.map}
+        >
+          {estates.map(estate => (
+            <Marker
+              coordinate={{ latitude: estate.lat, longitude: estate.lng }}
+              image={ImageSrc}
+              onPress={() => this.onMarkerClick(estate)}
+            >
+              <Callout>
+                <TouchableWithoutFeedback
+                  onPress={() => this.setState({ active: estate.index })}
+                >
+                  <View style={styles.marker}>
+                    <Text style={styles.markerPrice}>${estate.price}</Text>
+                  </View>
+                </TouchableWithoutFeedback>
+              </Callout>
+            </Marker>
+          ))}
+        </MapView>
+        {this.renderEstates()}
+        {this.renderModal()}
+      </View>
+    );
+    // } else {
+    //   return (
+    //     <View style={{ justifyContent: "center" }}>
+    //       <Text> Permissions Needed</Text>
+    //     </View>
+    //   );
+    // }
   }
 }
 export default EstateMap;
