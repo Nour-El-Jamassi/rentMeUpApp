@@ -108,6 +108,9 @@ export default class Add extends Component {
                        lat: this.state.markerPosition.lat,
                        lng: this.state.markerPosition.lng
                      })
+                     .then(() => {
+                       navigation.navigate("Home");
+                     })
                      .then(function(docRef) {
                        console.log("Document written with ID: ", docRef.id);
                      })
