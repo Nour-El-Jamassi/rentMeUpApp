@@ -39,8 +39,36 @@ class EstateMap extends Component {
     console.log("getting permissions");
   }
   requestLOCATIONPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
+    //   if (Platform.OS === "Android") {
+    //   try {
+    //     const granted = await PermissionsAndroid.request(
+    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    //       {
+    //         title: "Rent Me Up",
+    //         message: "We need to access your current location to display the map",
+    //         buttonNeutral: "Ask Me Later",
+    //         buttonNegative: "Cancel",
+    //         buttonPositive: "OK"
+    //       }
+    //     );
+    //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+    //       navigator.geolocation.getCurrentPosition(
+    //         ({ coords: { latitude, longitude } }) =>
+    //           this.setState({ latitude, longitude }),
+    //         error => console.log("Error:", error)
+    //       );
+    //     } else {
+    //       console.log("location permission denied");
+    //     }
+    //   } catch (err) {
+    //     console.warn(err);
+    //   }
+    // }
+    if (Platform.OS === "ios") {
+      Geolocation.requestAuthorization();
+      this.getGeoLocation();
+    } else {
+      let granted = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
         {
           title: "Rent Me Up",
@@ -50,20 +78,42 @@ class EstateMap extends Component {
           buttonPositive: "OK"
         }
       );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        navigator.geolocation.getCurrentPosition(
-          ({ coords: { latitude, longitude } }) =>
-            this.setState({ latitude, longitude }),
-          error => console.log("Error:", error)
-        );
+
+      if (androidGranted === PermissionsAndroid.RESULTS.GRANTED) {
+        this.getGeoLocation();
       } else {
-        console.log("location permission denied");
+        console.log("Location permission not granted!!!!");
       }
-    } catch (err) {
-      console.warn(err);
     }
   };
+  getGeoLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords: { latitude, longitude } }) =>
+        this.setState({ latitude, longitude }),
 
+      error => console.log("Error:", error)
+    );
+    // Geolocation.getCurrentPosition(
+    //   position => {
+    //     Geocoder.from({
+    //       latitude: position.coords.latitude,
+    //       longitude: position.coords.longitude
+    //       this.setState()
+
+    //     })
+    //       .then(json => {
+    //         console.log(json);
+    //       })
+    //       .catch(error => {
+    //         console.log(error);
+    //       });
+    //   },
+    //   error => {
+    //     console.log(error);
+    //   },
+    //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+    // );
+  };
   onMapLayout = () => {
     this.setState({ isMapReady: true });
   };
