@@ -10,13 +10,16 @@ import contactUS from "./src/pages/contact";
 import ImageCarousel from "./src/component/imageCarsoul";
 
 import Home from "./src/pages/home";
+import Filter from "./src/pages/filter";
+
 export default class App extends React.Component {
   render() {
     const mainStack = createSwitchNavigator({ login: LogIn, SignIn: SignUp });
     const main = createStackNavigator({
       ImageCarousel: ImageCarousel,
       Add: Add,
-      Home: Home
+      Home: Home,
+      Filter: Filter
     });
     const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
 

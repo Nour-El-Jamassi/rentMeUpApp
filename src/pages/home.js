@@ -30,6 +30,7 @@ export default class Home extends Component {
 
   render() {
     const { sortedEstates } = this.context;
+    
     console.log("estatesHome", sortedEstates);
     if (sortedEstates) {
       return (

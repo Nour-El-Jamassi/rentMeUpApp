@@ -1,8 +1,3 @@
-//ToDo:
-
-//improve styling
-import React from "react";
-import { Pagination } from "react-native-snap-carousel";
 import {
   Dimensions,
   StyleSheet,
@@ -13,24 +8,29 @@ import {
   TouchableOpacity
 } from "react-native";
 import Constants from "expo-constants";
+import React from "react";
+import Carousel, {
+  Pagination,
+  ParallaxImage
+} from "react-native-snap-carousel";
 
 const { width: screenWidth } = Dimensions.get("window");
 export default class ImageCarousel extends React.Component {
   state = {
     images: [
       {
-        title: "Save Your Money",
-        info: "Find the best estate with the lowest and most suitable price",
+        // title: "Save Your Money",
+        // info: "Find the best estate with the lowest and most suitable price",
         uri: require("../../assets/Gaza3.jpg")
       },
       {
-        title: "Save Your Time",
-        info: "We made the process easier, just with some clicks!",
+        // title: "Save Your Time",
+        // info: "We made the process easier, just with some clicks!",
         uri: require("../../assets/Gaza1.jpg")
       },
       {
-        title: "Best Estates",
-        info: "Our estates match your needs",
+        // title: "Best Estates",
+        // info: "Our estates match your needs",
         uri: require("../../assets/couch-.jpg")
       }
     ],
@@ -40,15 +40,25 @@ export default class ImageCarousel extends React.Component {
       height: Dimensions.get("window").height
     }
   };
-  _renderItem = item => {
-    console.log("item", item);
+  _renderItem = ({ item, index }, parallaxProps) => {
+    console.log("items", item, "index", index);
     return (
-      <View style={styles.item}>
-        <Image source={item.uri} style={styles.Image} />
-        <View style={styles.textView}>
-          <Text style={styles.itemTitle}> {item.title}</Text>
-          <Text style={styles.itemDescription}> {item.info}</Text>
-        </View>
+      <View
+        style={{
+          position: "relative",
+          width: screenWidth - 60,
+          height: screenWidth - 60,
+          elevation: 10
+        }}
+      >
+        <ParallaxImage
+          source={item.uri}
+          containerStyle={styles.imageContainer}
+          style={styles.image}
+          parallaxFactor={0.4}
+          showSpinner={true}
+          {...parallaxProps}
+        />
       </View>
     );
   };
@@ -84,7 +94,7 @@ export default class ImageCarousel extends React.Component {
           });
         }}
       >
-        <FlatList
+        {/* <FlatList
           horizontal
           pagingEnabled
           scrollEnabled
@@ -99,7 +109,23 @@ export default class ImageCarousel extends React.Component {
             this._flatlist = flatlist;
           }}
           onScroll={index => this.setState({ activeSlide: index })}
+        /> */}
+        <Carousel
+          autoplay={true}
+          layout={"stack"}
+          layoutCardOffset={3}
+          ref={c => {
+            this._carousel = c;
+          }}
+          data={this.state.images}
+          renderItem={this._renderItem}
+          sliderWidth={this.state.viewport.width}
+          itemWidth={this.state.viewport.width - 60}
+          sliderHeight={screenWidth}
+          onSnapToItem={index => this.setState({ activeSlide: index })}
+          hasParallaxImages={true}
         />
+        {this.pagination}
 
         <View style={styles.fixToText}>
           <TouchableOpacity

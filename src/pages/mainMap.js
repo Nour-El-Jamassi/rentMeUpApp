@@ -356,7 +356,7 @@ class EstateMap extends Component {
     const { latitude, longitude } = this.state;
     const { estates } = this.props;
 
-    alert( estates);
+    alert(estates);
     const ImageSrc = require("../../assets/Webp.net-resizeimage.png");
     // if (latitude) {
     return (
@@ -393,6 +393,31 @@ class EstateMap extends Component {
         </MapView>
         {this.renderEstates()}
         {this.renderModal()}
+
+        <View style={styles.fixToText}>
+          <TouchableOpacity
+            style={styles.buttonLeft}
+            onPress={() => this.props.navigation.navigate("Add")}
+          >
+            <Text style={styles.filterText}>Filter</Text>
+            <FontAwesome
+              name="filter"
+              size={theme.SIZES.icon * 1.75}
+              color={theme.COLORS.white}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonRight}
+            onPress={() => this.props.navigation.navigate("Add")}
+          >
+            <Text style={styles.filterText}> Add </Text>
+            <FontAwesome
+              name="plus"
+              size={theme.SIZES.icon * 1.75}
+              color={theme.COLORS.white}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     );
     // } else {
@@ -559,6 +584,30 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: theme.SIZES.base * 1,
     color: "white"
+  },
+  fixToText: {
+    marginTop: 80,
+    top: 0,
+    right: 0,
+    left: 0,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  buttonLeft: {
+    backgroundColor: "#af9a7d",
+    padding: 10,
+    marginLeft: 8
+  },
+  buttonRight: {
+    backgroundColor: "#af9a7d",
+    padding: 10,
+    marginRight: 8
+  },
+  filterText: {
+    fontWeight: "bold",
+    fontSize: theme.SIZES.base * 1,
+    color: "white",
+    // fontFamily: "monospace"
   }
 });
 AppRegistry.registerComponent("MainMap", () => MainMap);
