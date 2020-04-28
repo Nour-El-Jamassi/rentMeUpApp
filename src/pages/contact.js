@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import firebase from "firebase";
 import { LinearGradient } from "expo-linear-gradient";
@@ -25,7 +24,6 @@ export default class contactUs extends Component {
 
   addFeedback = () => {
     const { Name, Email, Massage, Subejact } = this.state;
-
     const db = firebase.firestore();
 
     console.log(Name, Email, Massage, Subejact);
@@ -39,10 +37,10 @@ export default class contactUs extends Component {
       })
 
       .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
+       alert("Document written with ID: ", docRef.id);
       })
       .catch(function(error) {
-        console.error("Error adding document: ", error);
+       alert("Error adding document: ", error);
       });
   };
 
@@ -210,4 +208,3 @@ export default class contactUs extends Component {
     );
   }
 }
-

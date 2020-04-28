@@ -22,42 +22,44 @@ export default class SignUp extends Component {
     mopile: "98754321"
   };
 
-  signUp = () => {
-    let { name, email, password, mopile } = this.state;
+  addUser = () => {
+    const { name, email, password, mobile } = this.state;
+    console.log(name, email, password, mobile);
     const db = firebase.firestore();
-    console.log(this.state.email);
-    const { navigation } = this.props;
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-
-      .then(function() {
-        db.collection("users")
-
-          .add({
-            name: name,
-            mopile: mopile
-          })
-          .then(function() {
-            navigation.navigate("login");
-            // Update successful.
-          })
-          .catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-            alert(errorMessage);
-          });
-      })
       .catch(function(error) {
         // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorCode, errorMessage);
+
         // ...
-        alert(errorMessage);
+      });
+
+    setTimeout(() => {
+      console.log("wait!");
+    }, 7000);
+    setTimeout(() => {
+      console.log("wait!");
+    }, 7000);
+
+    const user = firebase.auth().currentUser;
+    console.log("user", user.uid);
+
+    db.collection("users")
+      .doc(user.uid)
+      .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
+      .catch(function(error) {
+        alert(error);
+      })
+      .then(() => {
+        navigation.navigate("ImageCarousel");
       });
   };
+
   render() {
     let { name, email, password, mopile } = this.state;
     return (

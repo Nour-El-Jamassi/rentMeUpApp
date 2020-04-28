@@ -79,6 +79,20 @@ export default class Add extends Component {
                  };
 
                  addPropertyToMap = () => {
+                   //getting user's detials
+                   const { currentUser } = this.context;
+
+                   let { UserDetials } = this.state;
+                   firebase
+                     .firestore()
+                     .collection("users")
+                     .doc(currentUser.uid)
+                     .get()
+                     .then(querySnapshot => {
+                       UserDetials = querySnapshot.data();
+                       this.setState({ UserDetials });
+                     });
+                   console.log(this.state.UserDetials);
                    let user = firebase.auth().currentUser;
                    let name, email, phone;
 
@@ -117,6 +131,7 @@ export default class Add extends Component {
                      .catch(function(error) {
                        console.error("Error adding document: ", error);
                      });
+                     
                  };
 
                  render() {

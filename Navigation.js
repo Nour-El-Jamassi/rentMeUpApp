@@ -8,7 +8,8 @@ import LogIn from "./src/pages/logIn";
 import Add from "./src/pages/add";
 import contactUS from "./src/pages/contact";
 import ImageCarousel from "./src/component/imageCarsoul";
-
+import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
+import Feedbacks from "./src/pages/feedbacks";
 import Home from "./src/pages/home";
 import Filter from "./src/pages/filter";
 
@@ -26,7 +27,9 @@ export default class App extends React.Component {
     const AppNavigator = createSwitchNavigator(
       {
         Splash: Splash,
-        Auth: mainStack,
+        // Auth: mainStack,
+        // FeedbacksWithFlatlist: FeedbacksWithFlatlist,
+        // Feedbacks: Feedbacks,
 
         contactUS: contactUS
       },
@@ -34,7 +37,7 @@ export default class App extends React.Component {
         initialRouteName: "contactUS"
       }
     );
-    const Navigator = createAppContainer(Log);
+    const Navigator = createAppContainer(AppNavigator);
     return (
       <EstateProvider>
         <Navigator />

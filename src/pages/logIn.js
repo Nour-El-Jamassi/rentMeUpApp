@@ -204,7 +204,7 @@ export default class LogIn extends Component {
                       fontSize: 20
                     }}
                   >
-                    Have An Account?
+                    Don't Have An Account?
                   </Text>
                 </TouchableOpacity>
               </View>
