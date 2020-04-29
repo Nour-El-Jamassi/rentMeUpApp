@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import firebase from "firebase";
 import RadioGroup, { Radio } from "react-native-radio-input";
 import { LinearGradient } from "expo-linear-gradient";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import * as ImagePicker from "expo-image-picker";
 import { YellowBox } from 'react-native';
 import MapView from "react-native-maps";
@@ -75,13 +74,20 @@ export default class Add extends Component {
                  };
 
                  uploadImage = async (uri, imageName) => {
-                   const response = await fetch(uri);
-                   const blob = await response.blob();
-                   var ref = firebase
-                     .storage()
-                     .ref()
-                     .child("images/" + imageName);
-                   return ref.put(blob);
+                  const {downloadURLs} = this.state;
+                  const response = await fetch(uri);
+                  const blob = await response.blob();
+                  var uploadTask = firebase.storage().ref();
+
+                  uploadTask
+                  .child('images/' +imageName)
+                  .put(blob)
+                  .then(snapshot =>
+                    snapshot.ref.getDownloadURL().then(downloadURL => {
+                      downloadURLs.push(downloadURL);
+                      this.setState({ downloadURLs });
+                    })
+                  );
                  };
 
                  addPropertyToMap = () => {
@@ -452,7 +458,15 @@ export default class Add extends Component {
                                >
                                  Add Property
                                </Text>
+
                              </TouchableOpacity>
+                     
+                      <Image
+                        source={{ uri :this.state.downloadURLs || "http://via.placeholder.com/40x30"}}
+                          style = {{width :100 , height :100}}
+                        key={index}
+                      />
+             
                            </KeyboardAvoidingView>
                          </ScrollView>
                        </View>
