@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as firebase from "firebase";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, AsyncStorage } from "react-native";
 const EstateContext = React.createContext();
 class EstateProvider extends Component {
   state = {
@@ -22,6 +22,20 @@ class EstateProvider extends Component {
     query: firebase.firestore().collection("estates"),
     feedbacks: []
   };
+  // componentWillMount() {
+  //   AsyncStorage.getItem("estates") &&
+  //     this.setState({
+  //       estates: JSON.parse(AsyncStorage.getItem("estates")),
+  //       sortedEstates: JSON.parse(AsyncStorage.getItem("estates"))
+  //     });
+  // }
+  // componentWillUpdate(nextProps, nextState) {
+  //   AsyncStorage.setItem(
+  //     "sortedEstates",
+  //     JSON.stringify(nextState.sortedEstates)
+  //   );
+  //   AsyncStorage.setItem("estates", JSON.stringify(nextState.estates));
+  // }
   async componentDidMount() {
     //getting estates
     const { estates } = this.state;
@@ -130,13 +144,11 @@ class EstateProvider extends Component {
           }}
         >
           {this.props.children}
-
         </EstateContext.Provider>
       );
     } else {
       return (
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-
           <ActivityIndicator
             size={70}
             color={"#af9a7d"}

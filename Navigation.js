@@ -10,7 +10,7 @@ import contactUS from "./src/pages/contact";
 import ImageCarousel from "./src/component/imageCarsoul";
 import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
 import Feedbacks from "./src/pages/feedbacks";
-import Home from "./src/pages/home";
+import MainMap from "./src/pages/mainMap";
 import Filter from "./src/pages/filter";
 
 export default class App extends React.Component {
@@ -19,10 +19,10 @@ export default class App extends React.Component {
     const main = createStackNavigator({
       ImageCarousel: ImageCarousel,
       Add: Add,
-      Home: Home,
+      Home: MainMap,
       Filter: Filter
     });
-    const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
+    const Log = createSwitchNavigator({ main: main, mainStack: mainStack });
 
     const AppNavigator = createSwitchNavigator(
       {
@@ -34,7 +34,7 @@ export default class App extends React.Component {
         contactUS: contactUS
       },
       {
-        initialRouteName: "Splash"
+        initialRouteName: "Auth"
       }
     );
     const Navigator = createAppContainer(AppNavigator);

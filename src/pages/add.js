@@ -8,10 +8,6 @@ import { YellowBox } from 'react-native';
 import MapView from "react-native-maps";
 const { Marker } = MapView;
 
-
-
-
-
 import {
   ScrollView,
   StyleSheet,
@@ -223,7 +219,7 @@ export default class Add extends Component {
                                defaultValue={city}
                              />
                              <MapView
-                               style={{ width: 100, height: 100 }}
+                               style={{ width: 200, height: 200 , alignSelf:'center'}}
                                initialRegion={{
                                  latitude: 31.3547,
                                  longitude: 34.3088,
@@ -232,7 +228,7 @@ export default class Add extends Component {
 
                                }}>
                                <Marker draggable
-                                 coordinate={this.state.markerPosition}
+                                 coordinate={{ latitude: this.state.markerPosition.lat, longitude: this.state.markerPosition.lng }}
 
                                  onDragEnd={(e) => {
                                    console.log('marker moves', e.nativeEvent.coordinate)

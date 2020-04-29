@@ -13,26 +13,19 @@ import Carousel, {
   Pagination,
   ParallaxImage
 } from "react-native-snap-carousel";
+// const image1 = require("../assets/Gaza3.jpg");
+// const image3 = require("../assets/Gaza1.jpg");
+// const image2 = require("../assets/couch-.jpg");
+// const image4 = require("../assets/kitchen.jpg");
 
 const { width: screenWidth } = Dimensions.get("window");
 export default class ImageCarousel extends React.Component {
   state = {
     images: [
-      {
-        // title: "Save Your Money",
-        // info: "Find the best estate with the lowest and most suitable price",
-        uri: require("../../assets/Gaza3.jpg")
-      },
-      {
-        // title: "Save Your Time",
-        // info: "We made the process easier, just with some clicks!",
-        uri: require("../../assets/Gaza1.jpg")
-      },
-      {
-        // title: "Best Estates",
-        // info: "Our estates match your needs",
-        uri: require("../../assets/couch-.jpg")
-      }
+      "https://i.ytimg.com/vi/piFtNmi4iDA/maxresdefault.jpg",
+      "https://pbs.twimg.com/media/BNgJ-T3CYAIA3AK.jpg",
+      "https://2.bp.blogspot.com/-HEHHQXMY_GM/U6yfkEYoysI/AAAAAAAASU0/7xAUx25ymkg/s1600/beauty+of+gaza+(9).jpg",
+      "https://scontent.fgza9-1.fna.fbcdn.net/v/t31.0-0/p640x640/23674841_2194137887295286_7135516817051193639_o.jpg?_nc_cat=108&_nc_sid=730e14&_nc_ohc=54NJBQp2cOkAX8Ahs7D&_nc_ht=scontent.fgza9-1.fna&_nc_tp=6&oh=56e0642b525da34c9bae67ba5d8aa912&oe=5ECFD9E0"
     ],
     activeSlide: 0,
     viewport: {
@@ -41,10 +34,11 @@ export default class ImageCarousel extends React.Component {
     }
   };
   _renderItem = ({ item, index }, parallaxProps) => {
-    console.log("items", item, "index", index);
+    console.log("item", item, "index", index);
     return (
       <View
         style={{
+          flex: 1,
           position: "relative",
           width: screenWidth - 60,
           height: screenWidth - 60,
@@ -52,7 +46,7 @@ export default class ImageCarousel extends React.Component {
         }}
       >
         <ParallaxImage
-          source={item.uri}
+          source={{ uri: item }}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.4}
@@ -66,7 +60,7 @@ export default class ImageCarousel extends React.Component {
     const { activeSlide } = this.state;
     return (
       <Pagination
-        dotsLength={3}
+        dotsLength={this.state.images}
         activeDotIndex={activeSlide}
         containerStyle={{ backgroundColor: "white" }}
         dotStyle={{
@@ -74,7 +68,7 @@ export default class ImageCarousel extends React.Component {
           height: 10,
           borderRadius: 5,
           marginHorizontal: 8,
-          backgroundColor: "black"
+          backgroundColor: "#af9a7d"
         }}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
@@ -94,26 +88,10 @@ export default class ImageCarousel extends React.Component {
           });
         }}
       >
-        {/* <FlatList
-          horizontal
-          pagingEnabled
-          scrollEnabled
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          snapToAlignment="center"
-          data={this.state.images}
-          extraData={this.state}
-          keyExtractor={(item, index) => `${index}`}
-          renderItem={item => this._renderItem(item)}
-          ref={flatlist => {
-            this._flatlist = flatlist;
-          }}
-          onScroll={index => this.setState({ activeSlide: index })}
-        /> */}
         <Carousel
           autoplay={true}
-          layout={"stack"}
-          layoutCardOffset={3}
+          layout={"tinder"}
+          layoutCardOffset={4}
           ref={c => {
             this._carousel = c;
           }}
@@ -122,10 +100,11 @@ export default class ImageCarousel extends React.Component {
           sliderWidth={this.state.viewport.width}
           itemWidth={this.state.viewport.width - 60}
           sliderHeight={screenWidth}
-          onSnapToItem={index => this.setState({ activeSlide: index })}
+          // onSnapToItem={index => this.setState({ activeSlide: index })}
           hasParallaxImages={true}
+          containerCustomStyle={{ flex: 1 }}
         />
-        {this.pagination}
+        {/* {this.pagination} */}
 
         <View style={styles.fixToText}>
           <TouchableOpacity

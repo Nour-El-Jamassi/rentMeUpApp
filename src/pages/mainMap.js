@@ -19,6 +19,7 @@ import MapView from "react-native-maps";
 import Modal from "react-native-modal";
 // import Dropdown from "react-native-modal-dropdown";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import { EstateContext } from "../../Provider/estateProvider";
 
 import * as theme from "../../theme";
 
@@ -26,6 +27,7 @@ const { Marker } = MapView;
 const { Callout } = MapView;
 const { height, width } = Dimensions.get("screen");
 class EstateMap extends Component {
+  static contextType = EstateContext;
   state = {
     active: null,
     activeModal: null,
@@ -354,7 +356,7 @@ class EstateMap extends Component {
   };
   render() {
     const { latitude, longitude } = this.state;
-    const { estates } = this.props;
+    const { sortedEstates } = this.context;
 
     alert(estates);
     const ImageSrc = require("../../assets/Webp.net-resizeimage.png");
@@ -606,7 +608,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontWeight: "bold",
     fontSize: theme.SIZES.base * 1,
-    color: "white",
+    color: "white"
     // fontFamily: "monospace"
   }
 });
