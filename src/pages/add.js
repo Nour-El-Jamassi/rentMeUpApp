@@ -8,10 +8,6 @@ import { YellowBox } from 'react-native';
 import MapView from "react-native-maps";
 const { Marker } = MapView;
 
-
-
-
-
 import {
   ScrollView,
   StyleSheet,
@@ -149,14 +145,12 @@ export default class Add extends Component {
                      type,
                      address,
                      city,
-                     area,
                      street,
                      price,
                      space,
                      roomNum,
                      downtown,
                      overLookingSea,
-                     selectedFile,
                      downloadURLs
                    } = this.state;
                    return (
@@ -193,13 +187,46 @@ export default class Add extends Component {
                          >
                            <KeyboardAvoidingView
                              styles={{
-                              //  flex: 1,
+                               //  flex: 1,
 
                                alignItems: "center"
                              }}
                              behavior="padding"
                              enabled
                            >
+                             <MapView
+                               style={{
+                                 width: "100%",
+                                 height: 200,
+                                 alignSelf: "center"
+                               }}
+                               initialRegion={{
+                                 latitude: 31.3547,
+                                 longitude: 34.3088,
+                                 latitudeDelta: 0.0922,
+                                 longitudeDelta: 0.0421
+                               }}
+                             >
+                               <Marker
+                                 draggable
+                                 coordinate={{
+                                   latitude: this.state.markerPosition.lat,
+                                   longitude: this.state.markerPosition.lng
+                                 }}
+                                 onDragEnd={e => {
+                                   console.log(
+                                     "marker moves",
+                                     e.nativeEvent.coordinate
+                                   );
+                                   this.setState({
+                                     markerPosition: {
+                                       lat: e.nativeEvent.coordinate.lat,
+                                       lng: e.nativeEvent.coordinate.lng
+                                     }
+                                   });
+                                 }}
+                               />
+                             </MapView>
                              <TextInput
                                style={{
                                  marginTop: 30,
@@ -222,25 +249,7 @@ export default class Add extends Component {
                                placeholderTextColor="#fff"
                                defaultValue={city}
                              />
-                             <MapView
-                               style={{ width: 100, height: 100 }}
-                               initialRegion={{
-                                 latitude: 31.3547,
-                                 longitude: 34.3088,
-                                 latitudeDelta: 0.0922,
-                                 longitudeDelta: 0.0421
 
-                               }}>
-                               <Marker draggable
-                                 coordinate={this.state.markerPosition}
-
-                                 onDragEnd={(e) => {
-                                   console.log('marker moves', e.nativeEvent.coordinate)
-                                   this.setState({ markerPosition: { lat: e.nativeEvent.coordinate.lat, lng: e.nativeEvent.coordinate.lng } })
-                                 }
-                                 }
-                               />
-                             </MapView>
                              <TextInput
                                style={{
                                  marginTop: 30,
@@ -256,12 +265,12 @@ export default class Add extends Component {
                                  alignSelf: "center"
                                }}
                                onChangeText={text => {
-                                 this.setState({ area: text });
+                                 this.setState({ streetstreet: text });
                                }}
                                returnKeyType="done"
-                               placeholder="Area"
+                               placeholder="Street"
                                placeholderTextColor="#fff"
-                               defaultValue={area}
+                               defaultValue={street}
                              />
                              <TextInput
                                style={{
@@ -280,7 +289,6 @@ export default class Add extends Component {
                                onChangeText={text => {
                                  this.setState({ address: text });
                                }}
-                               returnKeyType="done"
                                placeholder="Address"
                                placeholderTextColor="#fff"
                                defaultValue={address}
@@ -390,7 +398,7 @@ export default class Add extends Component {
                              <TouchableOpacity
                                style={{
                                  marginTop: 20,
-                                 marginBottom: 20,
+                                 //  marginBottom: 20,
                                  width: "100%",
                                  alignItems: "center"
                                }}
@@ -411,64 +419,40 @@ export default class Add extends Component {
                                >
                                  chooes a pic
                                </Text>
-                            </TouchableOpacity>
-
-                             <GooglePlacesAutocomplete
-                               placeholder="Search"
-                               minLength={2} // minimum length of text to search
-                               autoFocus={false}
-                               returnKeyType={"search"} // Can be left out for default return key https://facebook.github.io/react-native/docs/textinput.html#returnkeytype
-                               keyboardAppearance={"light"} // Can be left out for default keyboardAppearance https://facebook.github.io/react-native/docs/textinput.html#keyboardappearance
-                               listViewDisplayed="auto" // true/false/undefined
-                               fetchDetails={true}
-                               renderDescription={row => row.description} // custom description render
-                               onPress={(data, details = null) => {
-                                 // 'details' is provided when fetchDetails = true
-                                 console.log(data, details);
-                               }}
-                               getDefaultValue={() => ""}
-                               query={{
-                                 // available options: https://developers.google.com/places/web-service/autocomplete
-                                 key: "AIzaSyA2loHLnnXg7c8A9LzTpkJ_N-kKvYlmO4s",
-                                 language: "en", // language of the results
-                                 types: "(cities)" // default: 'geocode'
-                               }}
-                               styles={{
-                                 textInputContainer: {
-                                   width: "100%",
-                                   height:"100%"
+                             </TouchableOpacity>
+                             <TouchableOpacity
+                               onPress={this.Login}
+                               style={{
+                                 marginTop: 30,
+                                 height: 50,
+                                 width: "90%",
+                                 borderStyle: "solid",
+                                 borderRadius: 50,
+                                 paddingBottom: 10,
+                                 backgroundColor: "#0F3A5B",
+                                 justifyContent: "center",
+                                 alignItems: "center",
+                                 shadowColor: "#000",
+                                 alignSelf: "center",
+                                 shadowOffset: {
+                                   width: 0,
+                                   height: 3
                                  },
-                                 description: {
-                                   fontWeight: "bold"
-                                 },
-                                 predefinedPlacesDescription: {
-                                   color: "#1faadb"
-                                 }
+                                 shadowOpacity: 0.29,
+                                 shadowRadius: 4.65,
+                                 elevation: 7,
+                                 marginBottom: 20
                                }}
-                               currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-                               currentLocationLabel="Current location"
-                               nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-                               GoogleReverseGeocodingQuery={
-                                 {
-                                   // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-                                 }
-                               }
-                               GooglePlacesSearchQuery={{
-                                 // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                                 rankby: "distance",
-                                 type: "cafe"
-                               }}
-                               GooglePlacesDetailsQuery={{
-                                 // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                                 fields: "formatted_address"
-                               }}
-                               filterReverseGeocodingByTypes={[
-                                 "locality",
-                                 "administrative_area_level_3"
-                               ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-                               //    predefinedPlaces={[homePlace, workPlace]}
-                               debounce={200} // debounce the requests in ms. Set to 0 to remove debounce. By default 0ms.
-                             />
+                             >
+                               <Text
+                                 style={{
+                                   color: "#ffffff",
+                                   fontSize: 20
+                                 }}
+                               >
+                                 Add Property
+                               </Text>
+                             </TouchableOpacity>
                            </KeyboardAvoidingView>
                          </ScrollView>
                        </View>
