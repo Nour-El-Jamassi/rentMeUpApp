@@ -5,6 +5,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import * as ImagePicker from "expo-image-picker";
 import { YellowBox } from 'react-native';
+import MapView from "react-native-maps";
+const { Marker } = MapView;
+
+
+
+
 
 import {
   ScrollView,
@@ -32,7 +38,11 @@ export default class Add extends Component {
                    overLookingSea: false,
                    selectedFile: null,
                    downloadURLs: [],
-                   avatarSource: null
+                   avatarSource: null,
+                   markerPosition: {
+                     lat: 31.3547,
+                     lng: 34.3088
+                   },
                  };
                  componentDidMount=()=>{
                    YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
@@ -212,6 +222,25 @@ export default class Add extends Component {
                                placeholderTextColor="#fff"
                                defaultValue={city}
                              />
+                             <MapView
+                               style={{ width: 100, height: 100 }}
+                               initialRegion={{
+                                 latitude: 31.3547,
+                                 longitude: 34.3088,
+                                 latitudeDelta: 0.0922,
+                                 longitudeDelta: 0.0421
+
+                               }}>
+                               <Marker draggable
+                                 coordinate={this.state.markerPosition}
+
+                                 onDragEnd={(e) => {
+                                   console.log('marker moves', e.nativeEvent.coordinate)
+                                   this.setState({ markerPosition: { lat: e.nativeEvent.coordinate.lat, lng: e.nativeEvent.coordinate.lng } })
+                                 }
+                                 }
+                               />
+                             </MapView>
                              <TextInput
                                style={{
                                  marginTop: 30,

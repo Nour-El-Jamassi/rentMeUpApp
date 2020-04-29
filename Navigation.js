@@ -27,14 +27,14 @@ export default class App extends React.Component {
     const AppNavigator = createSwitchNavigator(
       {
         Splash: Splash,
-        // Auth: mainStack,
-        // FeedbacksWithFlatlist: FeedbacksWithFlatlist,
-        // Feedbacks: Feedbacks,
+        Auth: Log,
+        FeedbacksWithFlatlist: FeedbacksWithFlatlist,
+        Feedbacks: Feedbacks,
 
         contactUS: contactUS
       },
       {
-        initialRouteName: "contactUS"
+        initialRouteName: "Splash"
       }
     );
     const Navigator = createAppContainer(AppNavigator);
