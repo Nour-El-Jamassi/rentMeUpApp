@@ -1,5 +1,5 @@
-import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import React from "react";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { EstateProvider } from "./Provider/estateProvider";
 import Splash from "./src/pages/splash.js";
@@ -19,8 +19,8 @@ export default class App extends React.Component {
     const main = createStackNavigator({
       ImageCarousel: ImageCarousel,
       Add: Add,
-      Home: Home,
-      Filter: Filter
+      Filter: Filter,
+      Home: Home
     });
     const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
 

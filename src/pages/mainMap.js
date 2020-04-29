@@ -15,6 +15,8 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
+import Add from "./add";
+import Filter from "./filter";
 import MapView from "react-native-maps";
 import Modal from "react-native-modal";
 // import Dropdown from "react-native-modal-dropdown";
@@ -397,7 +399,7 @@ class EstateMap extends Component {
         <View style={styles.fixToText}>
           <TouchableOpacity
             style={styles.buttonLeft}
-            onPress={() => this.props.navigation.navigate("Add")}
+            onPress={() => this.props.navigation.navigate("Filter")}
           >
             <Text style={styles.filterText}>Filter</Text>
             <FontAwesome
@@ -606,7 +608,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontWeight: "bold",
     fontSize: theme.SIZES.base * 1,
-    color: "white",
+    color: "white"
     // fontFamily: "monospace"
   }
 });
