@@ -19,8 +19,8 @@ export default class App extends React.Component {
     const main = createStackNavigator({
       ImageCarousel: ImageCarousel,
       Add: Add,
-      Home: MainMap,
-      Filter: Filter
+      // Home: MainMap,
+      // Filter: Filter
     });
     const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
 
@@ -40,7 +40,7 @@ export default class App extends React.Component {
     const Navigator = createAppContainer(AppNavigator);
     return (
       <EstateProvider>
-        <Navigator />
+        <Add />
       </EstateProvider>
     );
   }

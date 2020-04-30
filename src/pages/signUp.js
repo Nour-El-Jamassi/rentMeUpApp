@@ -56,7 +56,7 @@ export default class SignUp extends Component {
         alert(error);
       })
       .then(() => {
-        navigation.navigate("ImageCarousel");
+        navigation.navigate("Add");
       });
   };
 

@@ -61,34 +61,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
       </View>
     );
   };
-  get pagination() {
-    const { activeSlide } = this.state;
-    const { feedbacks } = this.context;
-    return (
-      <Pagination
-        dotsLength={feedbacks.length}
-        activeDotIndex={activeSlide}
-        containerStyle={{ backgroundColor: "white" }}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 8,
-          backgroundColor: "#af9a7d"
-        }}
-        // inactiveDotStyle={
-        //   {
-        //     // Define styles for inactive dots here
-        //   }
-        // }
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
-    );
-  }
-  onViewableItemsChanged = changed => {
-    console.log(Object.keys(changed.viewableItems));
-  };
+
 
   render() {
     const index = 0;
@@ -132,7 +105,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
             renderItem={(item, index) => this._renderItem(item, index)}
             onViewableItemsChanged={this.onViewableItemsChanged}
           />
-          {this.pagination}
+         
         </View>
       );
     }
