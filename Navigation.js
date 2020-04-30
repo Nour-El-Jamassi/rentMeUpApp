@@ -20,7 +20,7 @@ export default class App extends React.Component {
       ImageCarousel: ImageCarousel,
       Add: Add,
       Home: MainMap,
-      Filter: Filter
+      // Filter: Filter
     });
     const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
 
@@ -30,11 +30,11 @@ export default class App extends React.Component {
         Auth: Log,
         FeedbacksWithFlatlist: FeedbacksWithFlatlist,
         Feedbacks: Feedbacks,
-
+        Filter: Filter,
         contactUS: contactUS
       },
       {
-        initialRouteName: "Splash"
+        initialRouteName: "Filter"
       }
     );
     const Navigator = createAppContainer(AppNavigator);

@@ -73,22 +73,22 @@ export default class Add extends Component {
                    }
                  };
 
-                 uploadImage = async (uri, imageName) => {
-                  const {downloadURLs} = this.state;
-                  const response = await fetch(uri);
-                  const blob = await response.blob();
-                  var uploadTask = firebase.storage().ref();
+                  uploadImage = async (uri, imageName) => {
+                    const { downloadURLs } = this.state;
+                    const response = await fetch(uri);
+                    const blob = await response.blob();
+                    var ref = firebase
+                      .storage()
+                      .ref()
+                      .child("images/" + imageName);
+                    return ref.put(blob).then(snapshot =>
+                      snapshot.ref.getDownloadURL().then(downloadURL => {
+                        downloadURLs.push(downloadURL);
+                        this.setState({ downloadURLs });
+                      })
+                    );
 
-                  uploadTask
-                  .child('images/' +imageName)
-                  .put(blob)
-                  .then(snapshot =>
-                    snapshot.ref.getDownloadURL().then(downloadURL => {
-                      downloadURLs.push(downloadURL);
-                      this.setState({ downloadURLs });
-                    })
-                  );
-                 };
+                  };
 
                  addPropertyToMap = () => {
                    //getting user's detials
@@ -427,7 +427,7 @@ export default class Add extends Component {
                                </Text>
                              </TouchableOpacity>
                              <TouchableOpacity
-                               onPress={this.Login}
+                               onPress={this.addPropertyToMap}
                                style={{
                                  marginTop: 30,
                                  height: 50,
@@ -464,7 +464,7 @@ export default class Add extends Component {
                       <Image
                         source={{ uri :this.state.downloadURLs || "http://via.placeholder.com/40x30"}}
                           style = {{width :100 , height :100}}
-                        key={index}
+                        // key={index}
                       />
              
                            </KeyboardAvoidingView>
