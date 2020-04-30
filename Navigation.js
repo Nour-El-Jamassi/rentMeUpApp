@@ -6,41 +6,200 @@ import Splash from "./src/pages/splash.js";
 import SignUp from "./src/pages/signUp";
 import LogIn from "./src/pages/logIn";
 import Add from "./src/pages/add";
-import contactUS from "./src/pages/contact";
+import ContactUS from "./src/pages/contact";
 import ImageCarousel from "./src/component/imageCarsoul";
 import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
-import Feedbacks from "./src/pages/feedbacks";
 import MainMap from "./src/pages/mainMap";
 import Filter from "./src/pages/filter";
-
+import { TouchableWithoutFeedback } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "react-navigation-drawer";
+import LogOut from "./src/pages/logOut";
 export default class App extends React.Component {
   render() {
     const mainStack = createSwitchNavigator({ login: LogIn, SignIn: SignUp });
     const main = createStackNavigator({
       ImageCarousel: ImageCarousel,
       Add: Add,
-      // Home: MainMap,
-      // Filter: Filter
+      Home: MainMap,
+      Filter: Filter,
     });
-    const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
+    const AddPage = createStackNavigator(
+      {
+        Add: Add,
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: "#0F3A5B",
+            },
+            headerTitle: "Add",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              flex: 1,
+            },
+            headerLeft: (
+              <TouchableWithoutFeedback
+                onPress={() => props.navigation.openDrawer()}
+              >
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+              </TouchableWithoutFeedback>
+            ),
+          };
+        },
+      }
+    );
+    const FilterPage = createStackNavigator(
+      {
+        Filter: Filter,
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: "#0F3A5B",
+            },
+            headerTitle: "Filter",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              flex: 1,
+            },
+            headerLeft: (
+              <TouchableWithoutFeedback
+                onPress={() => props.navigation.openDrawer()}
+              >
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+              </TouchableWithoutFeedback>
+            ),
+          };
+        },
+      }
+    );
+
+    const FeedbacksPage = createStackNavigator(
+      {
+        FeedbacksWithFlatlist: FeedbacksWithFlatlist,
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: "#0F3A5B",
+            },
+            headerTitle: "ContactUs",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              flex: 1,
+            },
+            headerLeft: (
+              <TouchableWithoutFeedback
+                onPress={() => props.navigation.openDrawer()}
+              >
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+              </TouchableWithoutFeedback>
+            ),
+          };
+        },
+      }
+    );
+    const ContactPage = createStackNavigator(
+      {
+        ContactUS: ContactUS,
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: "#0F3A5B",
+            },
+            headerTitle: "ContactUs",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              flex: 1,
+            },
+            headerLeft: (
+              <TouchableWithoutFeedback
+                onPress={() => props.navigation.openDrawer()}
+              >
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+              </TouchableWithoutFeedback>
+            ),
+          };
+        },
+      }
+    );
+    const HomePage = createStackNavigator(
+      {
+        Home: MainMap,
+      },
+      {
+        defaultNavigationOptions: ({ navigation }) => {
+          return {
+            headerStyle: {
+              backgroundColor: "#0F3A5B",
+            },
+            headerTitle: "Home",
+            headerTintColor: "white",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+              flex: 1,
+            },
+            headerLeft: (
+              <TouchableWithoutFeedback
+                onPress={() => props.navigation.openDrawer()}
+              >
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+              </TouchableWithoutFeedback>
+            ),
+          };
+        },
+      }
+    );
+    const DrawerNavigator = createDrawerNavigator(
+      {
+        Home: HomePage,
+        Add: AddPage,
+        Filter: FilterPage,
+        Feedbacks: FeedbacksPage,
+        ContactUS: ContactPage,
+        LogOut: LogOut,
+      },
+      {
+        hideStatusBar: true,
+        drawerBackgroundColor: "white",
+        contentOptions: {
+          activeBackgroundColor: "#af9a7d",
+        },
+      }
+    );
+    const Log = createSwitchNavigator({
+      mainStack: mainStack,
+      main: DrawerNavigator,
+    });
 
     const AppNavigator = createSwitchNavigator(
       {
         Splash: Splash,
         Auth: Log,
-        FeedbacksWithFlatlist: FeedbacksWithFlatlist,
-        Feedbacks: Feedbacks,
-
-        contactUS: contactUS
       },
       {
-        initialRouteName: "Splash"
+        initialRouteName: "Splash",
       }
     );
-    const Navigator = createAppContainer(AppNavigator);
+    const Navigator = createAppContainer(Log);
     return (
       <EstateProvider>
-        <Add />
+        <Navigator />
       </EstateProvider>
     );
   }

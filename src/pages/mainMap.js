@@ -13,7 +13,7 @@ import {
   AppRegistry,
   ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from "react-native";
 import Add from "./add";
 import Filter from "./filter";
@@ -36,7 +36,7 @@ class EstateMap extends Component {
     latitude: null,
     longitude: null,
     isMapReady: false,
-    iconLoaded: false
+    iconLoaded: false,
   };
   // async componentDidMount() {
   //   this.requestLOCATIONPermission();
@@ -119,7 +119,7 @@ class EstateMap extends Component {
     this.setState({ isMapReady: true });
   };
 
-  renderestate = item => {
+  renderestate = (item) => {
     console.log("item", item);
 
     return (
@@ -202,7 +202,7 @@ class EstateMap extends Component {
         extraData={this.state}
         keyExtractor={(item, index) => `${index}`}
         renderItem={({ item }) => this.renderestate(item)}
-        ref={flatlist => {
+        ref={(flatlist) => {
           this._flatlist = flatlist;
         }}
       />
@@ -222,7 +222,7 @@ class EstateMap extends Component {
           height: 150,
           width: 150,
           margin: 3,
-          resizeMode: "cover"
+          resizeMode: "cover",
         }}
       />
     );
@@ -253,7 +253,7 @@ class EstateMap extends Component {
             <Text
               style={{
                 color: theme.COLORS.gray,
-                fontSize: theme.SIZES.font * 1.1
+                fontSize: theme.SIZES.font * 1.1,
               }}
             >
               {activeModal.phone}
@@ -344,14 +344,14 @@ class EstateMap extends Component {
       </Modal>
     );
   }
-  onMarkerClick = estate => {
+  onMarkerClick = (estate) => {
     console.log("onclick", estate.index);
 
     this._map.animateToRegion({
       latitude: estate.lat,
       longitude: estate.lng,
       latitudeDelta: 0.09,
-      longitudeDelta: 0.035
+      longitudeDelta: 0.035,
     });
     console.log("current index", estate.index);
     this._flatlist.scrollToItem({ animated: true, item: estate });
@@ -360,24 +360,23 @@ class EstateMap extends Component {
     const { latitude, longitude } = this.state;
     const { sortedEstates: estates } = this.context;
 
-    alert(estates);
     const ImageSrc = require("../../assets/Webp.net-resizeimage.png");
     // if (latitude) {
     return (
       <View style={styles.container}>
         <MapView
-          ref={map => {
+          ref={(map) => {
             this._map = map;
           }}
           initialRegion={{
             latitude: 31.3547,
             longitude: 34.3088,
             latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421
+            longitudeDelta: 0.0421,
           }}
           style={styles.map}
         >
-          {estates.map(estate => (
+          {estates.map((estate) => (
             <Marker
               coordinate={{ latitude: estate.lat, longitude: estate.lng }}
               image={ImageSrc}
@@ -397,8 +396,7 @@ class EstateMap extends Component {
         </MapView>
         {this.renderEstates()}
         {this.renderModal()}
-
-        <View style={styles.fixToText}>
+        <View>
           <TouchableOpacity
             style={styles.buttonLeft}
             onPress={() => this.props.navigation.navigate("Filter")}
@@ -410,27 +408,9 @@ class EstateMap extends Component {
               color={theme.COLORS.white}
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonRight}
-            onPress={() => this.props.navigation.navigate("Add")}
-          >
-            <Text style={styles.filterText}> Add </Text>
-            <FontAwesome
-              name="plus"
-              size={theme.SIZES.icon * 1.75}
-              color={theme.COLORS.white}
-            />
-          </TouchableOpacity>
         </View>
       </View>
     );
-    // } else {
-    //   return (
-    //     <View style={{ justifyContent: "center" }}>
-    //       <Text> Permissions Needed</Text>
-    //     </View>
-    //   );
-    // }
   }
 }
 export default EstateMap;
@@ -439,21 +419,21 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: theme.COLORS.white
+    backgroundColor: theme.COLORS.white,
   },
 
   map: {
-    flex: 3
+    flex: 3,
   },
   Estates: {
     position: "absolute",
     right: 0,
     left: 0,
     bottom: 0,
-    paddingBottom: theme.SIZES.base * 2
+    paddingBottom: theme.SIZES.base * 2,
   },
   modalImages: {
-    width: 400
+    width: 400,
   },
   estate: {
     flexDirection: "row",
@@ -461,7 +441,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     padding: theme.SIZES.base,
     marginHorizontal: theme.SIZES.base * 2,
-    width: width - 24 * 2
+    width: width - 24 * 2,
   },
   buy: {
     flex: 1,
@@ -469,22 +449,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.SIZES.base * 1.5,
     paddingVertical: theme.SIZES.base,
     backgroundColor: "#af9a7d",
-    borderRadius: 6
+    borderRadius: 6,
   },
   buyTotal: {
     flex: 1,
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   buyTotalPrice: {
     color: theme.COLORS.white,
     fontSize: theme.SIZES.base * 1.5,
     fontWeight: "600",
-    paddingLeft: theme.SIZES.base / 4
+    paddingLeft: theme.SIZES.base / 4,
   },
   buyBtn: {
     flex: 0.5,
     justifyContent: "center",
-    alignItems: "flex-end"
+    alignItems: "flex-end",
   },
   marker: {
     flexDirection: "row",
@@ -493,7 +473,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: theme.SIZES.base * 2,
     borderWidth: 1,
-    borderColor: theme.COLORS.white
+    borderColor: theme.COLORS.white,
   },
   markerPrice: { color: theme.COLORS.red, fontWeight: "bold" },
   markerStatus: { color: theme.COLORS.gray },
@@ -501,52 +481,52 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.black,
     shadowOffset: {
       width: 0,
-      height: 6
+      height: 6,
     },
     shadowOpacity: 0.1,
-    shadowRadius: 4
+    shadowRadius: 4,
   },
   active: {
-    borderColor: theme.COLORS.red
+    borderColor: theme.COLORS.red,
   },
   hours: {
     flex: 1,
     flexDirection: "column",
     marginLeft: theme.SIZES.base / 2,
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
   },
   hoursTitle: {
     fontSize: theme.SIZES.text,
-    fontWeight: "500"
+    fontWeight: "500",
   },
   hoursDropdown: {
     borderRadius: theme.SIZES.base / 2,
     borderColor: theme.COLORS.overlay,
     borderWidth: 1,
     padding: theme.SIZES.base,
-    marginRight: theme.SIZES.base / 2
+    marginRight: theme.SIZES.base / 2,
   },
   hoursDropdownOption: {
     padding: 5,
-    fontSize: theme.SIZES.font * 0.8
+    fontSize: theme.SIZES.font * 0.8,
   },
   hoursDropdownStyle: {
     marginLeft: -theme.SIZES.base,
     paddingHorizontal: theme.SIZES.base / 2,
-    marginVertical: -(theme.SIZES.base + 1)
+    marginVertical: -(theme.SIZES.base + 1),
   },
   estateInfoContainer: { flex: 1.5, flexDirection: "row" },
   estateInfo: {
     justifyContent: "space-evenly",
-    marginHorizontal: theme.SIZES.base * 1.5
+    marginHorizontal: theme.SIZES.base * 1.5,
   },
   estateIcon: {
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   modalContainer: {
     margin: 0,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   modal: {
     flexDirection: "column",
@@ -554,7 +534,7 @@ const styles = StyleSheet.create({
     padding: theme.SIZES.base * 2,
     backgroundColor: theme.COLORS.white,
     borderTopLeftRadius: theme.SIZES.base,
-    borderTopRightRadius: theme.SIZES.base
+    borderTopRightRadius: theme.SIZES.base,
   },
   modalInfo: {
     flexDirection: "row",
@@ -563,17 +543,17 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderTopColor: theme.COLORS.overlay,
-    borderBottomColor: theme.COLORS.overlay
+    borderBottomColor: theme.COLORS.overlay,
   },
 
   modalHours: {
-    paddingVertical: height * 0.011
+    paddingVertical: height * 0.011,
   },
   modalHoursDropdown: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: theme.SIZES.base
+    paddingVertical: theme.SIZES.base,
   },
   payBtn: {
     borderRadius: 6,
@@ -582,36 +562,32 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: theme.SIZES.base * 1,
     backgroundColor: "#af9a7d",
-    marginTop: theme.SIZES.base / 2
+    marginTop: theme.SIZES.base / 2,
   },
   payText: {
     fontWeight: "600",
     fontSize: theme.SIZES.base * 1,
-    color: "white"
+    color: "white",
   },
-  fixToText: {
-    marginTop: 80,
-    top: 0,
-    right: 0,
-    left: 0,
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
+
   buttonLeft: {
     backgroundColor: "#af9a7d",
     padding: 10,
-    marginLeft: 8
+    marginLeft: 8,
+    position: "absolute",
+    right: 0,
+    top: 0,
+    borderRadius: 10,
+    marginTop: 10,
+    marginRight: 10,
   },
-  buttonRight: {
-    backgroundColor: "#af9a7d",
-    padding: 10,
-    marginRight: 8
-  },
+
   filterText: {
     fontWeight: "bold",
     fontSize: theme.SIZES.base * 1,
-    color: "white"
-    // fontFamily: "monospace"
-  }
+    color: "white",
+    //fontFamily: "monospace",
+    letterSpacing: 1.5,
+  },
 });
 AppRegistry.registerComponent("MainMap", () => MainMap);

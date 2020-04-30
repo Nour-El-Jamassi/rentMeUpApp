@@ -14,10 +14,10 @@ import Carousel, {
   Pagination,
   ParallaxImage
 } from "react-native-snap-carousel";
-const image1 = require("../assets/Gaza3.jpg");
-const image3 = require("../assets/Gaza1.jpg");
-const image2 = require("../assets/couch-.jpg");
-const image4 = require("../assets/kitchen.jpg");
+const image1 = require("../../assets/Gaza3.jpg");
+const image3 = require("../../assets/Gaza1.jpg");
+const image2 = require("../../assets/couch-.jpg");
+const image4 = require("../../assets/kitchen.jpg");
 
 const { width: screenWidth } = Dimensions.get("window");
 export default class ImageCarousel extends React.Component {

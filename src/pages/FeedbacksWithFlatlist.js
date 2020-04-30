@@ -5,7 +5,7 @@ import {
   Text,
   Dimensions,
   StyleSheet,
-  Image
+  Image,
 } from "react-native";
 import { EstateContext } from "../../Provider/estateProvider";
 import { Rating, AirbnbRating } from "react-native-ratings";
@@ -16,7 +16,7 @@ const { width: screenWidth } = Dimensions.get("window");
 export default class FeedbacksWithFlatlist extends React.Component {
   static contextType = EstateContext;
   state = {
-    activeSlide: 0
+    activeSlide: 0,
   };
   _renderItem = (item, index) => {
     return (
@@ -31,7 +31,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
           justifyContent: "center",
           marginLeft: 20,
           marginRight: 20,
-          marginTop: 10
+          marginTop: 10,
         }}
       >
         <Image
@@ -46,22 +46,15 @@ export default class FeedbacksWithFlatlist extends React.Component {
           </Text>
         </View>
 
-        {/* <Rating
-          type="custom"
-          ratingImage={require("../../assets/star-empty.png")}
-          ratingColor="#d4af37"
-          ratingBackgroundColor="white"
-          ratingCount={5}
+        <AirbnbRating
+          count={5}
           defaultRating={item.item.rating}
-          imageSize={30}
-          style={{ paddingVertical: 10 }}
-        /> */}
-
-        <AirbnbRating count={5} defaultRating={item.item.rating} size={20} />
+          size={20}
+          isDisabled={true}
+        />
       </View>
     );
   };
-
 
   render() {
     const index = 0;
@@ -75,7 +68,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
             marginTop: Constants.statusBarHeight,
             flex: 1,
             alignContent: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <FlatList
@@ -85,7 +78,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
             getItemLayout={(data, index) => ({
               length: Dimensions.get("window").width,
               offset: Dimensions.get("window").width * index,
-              index
+              index,
             })}
             initialScrollIndex={activeSlide}
             showsHorizontalScrollIndicator={false}
@@ -94,18 +87,17 @@ export default class FeedbacksWithFlatlist extends React.Component {
             style={{
               backgroundColor: "white",
               opacity: 0.5,
-              alignContent: "center"
+              alignContent: "center",
             }}
             data={feedbacks}
             extraData={this.state}
             viewabilityConfig={{
-              itemVisiblePercentThreshold: 50
+              itemVisiblePercentThreshold: 50,
             }}
             keyExtractor={(item, index) => `${index}`}
             renderItem={(item, index) => this._renderItem(item, index)}
             onViewableItemsChanged={this.onViewableItemsChanged}
           />
-         
         </View>
       );
     }
@@ -115,7 +107,7 @@ const styles = StyleSheet.create({
   Image: {
     width: "100%",
     height: 350,
-    resizeMode: "cover"
+    resizeMode: "cover",
   },
   textContainerEven: {
     backgroundColor: "white",
@@ -124,19 +116,19 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingHorizontal: 16,
     borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8
+    borderBottomRightRadius: 8,
   },
   name: {
     marginTop: 6,
     color: "black",
     fontSize: 18,
     fontWeight: "bold",
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
   },
   massage: {
     marginTop: 6,
     color: "gray",
     fontSize: 15,
-    fontStyle: "italic"
-  }
+    fontStyle: "italic",
+  },
 });
