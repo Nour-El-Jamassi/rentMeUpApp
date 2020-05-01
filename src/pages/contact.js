@@ -11,7 +11,7 @@ import {
   TextInput,
   FlatList,
   KeyboardAvoidingView,
-  CheckBox,
+  CheckBox
 } from "react-native";
 import { Rating, AirbnbRating } from "react-native-ratings";
 
@@ -21,7 +21,7 @@ export default class contactUs extends Component {
     Email: "",
     lastIndex: -1,
     Massage: "",
-    rating: 0,
+    rating: 0
   };
   async componentDidMount() {
     let { lastIndex } = this.state;
@@ -30,7 +30,7 @@ export default class contactUs extends Component {
       .collection("FeedBacks")
       .get();
     const collection = {};
-    snapshot.forEach((doc) => {
+    snapshot.forEach(doc => {
       collection[doc.id] = doc.data();
       let newIndex = collection[doc.id].index;
       if (newIndex > this.state.lastIndex) {
@@ -51,7 +51,7 @@ export default class contactUs extends Component {
         email: Email,
         index: lastIndex + 1,
         massage: Massage,
-        rating: rating,
+        rating: rating
       })
 
       .then(function(docRef) {
@@ -73,20 +73,20 @@ export default class contactUs extends Component {
           flex: 1,
 
           alignContent: "center",
-          justifyContent: "center",
+          justifyContent: "center"
         }}
       >
         <View
           style={{
             flex: 1,
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           <Text
             style={{
               marginTop: 40,
               color: "#fff",
-              fontSize: 40,
+              fontSize: 40
             }}
           >
             Contact Us
@@ -100,7 +100,7 @@ export default class contactUs extends Component {
               styles={{
                 flex: 1,
 
-                alignItems: "center",
+                alignItems: "center"
               }}
               behavior="padding"
               enabled
@@ -117,9 +117,9 @@ export default class contactUs extends Component {
                   margin: 10,
                   padding: 10,
                   fontSize: 20,
-                  alignSelf: "center",
+                  alignSelf: "center"
                 }}
-                onChangeText={(text) => {
+                onChangeText={text => {
                   this.setState({ Name: text });
                 }}
                 returnKeyType="done"
@@ -139,9 +139,9 @@ export default class contactUs extends Component {
                   margin: 10,
                   padding: 10,
                   fontSize: 20,
-                  alignSelf: "center",
+                  alignSelf: "center"
                 }}
-                onChangeText={(text) => {
+                onChangeText={text => {
                   this.setState({ Email: text });
                 }}
                 returnKeyType="done"
@@ -162,9 +162,9 @@ export default class contactUs extends Component {
                   margin: 10,
                   padding: 10,
                   fontSize: 20,
-                  alignSelf: "center",
+                  alignSelf: "center"
                 }}
-                onChangeText={(text) => {
+                onChangeText={text => {
                   this.setState({ Massage: text });
                 }}
                 returnKeyType="done"
@@ -176,32 +176,40 @@ export default class contactUs extends Component {
                 count={5}
                 defaultRating={0}
                 size={20}
-                onFinishRating={(value) => this.setState({ rating: value })}
+                onFinishRating={value => this.setState({ rating: value })}
               />
 
               <TouchableOpacity
-                style={{
-                  marginTop: 40,
-                  marginBottom: 20,
-                  width: "100%",
-                  alignItems: "center",
-                }}
                 onPress={this.addFeedback}
+                style={{
+                  marginTop: 60,
+                  height: 50,
+                  width: "90%",
+                  borderStyle: "solid",
+                  borderRadius: 50,
+                  paddingBottom: 5,
+                  backgroundColor: "#0F3A5B",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  shadowColor: "#000",
+                  alignSelf: "center",
+                  shadowOffset: {
+                    width: 0,
+                    height: 3
+                  },
+                  shadowOpacity: 0.29,
+                  shadowRadius: 4.65,
+                  elevation: 7,
+                  marginBottom: 20
+                }}
               >
                 <Text
                   style={{
-                    alignSelf: "center",
-                    fontSize: 20,
-                    color: "white",
-                    borderColor: "#fff",
-                    borderStyle: "solid",
-                    borderRadius: 25,
-                    borderWidth: 2,
-                    width: 220,
-                    padding: 18,
+                    color: "#ffffff",
+                    fontSize: 20
                   }}
                 >
-                  send your FeedBack
+                  Send Your FeedBack{" "}
                 </Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>

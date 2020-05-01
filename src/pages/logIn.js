@@ -23,7 +23,7 @@ export default class LogIn extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        navigation.navigate("ImageCarousel");
+        navigation.navigate("welcome");
       })
       .catch(function(error) {
         // Handle Errors here.

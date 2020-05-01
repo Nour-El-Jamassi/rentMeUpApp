@@ -76,7 +76,7 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
               </TouchableWithoutFeedback>
             )
           };
@@ -104,7 +104,7 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
               </TouchableWithoutFeedback>
             )
           };
@@ -131,7 +131,7 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
               </TouchableWithoutFeedback>
             )
           };
@@ -158,7 +158,7 @@ export default class App extends React.Component {
             },
             headerLeft: (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
               </TouchableWithoutFeedback>
             )
           };
@@ -168,13 +168,13 @@ export default class App extends React.Component {
 
     const DrawerNavigator = createDrawerNavigator(
       {
+        welcome: ImageCarousel,
         Home: HomePage,
         Add: AddPage,
         Filter: FilterPage,
         Feedbacks: FeedbacksPage,
         ContactUS: ContactPage,
-        LogOut: LogOut,
-        ImageCarousel: ImageCarousel
+        LogOut: LogOut
       },
       {
         hideStatusBar: true,
