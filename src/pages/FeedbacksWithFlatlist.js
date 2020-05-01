@@ -5,7 +5,7 @@ import {
   Text,
   Dimensions,
   StyleSheet,
-  Image
+  Image,
 } from "react-native";
 import { EstateContext } from "../../Provider/estateProvider";
 import { Rating, AirbnbRating } from "react-native-ratings";
@@ -17,7 +17,7 @@ const { width: screenWidth } = Dimensions.get("window");
 export default class FeedbacksWithFlatlist extends React.Component {
   static contextType = EstateContext;
   state = {
-    activeSlide: 0
+    activeSlide: 0,
   };
   _renderItem = (item, index) => {
     return (
@@ -28,11 +28,13 @@ export default class FeedbacksWithFlatlist extends React.Component {
           elevation: 10,
           borderWidth: 6,
           borderColor: "#af9a7d",
+
           alignSelf: "center",
           // justifyContent: "center",
           marginLeft: 30,
           marginRight: 30,
           // marginTop: 10
+
         }}
       >
         <Image
@@ -47,18 +49,12 @@ export default class FeedbacksWithFlatlist extends React.Component {
           </Text>
         </View>
 
-        {/* <Rating
-          type="custom"
-          ratingImage={require("../../assets/star-empty.png")}
-          ratingColor="#d4af37"
-          ratingBackgroundColor="white"
-          ratingCount={5}
+        <AirbnbRating
+          count={5}
           defaultRating={item.item.rating}
-          imageSize={30}
-          style={{ paddingVertical: 10 }}
-        /> */}
-
-        <AirbnbRating count={5} defaultRating={item.item.rating} size={20} />
+          size={20}
+          isDisabled={true}
+        />
       </View>
     );
   };
@@ -77,9 +73,10 @@ export default class FeedbacksWithFlatlist extends React.Component {
           style={{
             flex: 1,
             alignContent: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
+
           <View
             style={{
               marginTop: Constants.statusBarHeight,
@@ -117,16 +114,19 @@ export default class FeedbacksWithFlatlist extends React.Component {
             />
           </View>
         </LinearGradient>
+
       );
     }
   }
 }
 const styles = StyleSheet.create({
   Image: {
+
     width: "80%",
     height: 300,
     // resizeMode: "cover",
     alignSelf:"center"
+
   },
   textContainerEven: {
     backgroundColor: "white",
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     marginBottom: 70,
     paddingHorizontal: 16,
     borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8
+    borderBottomRightRadius: 8,
   },
   name: {
     // marginTop: 6,
@@ -155,4 +155,5 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     alignSelf:"center"
   }
+
 });
