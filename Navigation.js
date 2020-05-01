@@ -9,7 +9,6 @@ import Add from "./src/pages/add";
 import contactUS from "./src/pages/contact";
 import ImageCarousel from "./src/component/imageCarsoul";
 import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
-import Feedbacks from "./src/pages/feedbacks";
 import MainMap from "./src/pages/mainMap";
 import Filter from "./src/pages/filter";
 
@@ -20,7 +19,8 @@ export default class App extends React.Component {
       ImageCarousel: ImageCarousel,
       Add: Add,
       Home: MainMap,
-      // Filter: Filter
+
+      Filter: Filter
     });
     const Log = createSwitchNavigator({ mainStack: mainStack, main: main });
 
@@ -29,18 +29,18 @@ export default class App extends React.Component {
         Splash: Splash,
         Auth: Log,
         FeedbacksWithFlatlist: FeedbacksWithFlatlist,
-        Feedbacks: Feedbacks,
+        // Feedbacks: Feedbacks,
         Filter: Filter,
         contactUS: contactUS
       },
       {
-        initialRouteName: "Filter"
+        initialRouteName: "Splash"
       }
     );
     const Navigator = createAppContainer(AppNavigator);
     return (
       <EstateProvider>
-        <Navigator />
+        <FeedbacksWithFlatlist />
       </EstateProvider>
     );
   }

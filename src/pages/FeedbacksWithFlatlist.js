@@ -10,6 +10,7 @@ import {
 import { EstateContext } from "../../Provider/estateProvider";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import { Pagination } from "react-native-snap-carousel";
+import { LinearGradient } from "expo-linear-gradient";
 
 import Constants from "expo-constants";
 const { width: screenWidth } = Dimensions.get("window");
@@ -23,15 +24,15 @@ export default class FeedbacksWithFlatlist extends React.Component {
       <View
         style={{
           width: screenWidth - 60,
-          height: 700,
+          height: "95%",
           elevation: 10,
           borderWidth: 6,
           borderColor: "#af9a7d",
-          alignContent: "center",
-          justifyContent: "center",
-          marginLeft: 20,
-          marginRight: 20,
-          marginTop: 10
+          alignSelf: "center",
+          // justifyContent: "center",
+          marginLeft: 30,
+          marginRight: 30,
+          // marginTop: 10
         }}
       >
         <Image
@@ -61,34 +62,6 @@ export default class FeedbacksWithFlatlist extends React.Component {
       </View>
     );
   };
-  get pagination() {
-    const { activeSlide } = this.state;
-    const { feedbacks } = this.context;
-    return (
-      <Pagination
-        dotsLength={feedbacks.length}
-        activeDotIndex={activeSlide}
-        containerStyle={{ backgroundColor: "white" }}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 8,
-          backgroundColor: "#af9a7d"
-        }}
-        // inactiveDotStyle={
-        //   {
-        //     // Define styles for inactive dots here
-        //   }
-        // }
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-      />
-    );
-  }
-  onViewableItemsChanged = changed => {
-    console.log(Object.keys(changed.viewableItems));
-  };
 
   render() {
     const index = 0;
@@ -97,73 +70,89 @@ export default class FeedbacksWithFlatlist extends React.Component {
     const { activeSlide } = this.state;
     if (feedbacks) {
       return (
-        <View
+        <LinearGradient
+          colors={["#0F3A5B", "#af9a7d"]}
+          // start={[0, 0]}
+          // end={[0, 50]}
           style={{
-            marginTop: Constants.statusBarHeight,
             flex: 1,
             alignContent: "center",
             justifyContent: "center"
           }}
         >
-          <FlatList
-            horizontal
-            pagingEnabled
-            scrollEnabled
-            getItemLayout={(data, index) => ({
-              length: Dimensions.get("window").width,
-              offset: Dimensions.get("window").width * index,
-              index
-            })}
-            initialScrollIndex={activeSlide}
-            showsHorizontalScrollIndicator={false}
-            scrollEventThrottle={16}
-            snapToAlignment="center"
+          <View
             style={{
-              backgroundColor: "white",
-              opacity: 0.5,
-              alignContent: "center"
+              marginTop: Constants.statusBarHeight,
+              flex: 1,
+              alignContent: "center",
+              justifyContent: "center"
             }}
-            data={feedbacks}
-            extraData={this.state}
-            viewabilityConfig={{
-              itemVisiblePercentThreshold: 50
-            }}
-            keyExtractor={(item, index) => `${index}`}
-            renderItem={(item, index) => this._renderItem(item, index)}
-            onViewableItemsChanged={this.onViewableItemsChanged}
-          />
-          {this.pagination}
-        </View>
+          >
+            <FlatList
+              horizontal
+              pagingEnabled
+              scrollEnabled
+              getItemLayout={(data, index) => ({
+                length: Dimensions.get("window").width,
+                offset: Dimensions.get("window").width * index,
+                index
+              })}
+              initialScrollIndex={activeSlide}
+              showsHorizontalScrollIndicator={false}
+              scrollEventThrottle={16}
+              snapToAlignment="center"
+              style={{
+                backgroundColor: "white",
+                opacity: 0.5,
+                alignContent: "center"
+              }}
+              data={feedbacks}
+              extraData={this.state}
+              viewabilityConfig={{
+                itemVisiblePercentThreshold: 50
+              }}
+              keyExtractor={(item, index) => `${index}`}
+              renderItem={(item, index) => this._renderItem(item, index)}
+              onViewableItemsChanged={this.onViewableItemsChanged}
+            />
+          </View>
+        </LinearGradient>
       );
     }
   }
 }
 const styles = StyleSheet.create({
   Image: {
-    width: "100%",
-    height: 350,
-    resizeMode: "cover"
+    width: "80%",
+    height: 300,
+    // resizeMode: "cover",
+    alignSelf:"center"
   },
   textContainerEven: {
     backgroundColor: "white",
     justifyContent: "center",
-
-    paddingBottom: 15,
+    marginTop:35,
+    marginBottom: 70,
     paddingHorizontal: 16,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8
   },
   name: {
-    marginTop: 6,
-    color: "black",
-    fontSize: 18,
+    // marginTop: 6,
+    color: "#0F3A5B",
+    fontSize: 25,
     fontWeight: "bold",
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
+    alignSelf:"center", 
+    marginBottom:20
   },
   massage: {
     marginTop: 6,
-    color: "gray",
-    fontSize: 15,
-    fontStyle: "italic"
+    color: "#000",
+    // color: "gray",
+    fontSize: 20,
+    fontWeight:"bold",
+    fontStyle: "italic",
+    alignSelf:"center"
   }
 });

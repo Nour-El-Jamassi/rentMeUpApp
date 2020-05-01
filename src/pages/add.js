@@ -3,7 +3,7 @@ import firebase from "firebase";
 import RadioGroup, { Radio } from "react-native-radio-input";
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
-import { YellowBox } from 'react-native';
+import { YellowBox  } from 'react-native';
 import MapView from "react-native-maps";
 const { Marker } = MapView;
 
@@ -17,10 +17,17 @@ import {
   TextInput,
   FlatList,
   KeyboardAvoidingView,
-  CheckBox
+  CheckBox,
+  Dimensions
 } from "react-native";
 export default class Add extends Component {
-                 state = {
+  constructor(props) {
+  super(props);
+
+  this.state = {
+
+            
+    
                    type: "",
                    address: "",
                    city: "",
@@ -31,23 +38,23 @@ export default class Add extends Component {
                    roomNum: 1,
                    downtown: false,
                    overLookingSea: false,
-                   selectedFile: null,
+            
                    downloadURLs: [],
-                   avatarSource: null,
+                
                    markerPosition: {
                      lat: 31.3547,
                      lng: 34.3088
                    },
-                 };
+                 }}
                  componentDidMount=()=>{
                    YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
                  }
                  getChecked = value => {
                    if (value == 0) {
-                     this.setState({ downtown: !this.state.downtown });
+                     this.setState({ downtown: true });
                    } else {
                      this.setState({
-                       overLookingSea: !this.state.overLookingSea
+                       overLookingSea: true
                      });
                      // alert(this.state.overLookingSea);
                    }
@@ -55,74 +62,94 @@ export default class Add extends Component {
                    console.log("2" + this.state.overLookingSea);
                    // value = our checked value
                  };
+                 onMarkerDrag =(e) => {
+                  console.log(
+                    "marker moves",
+                    e.nativeEvent.coordinate
+                  );
+                 let {markerPosition} = this.state;
+                  this.setState({
+                    markerPosition: {
+                      lat: e.nativeEvent.coordinate.latitude,
+                      lng: e.nativeEvent.coordinate.longitude
+                    }
+                  });
+                  console.log('markerPosition', markerPosition)
+                }
 
                  handelChoosePhoto = async () => {
+                   let {downloadURLs}  = this.state;
                    //TO OPEN CAMERA
                    //let res = await ImagePicker.launchCameraAsync();
                    //TO SELLECT EXIST IMAGE ON UR DEVICE:D
                    let res = await ImagePicker.launchImageLibraryAsync();
 
                    if (!res.cancelled) {
-                     this.uploadImage(res.uri,"test")
+                    console.log('res' , res)
+                    this.setState({downloadURLs:res.uri})
+                     this.uploadImage(res.uri, `${res.type + res.width}`)
                        .then(() => {
-                         alert("success");
+                         console.log("success");
                        })
                        .catch(error => {
-                         alert(error);
+                        console.log(error);
                        });
                    }
                  };
 
-                  uploadImage = async (uri, imageName) => {
-                    const { downloadURLs } = this.state;
-                    const response = await fetch(uri);
-                    const blob = await response.blob();
-                    var ref = firebase
-                      .storage()
-                      .ref()
-                      .child("images/" + imageName);
-                    return ref.put(blob).then(snapshot =>
-                      snapshot.ref.getDownloadURL().then(downloadURL => {
-                        downloadURLs.push(downloadURL);
-                        this.setState({ downloadURLs });
-                      })
-                    );
 
-                  };
+
+                 uploadImage = async (uri, imageName) => {
+                  let { downloadURLs }  = this.state;
+                  const response = await fetch(uri);
+                console.log('respond' , response)
+                  const blob = await response.blob();
+                  console.log('bolb' , blob)
+                   var uploadTask = firebase
+                     .storage()
+                     .ref()
+                     .child("images/" + imageName).put(blob)
+                     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                      console.log('File available at', downloadURL);
+                      this.setState({downloadURLs})
+                
+                    });
+                 };
+
 
                  addPropertyToMap = () => {
                    //getting user's detials
-                   const { currentUser } = this.context;
+                  //  const { currentUser } = this.context;
 
-                   let { UserDetials } = this.state;
-                   firebase
-                     .firestore()
-                     .collection("users")
-                     .doc(currentUser.uid)
-                     .get()
-                     .then(querySnapshot => {
-                       UserDetials = querySnapshot.data();
-                       this.setState({ UserDetials });
-                     });
-                   console.log(this.state.UserDetials);
-                   let user = firebase.auth().currentUser;
-                   let name, email, phone;
+                  //  let { UserDetials } = this.state;
+                  //  firebase
+                  //    .firestore()
+                  //    .collection("users")
+                  //    .doc(currentUser.uid)
+                  //    .get()
+                  //    .then(querySnapshot => {
+                  //      UserDetials = querySnapshot.data();
+                  //      this.setState({ UserDetials });
+                  //    });
+                  //  console.log(this.state.UserDetials);
+                  //  let user = firebase.auth().currentUser;
+                  //  let name, email, phone;
 
-                   if (user != null) {
-                     name = user.name;
-                     email = user.email;
-                     phone = user.mobile;
-                   }
+                  //  if (user != null) {
+                  //    name = currentUser.name;
+                  //    email = UserDetials.email;
+                  //    phone = UserDetials.mobile;
+                  //  }
                    let { downloadURLs } = this.state;
 
                    var db = firebase.firestore();
-
+                   
                    db.collection("estates")
                      .add({
                        type: this.state.type,
-                       name: name,
-                       email: email,
-                       phone: phone,
+                       name: "Ali",
+                       email: "aliAi@gmail.com",
+                       phone: '059943234',
                        city: this.state.city,
                        street: this.state.street,
                        price: this.state.price,
@@ -219,18 +246,7 @@ export default class Add extends Component {
                                    latitude: this.state.markerPosition.lat,
                                    longitude: this.state.markerPosition.lng
                                  }}
-                                 onDragEnd={e => {
-                                   console.log(
-                                     "marker moves",
-                                     e.nativeEvent.coordinate
-                                   );
-                                   this.setState({
-                                     markerPosition: {
-                                       lat: e.nativeEvent.coordinate.lat,
-                                       lng: e.nativeEvent.coordinate.lng
-                                     }
-                                   });
-                                 }}
+                                 onDragEnd={(e) => this.onMarkerDrag(e)}
                                />
                              </MapView>
                              <TextInput
@@ -271,7 +287,7 @@ export default class Add extends Component {
                                  alignSelf: "center"
                                }}
                                onChangeText={text => {
-                                 this.setState({ streetstreet: text });
+                                 this.setState({ street: text });
                                }}
                                returnKeyType="done"
                                placeholder="Street"
@@ -426,6 +442,17 @@ export default class Add extends Component {
                                  chooes a pic
                                </Text>
                              </TouchableOpacity>
+                             <View>
+                               { this.state.downloadURLs && this.state.downloadURLs.map(item => {
+                                           <Image
+                                           source={{ uri:item }}
+                                           style={{width: Dimensions.get('window').width -50,height:Dimensions.get('window').width - 50, resizeMode: 'contain'}}
+                                         
+                                         />
+                               } 
+                                )}
+                    
+                      </View>
                              <TouchableOpacity
                                onPress={this.addPropertyToMap}
                                style={{
@@ -452,21 +479,17 @@ export default class Add extends Component {
                              >
                                <Text
                                  style={{
-                                   color: "#ffffff",
-                                   fontSize: 20
+                                    color: "#ffffff",
+                                    fontSize: 20
                                  }}
                                >
                                  Add Property
                                </Text>
-
                              </TouchableOpacity>
                      
-                      <Image
-                        source={{ uri :this.state.downloadURLs || "http://via.placeholder.com/40x30"}}
-                          style = {{width :100 , height :100}}
-                        // key={index}
-                      />
+                    
              
+
                            </KeyboardAvoidingView>
                          </ScrollView>
                        </View>

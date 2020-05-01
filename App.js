@@ -38,7 +38,7 @@ export default class App extends React.Component {
         />
       );
     } else {
-      return <Navigator />;
+       return <Navigator />;
     }
   }
   _loadResourcesAsync = async () => {
