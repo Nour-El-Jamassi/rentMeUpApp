@@ -33,7 +33,7 @@ export default class Add extends Component {
                    city: "",
                    area: "",
                    street: "",
-                   price: 100,
+                   price: '100',
                    space: 0,
                    roomNum: 1,
                    downtown: false,
