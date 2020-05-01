@@ -71,7 +71,8 @@ const Filter = () => {
                 marginTop: 50,
                 color: "#fff",
                 fontSize: 40,
-                alignSelf: "center"
+                alignSelf: "center",
+                marginBottom: 30
               }}
             >
               Filter
@@ -155,7 +156,7 @@ const Filter = () => {
             </View>
 
             <View style={styles.container}>
-              <Text style={styles.label}>Price:   {estate.price}</Text>
+              <Text style={styles.label}>Price: {estate.price}</Text>
               <Slider
                 step={1}
                 minimumValue={estate.minprice}
@@ -171,7 +172,7 @@ const Filter = () => {
               />
             </View>
             <View style={styles.container}>
-              <Text style={styles.label}>Space:   {estate.space}</Text>
+              <Text style={styles.label}>Space: {estate.space}</Text>
               <Slider
                 step={10}
                 minimumValue={estate.minspac}
@@ -190,7 +191,7 @@ const Filter = () => {
               <TouchableOpacity
                 onPress={estate.filterEstates()}
                 style={{
-                  marginTop: 50,
+                  marginTop: 60,
                   height: 50,
                   width: "90%",
                   borderStyle: "solid",
@@ -209,7 +210,7 @@ const Filter = () => {
                   shadowOpacity: 0.29,
                   shadowRadius: 4.65,
                   elevation: 7,
-                  marginBottom: 20
+                  // marginBottom: 20
                 }}
               >
                 <Text
@@ -239,8 +240,10 @@ export default Filter;
 const styles = StyleSheet.create({
   container: {
     flex: 0.0999,
-    marginTop: 40,
-    flexDirection: "row"
+    // marginTop: 10,
+    flexDirection: "row",
+    marginTop: 45,
+    justifyContent: "center"
   },
   label: {
     fontSize: theme.SIZES.text,
@@ -248,8 +251,7 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     paddingLeft: 10,
     marginLeft: theme.SIZES.base,
-
-    marginTop: theme.SIZES.base
+    // marginTop: 20
   },
   DropdownMenu: {
     flex: 1,
@@ -259,7 +261,8 @@ const styles = StyleSheet.create({
     padding: theme.SIZES.base * 1.03,
     marginRight: theme.SIZES.base * 4,
     marginLeft: theme.SIZES.base * 4,
-    marginTop: theme.SIZES.base,
+    // marginTop: theme.SIZES.base,
+    // marginBottom:10,
     height: 40
   },
   DropdownOption: {
