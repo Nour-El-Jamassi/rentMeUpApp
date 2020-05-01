@@ -34,7 +34,7 @@ export class LogOut extends React.Component {
           <DrawerItems {...strippedProps} />
         </ScrollView>
         <TouchableOpacity onPress={this.logout}>
-          <Text style={styles.text}>Log out</Text>
+          <Text >Log out</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );
