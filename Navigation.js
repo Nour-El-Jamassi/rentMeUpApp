@@ -23,17 +23,17 @@ export default class App extends React.Component {
       Add: Add,
       Home: MainMap,
 
-    Filter: Filter,
+      Filter: Filter
     });
     const AddPage = createStackNavigator(
       {
-        Add: Add,
+        Add: Add
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B",
+              backgroundColor: "#0F3A5B"
             },
             headerTitle: "Add",
             headerTintColor: "white",
@@ -41,134 +41,123 @@ export default class App extends React.Component {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
+              marginTop:10
             },
-            headerLeft: (
-              <TouchableWithoutFeedback
-                onPress={() => navigation.openDrawer()}
-              >
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
+            headerLeft: () => (
+              <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
+                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 10,color:"white" }} />
               </TouchableWithoutFeedback>
-            ),
+            )
           };
-        },
+        }
       }
     );
     const FilterPage = createStackNavigator(
       {
-        Filter: Filter,
+        Filter: Filter
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B",
+              backgroundColor: "#0F3A5B"
             },
             headerTitle: "Filter",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1,
+              flex: 1
             },
-            headerLeft: (
-              <TouchableWithoutFeedback
-                onPress={() => navigation.openDrawer()}
-              >
+            headerLeft: () => (
+              <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
                 <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
               </TouchableWithoutFeedback>
-            ),
+            )
           };
-        },
+        }
       }
     );
 
     const FeedbacksPage = createStackNavigator(
       {
-        FeedbacksWithFlatlist: FeedbacksWithFlatlist,
+        FeedbacksWithFlatlist: FeedbacksWithFlatlist
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B",
+              backgroundColor: "#0F3A5B"
             },
             headerTitle: "ContactUs",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1,
+              flex: 1
             },
-            headerLeft: (
-              <TouchableWithoutFeedback
-                onPress={() => navigation.openDrawer()}
-              >
+            headerLeft: () => (
+              <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
                 <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
               </TouchableWithoutFeedback>
-            ),
+            )
           };
-        },
+        }
       }
     );
     const ContactPage = createStackNavigator(
       {
-        ContactUS: ContactUS,
+        ContactUS: ContactUS
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B",
+              backgroundColor: "#0F3A5B"
             },
             headerTitle: "ContactUs",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1,
+              flex: 1
             },
-            headerLeft: (
-              <TouchableWithoutFeedback
-                onPress={() => navigation.openDrawer()}
-              >
+            headerLeft: () => (
+              <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
                 <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
               </TouchableWithoutFeedback>
-            ),
+            )
           };
-        },
+        }
       }
     );
     const HomePage = createStackNavigator(
       {
-        Home: MainMap,
+        Home: MainMap
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B",
+              backgroundColor: "#0F3A5B"
             },
             headerTitle: "Home",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1,
+              flex: 1
             },
             headerLeft: (
-              <TouchableWithoutFeedback
-                onPress={() => navigation.openDrawer()}
-              >
+              <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
                 <Ionicons name="ios-menu" size={30} style={{ marginLeft: 5 }} />
               </TouchableWithoutFeedback>
-            ),
+            )
           };
-        },
+        }
       }
     );
-    
-    
-    
+
     const DrawerNavigator = createDrawerNavigator(
       {
         Home: HomePage,
@@ -189,28 +178,22 @@ export default class App extends React.Component {
     );
     const Log = createSwitchNavigator({
       mainStack: mainStack,
-      main: DrawerNavigator,
-
+      main: DrawerNavigator
     });
 
     const AppNavigator = createSwitchNavigator(
       {
         Splash: Splash,
-        Auth: Log,
-
-
+        Auth: Log
       },
       {
-        initialRouteName: "Splash",
+        initialRouteName: "Splash"
       }
     );
     const Navigator = createAppContainer(AppNavigator);
     return (
       <EstateProvider>
-
-
         <Navigator />
-
       </EstateProvider>
     );
   }

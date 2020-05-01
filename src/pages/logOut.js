@@ -19,7 +19,7 @@ export class LogOut extends React.Component {
         localStorage.clear();
       })
       .catch(function(error) {
-        console.log("An error happened.");
+        console.log("An error happened.",error);
       });
   };
 
@@ -27,14 +27,14 @@ export class LogOut extends React.Component {
     const { logout, ...strippedProps } = this.props; // eslint-disable-line no-unused-vars
     return (
       <SafeAreaView
-        style={styles.container}
+        
         forceInset={{ top: "always", horizontal: "never" }}
       >
         <ScrollView>
           <DrawerItems {...strippedProps} />
         </ScrollView>
         <TouchableOpacity onPress={this.logout}>
-          <Text style={styles.text}>Log out</Text>
+          <Text >Log out</Text>
         </TouchableOpacity>
       </SafeAreaView>
     );

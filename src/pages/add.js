@@ -461,7 +461,7 @@ export default class Add extends Component {
                                  width: "90%",
                                  borderStyle: "solid",
                                  borderRadius: 50,
-                                 paddingBottom: 10,
+                                 paddingBottom: 5 ,
                                  backgroundColor: "#0F3A5B",
                                  justifyContent: "center",
                                  alignItems: "center",

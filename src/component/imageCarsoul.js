@@ -46,15 +46,7 @@ export default class ImageCarousel extends React.Component {
     console.log("item", item, "index", index);
     return (
       <View>
-        {/* <ParallaxImage
-          source={{ uri: item }}
-          containerStyle={styles.imageContainer}
-          style={styles.image}
-          parallaxFactor={0.4}
-          //showSpinner={true}
-          {...parallaxProps}
-        /> */}
-        <Image source={item} style={styles.image} />
+        <Image source={item} style={{height:"100%",width:"206%",alignSelf:"center"}} />
       </View>
     );
   };
@@ -65,8 +57,9 @@ export default class ImageCarousel extends React.Component {
         dotsLength={this.state.images.length}
         activeDotIndex={activeSlide}
         containerStyle={{
-          backgroundColor: "white",
-          marginBottom: Platform.select({ ios: 0, android: 1 }) // Prevent a random Android rendering issue
+          backgroundColor: 'transparent',
+          marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
+          color:"#fff"
         }}
         dotStyle={{
           width: 10,
@@ -137,14 +130,16 @@ export default class ImageCarousel extends React.Component {
             data={this.state.images}
             renderItem={this._renderItem}
             sliderWidth={this.state.viewport.width}
-            itemWidth={this.state.viewport.width}
-            sliderHeight={screenWidth}
+            itemWidth={200}
+            // itemHeight={100}
+            // sliderHeight={screenWidth}
             onSnapToItem={index => this.setState({ activeSlide: index })}
             hasParallaxImages={true}
             containerCustomStyle={{
               flex: 1,
               alignSelf: "center",
-              marginTop: 50
+              marginTop: 50,
+              // height:100 
             }}
           />
           {this.pagination}
@@ -170,53 +165,6 @@ export default class ImageCarousel extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  item: {
-    flex: 1,
-    // width: screenWidth - 20,
-    height: screenWidth / 3,
-    backgroundColor: "black",
-    margin: 10,
-    borderRadius: 10,
-    shadowColor: "#af9a7d",
-    shadowOffset: { width: 0.5, height: 0.5 },
-    shadowOpacity: 0.5,
-    shadowRadius: 3,
-    elevation: 5
-  },
-  textView: {
-    position: "absolute",
-    bottom: 10,
-    margin: 10,
-    left: 5
-  },
-  itemTitle: {
-    color: "white",
-    fontSize: 22,
-    shadowColor: "#000",
-    shadowOffset: { width: 0.8, height: 0.8 },
-    shadowOpacity: 1,
-    shadowRadius: 3,
-    elevation: 5,
-    fontWeight: "bold",
-    marginBottom: 5
-  },
-  itemDescription: {
-    color: "white",
-    fontSize: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0.8, height: 0.8 },
-    shadowOpacity: 1,
-    shadowRadius: 3,
-    elevation: 5
-  },
-
-  Image: {
-    // width: 200,
-    // height: 200,
-    resizeMode: "center",
-    borderRadius: 10
-  },
-
   fixToText: {
     marginTop: 30,
     flexDirection: "row",
