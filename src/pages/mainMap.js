@@ -38,83 +38,7 @@ class EstateMap extends Component {
     isMapReady: false,
     iconLoaded: false,
   };
-  // async componentDidMount() {
-  //   this.requestLOCATIONPermission();
-  //   console.log("getting permissions");
-  // }
-  requestLOCATIONPermission = async () => {
-    //   if (Platform.OS === "Android") {
-    //   try {
-    //     const granted = await PermissionsAndroid.request(
-    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    //       {
-    //         title: "Rent Me Up",
-    //         message: "We need to access your current location to display the map",
-    //         buttonNeutral: "Ask Me Later",
-    //         buttonNegative: "Cancel",
-    //         buttonPositive: "OK"
-    //       }
-    //     );
-    //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //       navigator.geolocation.getCurrentPosition(
-    //         ({ coords: { latitude, longitude } }) =>
-    //           this.setState({ latitude, longitude }),
-    //         error => console.log("Error:", error)
-    //       );
-    //     } else {
-    //       console.log("location permission denied");
-    //     }
-    //   } catch (err) {
-    //     console.warn(err);
-    //   }
-    // }
-    //   if (Platform.OS === "ios") {
-    //     Geolocation.requestAuthorization();
-    //     this.getGeoLocation();
-    //   } else {
-    //     let granted = await PermissionsAndroid.request(
-    //       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-    //       {
-    //         title: "Rent Me Up",
-    //         message: "We need to access your current location to display the map",
-    //         buttonNeutral: "Ask Me Later",
-    //         buttonNegative: "Cancel",
-    //         buttonPositive: "OK"
-    //       }
-    //     );
-    //     if (androidGranted === PermissionsAndroid.RESULTS.GRANTED) {
-    //       this.getGeoLocation();
-    //     } else {
-    //       console.log("Location permission not granted!!!!");
-    //     }
-    //   }
-    // };
-    // getGeoLocation = () => {
-    //   navigator.geolocation.getCurrentPosition(
-    //     ({ coords: { latitude, longitude } }) =>
-    //       this.setState({ latitude, longitude }),
-    //     error => console.log("Error:", error)
-    //   );
-    // Geolocation.getCurrentPosition(
-    //   position => {
-    //     Geocoder.from({
-    //       latitude: position.coords.latitude,
-    //       longitude: position.coords.longitude
-    //       this.setState()
-    //     })
-    //       .then(json => {
-    //         console.log(json);
-    //       })
-    //       .catch(error => {
-    //         console.log(error);
-    //       });
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   },
-    //   { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    // );
-  };
+
   onMapLayout = () => {
     this.setState({ isMapReady: true });
   };
@@ -186,6 +110,8 @@ class EstateMap extends Component {
   };
 
   renderEstates = () => {
+    const { sortedEstates: estates } = this.context;
+
     return (
       <FlatList
         horizontal
@@ -198,7 +124,7 @@ class EstateMap extends Component {
         scrollEventThrottle={16}
         snapToAlignment="center"
         style={styles.Estates}
-        data={this.props.estates}
+        data={estates}
         extraData={this.state}
         keyExtractor={(item, index) => `${index}`}
         renderItem={({ item }) => this.renderestate(item)}
@@ -209,9 +135,10 @@ class EstateMap extends Component {
     );
   };
 
-  renderImages(item) {
+  renderImages(item , index) {
     return (
       <Image
+        key ={`Image ${indexe}`}
         source={{ uri: item }}
         style={{
           flex: 1,
@@ -318,18 +245,10 @@ class EstateMap extends Component {
               style={styles.modalImages}
               data={activeModal.url}
               keyExtractor={(item, index) => `${index}`}
-              renderItem={({ item }) => this.renderImages(item)}
+              renderItem={({ item , index }) => this.renderImages(item , index)}
             />
           </View>
-          {/* <View style={styles.modalHours}>
-            <Text style={{ textAlign: "center", fontWeight: "500" }}>
-              Choose your Booking Period:
-            </Text>
-            <View style={styles.modalHoursDropdown}>
-              {this.renderHours(activeModal.id)}
-              <Text style={{ color: theme.COLORS.gray }}>months</Text>
-            </View>
-          </View> */}
+    
           <View>
             <TouchableOpacity style={styles.payBtn}>
               <Text style={styles.payText}>Message: {activeModal.phone}</Text>
@@ -376,8 +295,9 @@ class EstateMap extends Component {
           }}
           style={styles.map}
         >
-          {estates.map((estate) => (
+          {estates.map((estate ,index) => (
             <Marker
+              key ={`name ${index}`}
               coordinate={{ latitude: estate.lat, longitude: estate.lng }}
               image={ImageSrc}
               onPress={() => this.onMarkerClick(estate)}
