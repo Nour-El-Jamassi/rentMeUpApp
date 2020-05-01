@@ -41,11 +41,15 @@ export default class App extends React.Component {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop:10
+              marginTop: 10
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{ marginLeft: 10,color:"white" }} />
+                <Ionicons
+                  name="ios-menu"
+                  size={30}
+                  style={{ marginLeft: 10, color: "white" }}
+                />
               </TouchableWithoutFeedback>
             )
           };
@@ -67,7 +71,8 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1
+              flex: 1,
+              marginTop: 10
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -94,7 +99,8 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1
+              flex: 1,
+              marginTop: 10
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -120,7 +126,8 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1
+              flex: 1,
+              marginTop: 10
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -146,7 +153,8 @@ export default class App extends React.Component {
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
-              flex: 1
+              flex: 1,
+              marginTop: 10
             },
             headerLeft: (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
