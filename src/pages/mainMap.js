@@ -17,7 +17,7 @@ import {
 } from "react-native";
 import Add from "./add";
 import Filter from "./filter";
-import MapView from "react-native-maps";
+import MapView , { PROVIDER_GOOGLE } from "react-native-maps";
 import Modal from "react-native-modal";
 // import Dropdown from "react-native-modal-dropdown";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -294,6 +294,7 @@ class EstateMap extends Component {
             longitudeDelta: 0.0421,
           }}
           style={styles.map}
+          provider={PROVIDER_GOOGLE}
         >
           {estates.map((estate ,index) => (
             <Marker

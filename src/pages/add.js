@@ -34,8 +34,8 @@ export default class Add extends Component {
                    area: "",
                    street: "",
                    price: '100',
-                   space: 0,
-                   roomNum: 1,
+                   space: '0',
+                   roomNum: '1',
                    downtown: false,
                    overLookingSea: false,
             
@@ -111,8 +111,8 @@ export default class Add extends Component {
                      .child("images/" + imageName).put(blob)
                      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                       console.log('File available at', downloadURL);
+                      downloadURLs.push(downloadURL)
                       this.setState({downloadURLs})
-                
                     });
                  };
 

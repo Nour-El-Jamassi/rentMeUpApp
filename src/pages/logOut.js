@@ -1,15 +1,14 @@
 import React from "react";
-import { ScrollView, Text, TouchableOpacity } from "react-native";
-import { DrawerItems, SafeAreaView } from "react-navigation";
-import PropTypes from "prop-types";
+import { Text, TouchableOpacity, View , Dimensions } from "react-native";
 import * as firebase from "firebase";
+import Modal from "react-native-modal";
 
 export class LogOut extends React.Component {
-  static propTypes = {
-    navigation: PropTypes.object
-  };
+  state = {
+    modalIsup :true 
+  }
 
-  logout = () => {
+  _logout = () => {
     firebase
       .auth()
       .signOut()
@@ -23,20 +22,36 @@ export class LogOut extends React.Component {
       });
   };
 
+  _cancel = () =>{
+    this.setState({modalIsup :!modalIsup})
+    this.props.navigation.navigate("Home")
+  }
+
   render() {
-    const { logout, ...strippedProps } = this.props; // eslint-disable-line no-unused-vars
     return (
-      <SafeAreaView
-        
-        forceInset={{ top: "always", horizontal: "never" }}
+      <View
       >
-        <ScrollView>
-          <DrawerItems {...strippedProps} />
-        </ScrollView>
-        <TouchableOpacity onPress={this.logout}>
-          <Text >Log out</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+       <Modal animationIn="slideInUp" animationOut="slideOutDown"  style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height / 2}}> 
+         <View style={{ flex: 1,justifyContent:'center'}}>  
+           <Text  style={{textAlign:'center'}}> Are You Sure? </Text> 
+           </View>
+           <View tyle={{ flex: 1,justifyContent:'center',position:'absolute',bottom:0}}> 
+             <TouchableOpacity onPress={this._logout} style={{backgroundColor:'red',width:'50%'}}> 
+                <Text style={{color:'white',textAlign:'center',padding:10}}>
+                  Yes, Sign me Out
+                </Text>
+             </TouchableOpacity>
+             <TouchableOpacity onPress={this._cancel} style={{backgroundColor:'#af9a7d',width:'50%'}}> 
+               <Text style={{color:'white',textAlign:'center',padding:10}}> 
+                 No, back home!
+               </Text>
+
+             </TouchableOpacity>
+           </View>
+       
+       </Modal>
+         
+      </View>
     );
   }
 }

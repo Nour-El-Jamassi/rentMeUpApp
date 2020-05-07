@@ -19,7 +19,7 @@ export default class SignUp extends Component {
     name: "testtt",
     email: "tes144@gmail.com",
     password: "123456789",
-    mopile: "98754321"
+    mobile: "98754321"
   };
 
   addUser = () => {
