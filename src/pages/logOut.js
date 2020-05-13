@@ -31,7 +31,11 @@ export class LogOut extends React.Component {
     return (
       <View
       >
-       <Modal animationIn="slideInUp" animationOut="slideOutDown"  style={{backgroundColor:'white',maxHeight:Dimensions.get('window').height / 2}}> 
+       <Modal 
+       //animationIn="slideInUp" animationOut="slideOutDown" 
+       isVisible
+       useNativeDriver
+        style={{backgroundColor:'white',height:Dimensions.get('window').height / 2}}> 
          <View style={{ flex: 1,justifyContent:'center'}}>  
            <Text  style={{textAlign:'center'}}> Are You Sure? </Text> 
            </View>
