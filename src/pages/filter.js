@@ -21,7 +21,7 @@ const getUnique = (items, value) => {
   return [...new Set(items.map(item => item[value]))];
 };
 
-const Filter = () => {
+const Filter = ({ navigation }) => {
   const { estates } = useContext(EstateContext);
   console.log("filter", estates);
   //get cities
@@ -189,7 +189,8 @@ const Filter = () => {
             </View>
             <View>
               <TouchableOpacity
-                onPress={estate.filterEstates()}
+                onPress={(navigation)=>{estate.filterEstates(navigation)} }
+
                 style={{
                   marginTop: 60,
                   height: 50,
@@ -209,7 +210,7 @@ const Filter = () => {
                   },
                   shadowOpacity: 0.29,
                   shadowRadius: 4.65,
-                  elevation: 7,
+                  elevation: 7
                   // marginBottom: 20
                 }}
               >
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#ffffff",
     paddingLeft: 10,
-    marginLeft: theme.SIZES.base,
+    marginLeft: theme.SIZES.base
     // marginTop: 20
   },
   DropdownMenu: {

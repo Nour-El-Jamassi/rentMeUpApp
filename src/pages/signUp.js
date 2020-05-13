@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { LinearGradient } from "expo-linear-gradient";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   ScrollView,
   StyleSheet,
@@ -13,20 +12,18 @@ import {
   FlatList,
   KeyboardAvoidingView
 } from "react-native";
-// const signImg = require("../../assets/images/SignBack.png");
 export default class SignUp extends Component {
   state = {
     name: "testtt",
     email: "tes144@gmail.com",
     password: "123456789",
-    mopile: "98754321"
+    mobile: "98754321"
   };
 
   addUser = () => {
     const { name, email, password, mobile } = this.state;
-    console.log(name, email, password, mobile);
     const db = firebase.firestore();
-
+    const { navigation } = this.props;
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -48,7 +45,7 @@ export default class SignUp extends Component {
 
     const user = firebase.auth().currentUser;
     console.log("user", user.uid);
-
+    // alert(mobile); 
     db.collection("users")
       .doc(user.uid)
       .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
@@ -56,12 +53,12 @@ export default class SignUp extends Component {
         alert(error);
       })
       .then(() => {
-        navigation.navigate("Add");
+        navigation.navigate("welcome");
       });
   };
 
   render() {
-    let { name, email, password, mopile } = this.state;
+    let { name, email, password, mobile } = this.state;
     return (
       <LinearGradient
         colors={["#0F3A5B", "#af9a7d"]}
@@ -204,14 +201,14 @@ export default class SignUp extends Component {
                     // placeholderColor:"#fff"
                   }}
                   placeholder="Mobile"
-                  defaultValue={mopile}
+                  defaultValue={mobile}
                   onChangeText={text => {
-                    this.setState({ mopile: text });
+                    this.setState({ mobile: text });
                   }}
                 ></TextInput>
 
                 <TouchableOpacity
-                  onPress={this.signUp}
+                  onPress={this.addUser}
                   style={{
                     marginTop: "6%",
                     height: "8%",

@@ -62,8 +62,8 @@ export default class ImageCarousel extends React.Component {
           color:"#fff"
         }}
         dotStyle={{
-          width: 10,
-          height: 10,
+          width: 12,
+          height: 12,
           borderRadius: 5,
           marginHorizontal: 8,
           backgroundColor: "#af9a7d"

@@ -75,14 +75,13 @@ class EstateProvider extends Component {
 
     this.setState({ [name]: value });
   };
-  filterEstates = () => {
+  filterEstates = navigation => {
+    // const { navigation } = this.props;
     let {
       type,
       city,
       street,
-
       price,
-
       roomNum,
       overLookingSea,
       downtown,
@@ -112,8 +111,12 @@ class EstateProvider extends Component {
             this.setState({ sortedEstates: newEstates });
             this.setState({ newEstates: [] });
           });
+        })
+        .then(() => {
+          this.props.navigation.navigate("Home");
         });
       this.setState({ query });
+
       console.log("sortedEstates", this.state.query);
 
       console.log("sortedEstates", this.state.sortedEstates);
