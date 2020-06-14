@@ -31,8 +31,8 @@ export default class Add extends Component {
       area: "",
       street: "",
       price: "100",
-      space: "0",
-      roomNum: "1",
+      space: "space",
+      roomNum: "rooms",
       downtown: false,
       overLookingSea: false,
 
