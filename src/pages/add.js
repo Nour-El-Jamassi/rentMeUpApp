@@ -111,7 +111,7 @@ export default class Add extends Component {
                      .ref()
                      .child("images/" + imageName).put(blob)
                      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                      alert('File available at', downloadURL);
+                      console.log('File available at', downloadURL);
                       downloadURLs.push(downloadURL)
                       this.setState({downloadURLs})
                     });
