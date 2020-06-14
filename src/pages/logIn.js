@@ -26,7 +26,11 @@ export default class LogIn extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
+<<<<<<< HEAD
         navigation.navigate("welcome");
+=======
+        navigation.navigate("login");
+>>>>>>> 5e9764a639b2bf0be2f6d0fa8cad3430c96a8a38
       })
       .catch(function(error) {
         // Handle Errors here.

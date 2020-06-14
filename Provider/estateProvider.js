@@ -95,11 +95,11 @@ class EstateProvider extends Component {
     roomNum = parseInt(roomNum);
     price = parseInt(price);
     console.log("state", type, city, street);
-    query =firebase.firestore().collection("estates");
+    query = firebase.firestore().collection("estates");
     if (city !== "all" 
     // && type !== "all"
     ) {
-      query = query
+      query
         .where("city", "==", city)
         // .where("type", "==", type)
         .get()
@@ -112,10 +112,13 @@ class EstateProvider extends Component {
             this.setState({ newEstates });
             this.setState({ sortedEstates: newEstates });
             this.setState({ newEstates: [] });
+            
           });
+
         })
         .then(() => {
           this.props.navigation.navigate("Home");
+
         });
 
 
