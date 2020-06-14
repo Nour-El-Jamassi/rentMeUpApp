@@ -21,7 +21,9 @@ const getUnique = (items, value) => {
   return [...new Set(items.map(item => item[value]))];
 };
 
+
 const Filter = ({ navigation }) => {
+  console.disableYellowBox = true;
   const { estates } = useContext(EstateContext);
   console.log("filter", estates);
   //get cities

@@ -15,6 +15,9 @@ import {
 } from "react-native";
 // const signImg = require("../../assets/images/SignBack.png");
 export default class LogIn extends Component {
+  static navigationOptions = {
+    drawerLabel: () => null
+  };
   state = { email: "tes144@gmail.com", password: "123456789" };
 
   Login = () => {

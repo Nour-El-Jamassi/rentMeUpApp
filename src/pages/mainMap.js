@@ -15,9 +15,8 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
-import Add from "./add";
-import Filter from "./filter";
-import MapView from "react-native-maps";
+
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Modal from "react-native-modal";
 // import Dropdown from "react-native-modal-dropdown";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
@@ -28,7 +27,9 @@ import * as theme from "../../theme";
 const { Marker } = MapView;
 const { Callout } = MapView;
 const { height, width } = Dimensions.get("screen");
+
 class EstateMap extends Component {
+  
   static contextType = EstateContext;
   state = {
     active: null,
@@ -85,23 +86,15 @@ class EstateMap extends Component {
               style={styles.buy}
               onPress={() => this.setState({ activeModal: item })}
             >
-              <View style={styles.buyTotal}>
-                <View style={{ flexDirection: "row", alignItems: "center" }}>
-                  <FontAwesome
-                    name="dollar"
-                    size={theme.SIZES.icon * 1.05}
-                    color={theme.COLORS.white}
-                  />
-                  <Text style={styles.buyTotalPrice}>{item.price}</Text>
-                </View>
-              </View>
-              <View style={styles.buyBtn}>
-                <FontAwesome
-                  name="angle-right"
-                  size={theme.SIZES.icon * 1.75}
-                  color={theme.COLORS.white}
-                />
-              </View>
+              <Text
+                style={{
+                  color: "white",
+                  marginTop: 20,
+                  fontWeight: "bold"
+                }}
+              >
+                See more
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -294,7 +287,21 @@ class EstateMap extends Component {
             longitudeDelta: 0.0421
           }}
           style={styles.map}
+          provider={PROVIDER_GOOGLE}
         >
+          <View>
+            <TouchableOpacity
+              style={styles.buttonLeft}
+              onPress={() => this.props.navigation.navigate("Filter")}
+            >
+              <Text style={styles.filterText}>Filter</Text>
+              <FontAwesome
+                name="filter"
+                size={theme.SIZES.icon * 1.75}
+                color={theme.COLORS.white}
+              />
+            </TouchableOpacity>
+          </View>
           {estates.map((estate, index) => (
             <Marker
               key={`name ${index}`}
@@ -316,19 +323,7 @@ class EstateMap extends Component {
         </MapView>
         {this.renderEstates()}
         {this.renderModal()}
-        <View>
-          <TouchableOpacity
-            style={styles.buttonLeft}
-            onPress={() => this.props.navigation.navigate("Filter")}
-          >
-            <Text style={styles.filterText}>Filter</Text>
-            <FontAwesome
-              name="filter"
-              size={theme.SIZES.icon * 1.75}
-              color={theme.COLORS.white}
-            />
-          </TouchableOpacity>
-        </View>
+   
       </View>
     );
   }
@@ -494,12 +489,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#af9a7d",
     padding: 10,
     marginLeft: 8,
-    position: "absolute",
-    right: 0,
-    top: 0,
+    // position: "absolute",
+    // right: 50,
+    // top: 80,
     borderRadius: 10,
-    marginTop: 10,
-    marginRight: 10
+    marginTop: 20,
+    marginRight: 10,
+    // position: "absolute", //use absolute position to show button on top of the map
+    top: "20%", //for center align
+    alignSelf: "flex-end"
   },
 
   filterText: {

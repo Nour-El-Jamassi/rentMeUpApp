@@ -19,7 +19,7 @@ class EstateProvider extends Component {
     downtown: false,
     overLookingSea: false,
     newEstates: [],
-    query: firebase.firestore().collection("estates"),
+   
     feedbacks: []
   };
   // componentWillMount() {
@@ -87,7 +87,7 @@ class EstateProvider extends Component {
       downtown,
       sortedEstates,
       newEstates,
-      query
+      
     } = this.state; //all estates
     console.log(this.state.estates);
     // convert to integer
@@ -95,11 +95,13 @@ class EstateProvider extends Component {
     roomNum = parseInt(roomNum);
     price = parseInt(price);
     console.log("state", type, city, street);
-
-    if (city !== "all" && type !== "all") {
+    query =firebase.firestore().collection("estates");
+    if (city !== "all" 
+    // && type !== "all"
+    ) {
       query = query
         .where("city", "==", city)
-        .where("type", "==", type)
+        // .where("type", "==", type)
         .get()
         .then(querySnapshot => {
           querySnapshot.forEach(doc => {
@@ -115,9 +117,7 @@ class EstateProvider extends Component {
         .then(() => {
           this.props.navigation.navigate("Home");
         });
-      this.setState({ query });
 
-      console.log("sortedEstates", this.state.query);
 
       console.log("sortedEstates", this.state.sortedEstates);
     } // if (type !== "all") { //   query = query //     .where("type", "==", type) //     .get() //     .then(querySnapshot => { //       querySnapshot.forEach(doc => { //         let data = doc.data(); //         data.id = doc.id; //         newEstates.push(data); //         this.setState({ newEstates }); //         this.setState({ sortedEstates: newEstates }); //         this.setState({ newEstates: [] }); //       }); //       console.log("sorted", this.state.newEstates); //     }); // }

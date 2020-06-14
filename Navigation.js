@@ -76,7 +76,11 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
+                <Ionicons
+                  name="ios-menu"
+                  size={30}
+                  style={{ marginLeft: 10, color: "white" }}
+                />
               </TouchableWithoutFeedback>
             )
           };
@@ -104,7 +108,11 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
+                <Ionicons
+                  name="ios-menu"
+                  size={30}
+                  style={{ marginLeft: 10, color: "white" }}
+                />
               </TouchableWithoutFeedback>
             )
           };
@@ -131,7 +139,11 @@ export default class App extends React.Component {
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
+                <Ionicons
+                  name="ios-menu"
+                  size={30}
+                  style={{ marginLeft: 10, color: "white" }}
+                />
               </TouchableWithoutFeedback>
             )
           };
@@ -158,7 +170,11 @@ export default class App extends React.Component {
             },
             headerLeft: (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
-                <Ionicons name="ios-menu" size={30} style={{  marginLeft: 10, color: "white" }} />
+                <Ionicons
+                  name="ios-menu"
+                  size={30}
+                  style={{ marginLeft: 10, color: "white" }}
+                />
               </TouchableWithoutFeedback>
             )
           };
@@ -174,11 +190,12 @@ export default class App extends React.Component {
         Filter: FilterPage,
         Feedbacks: FeedbacksPage,
         ContactUS: ContactPage,
-        LogOut: LogOut
+        LogOut: LogOut,
+        LogIn: LogIn
       },
       {
         hideStatusBar: true,
-        drawerBackgroundColor: "white",
+        drawerBackgroundColor: "#404040",
         contentOptions: {
           activeBackgroundColor: "#af9a7d"
         }
@@ -193,6 +210,7 @@ export default class App extends React.Component {
       {
         Splash: Splash,
         Auth: Log
+        // LogOut: LogOut
       },
       {
         initialRouteName: "Splash"

@@ -20,9 +20,11 @@ const image2 = require("../../assets/couch-.jpg");
 const image4 = require("../../assets/kitchen.jpg");
 
 const { width: screenWidth } = Dimensions.get("window");
+console.disableYellowBox = true;
 export default class ImageCarousel extends React.Component {
   static navigationOptions = {
-    // title: "Reservation",
+    
+    drawerLabel: () => null,
     header: null
   };
   state = {
@@ -46,7 +48,10 @@ export default class ImageCarousel extends React.Component {
     console.log("item", item, "index", index);
     return (
       <View>
-        <Image source={item} style={{height:"100%",width:"206%",alignSelf:"center"}} />
+        <Image
+          source={item}
+          style={{ height: "100%", width: "206%", alignSelf: "center" }}
+        />
       </View>
     );
   };
@@ -57,9 +62,9 @@ export default class ImageCarousel extends React.Component {
         dotsLength={this.state.images.length}
         activeDotIndex={activeSlide}
         containerStyle={{
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
           marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
-          color:"#fff"
+          color: "#fff"
         }}
         dotStyle={{
           width: 12,
@@ -138,8 +143,8 @@ export default class ImageCarousel extends React.Component {
             containerCustomStyle={{
               flex: 1,
               alignSelf: "center",
-              marginTop: 50,
-              // height:100 
+              marginTop: 50
+              // height:100
             }}
           />
           {this.pagination}
