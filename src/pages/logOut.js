@@ -14,8 +14,10 @@ export class LogOut extends React.Component {
       .signOut()
       .then(function() {
         console.log("sign out ");
-        alert("sign out successfully");
-        localStorage.clear();
+        alert("sign out successfully")
+      
+      }).then(() => {
+        this.props.navigation.navigate("");
       })
       .catch(function(error) {
         console.log("An error happened.",error);
@@ -23,17 +25,20 @@ export class LogOut extends React.Component {
   };
 
   _cancel = () =>{
+    const {modalIsup} = this.state;
     this.setState({modalIsup :!modalIsup})
     this.props.navigation.navigate("Home")
   }
 
   render() {
+    console.log(this.this.state.modalIsup)
     return (
       <View
       >
        <Modal 
-       //animationIn="slideInUp" animationOut="slideOutDown" 
-       isVisible
+      animationIn="slideInUp" 
+      animationOut="slideOutDown" 
+       isVisible = {this.state.modalIsup}
        useNativeDriver
         style={{backgroundColor:'white',height:Dimensions.get('window').height / 2}}> 
          <View style={{ flex: 1,justifyContent:'center'}}>  

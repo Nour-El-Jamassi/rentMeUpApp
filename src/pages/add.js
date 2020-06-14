@@ -86,7 +86,7 @@ export default class Add extends Component {
 
                    if (!res.cancelled) {
                     console.log('res' , res)
-                    this.setState({downloadURLs:res.uri})
+                   
                      this.uploadImage(res.uri, `${res.type + res.width}`)
                        .then(() => {
                          console.log("success");
@@ -105,12 +105,13 @@ export default class Add extends Component {
                 console.log('respond' , response)
                   const blob = await response.blob();
                   console.log('bolb' , blob)
+                 
                    var uploadTask = firebase
                      .storage()
                      .ref()
                      .child("images/" + imageName).put(blob)
                      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                      console.log('File available at', downloadURL);
+                      alert('File available at', downloadURL);
                       downloadURLs.push(downloadURL)
                       this.setState({downloadURLs})
                     });
@@ -157,7 +158,7 @@ export default class Add extends Component {
                        roomNum: this.state.roomNum,
                        downtown: this.state.downtown,
                        overLookingSea: this.state.overLookingSea,
-                       url: downloadURLs,
+                       url: this.state.downloadURLs,
                        lat: this.state.markerPosition.lat,
                        lng: this.state.markerPosition.lng
                      })
@@ -443,14 +444,7 @@ export default class Add extends Component {
                                </Text>
                              </TouchableOpacity>
                              <View>
-                               { this.state.downloadURLs && this.state.downloadURLs.map(item => {
-                                           <Image
-                                           source={{ uri:item }}
-                                           style={{width: Dimensions.get('window').width -50,height:Dimensions.get('window').width - 50, resizeMode: 'contain'}}
-                                         
-                                         />
-                               } 
-                                )}
+                       
                     
                       </View>
                              <TouchableOpacity
