@@ -13,6 +13,9 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 export default class SignUp extends Component {
+  static navigationOptions = {
+    header: null
+  };
   state = {
     name: "testtt",
     email: "tes144@gmail.com",
@@ -45,9 +48,9 @@ export default class SignUp extends Component {
 
     const user = firebase.auth().currentUser;
     console.log("user", user.uid);
-    // alert(mobile); 
+    // alert(mobile);
     db.collection("users")
-      .doc(user.uid)
+      .doc(user.id)
       .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
       .catch(function(error) {
         alert(error);

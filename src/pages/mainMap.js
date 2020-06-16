@@ -45,7 +45,7 @@ class EstateMap extends Component {
   };
 
   renderestate = item => {
-    console.log("item", item);
+    // console.log("item", item);
 
     return (
       <TouchableWithoutFeedback
@@ -89,7 +89,7 @@ class EstateMap extends Component {
               <Text
                 style={{
                   color: "white",
-                  marginTop: 20,
+                  marginTop: 15,
                   fontWeight: "bold"
                 }}
               >
@@ -150,7 +150,7 @@ class EstateMap extends Component {
 
   renderModal() {
     const { activeModal } = this.state;
-    console.log(activeModal);
+    // console.log(activeModal);
     if (!activeModal) return null;
 
     return (
@@ -173,7 +173,9 @@ class EstateMap extends Component {
             <Text
               style={{
                 color: theme.COLORS.gray,
-                fontSize: theme.SIZES.font * 1.1
+                fontSize: theme.SIZES.font * 1.1,
+                marginBottom:"10%",
+                marginTop:20
               }}
             >
               {activeModal.phone}
@@ -226,7 +228,7 @@ class EstateMap extends Component {
               </Text>
             </View>
           </View>
-          <View>
+          <View style={{marginTop:"10%"}}>
             <Text>More Images</Text>
             <FlatList
               horizontal
@@ -257,7 +259,7 @@ class EstateMap extends Component {
     );
   }
   onMarkerClick = estate => {
-    console.log("onclick", estate.index);
+    // console.log("onclick", estate.index);
 
     this._map.animateToRegion({
       latitude: estate.lat,
@@ -265,7 +267,7 @@ class EstateMap extends Component {
       latitudeDelta: 0.09,
       longitudeDelta: 0.035
     });
-    console.log("current index", estate.index);
+    // console.log("current index", estate.index);
     this._flatlist.scrollToItem({ animated: true, item: estate });
   };
   render() {
@@ -477,7 +479,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: theme.SIZES.base * 1,
     backgroundColor: "#af9a7d",
-    marginTop: theme.SIZES.base / 2
+    marginTop: theme.SIZES.base *2
   },
   payText: {
     fontWeight: "600",

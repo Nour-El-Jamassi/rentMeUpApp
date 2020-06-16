@@ -17,14 +17,14 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import LogOut from "./src/pages/logOut";
 export default class App extends React.Component {
   render() {
-    const mainStack = createSwitchNavigator({ login: LogIn, SignIn: SignUp });
-    const main = createStackNavigator({
-      ImageCarousel: ImageCarousel,
-      Add: Add,
-      Home: MainMap,
+    const mainStack = createStackNavigator({ login: LogIn, SignIn: SignUp });
+    // const main = createStackNavigator({
+    //   ImageCarousel: ImageCarousel,
+    //   Add: Add,
+    //   Home: MainMap,
 
-      Filter: Filter
-    });
+    //   Filter: Filter
+    // });
     const AddPage = createStackNavigator(
       {
         Add: Add
@@ -191,7 +191,6 @@ export default class App extends React.Component {
         Feedbacks: FeedbacksPage,
         ContactUS: ContactPage,
         LogOut: LogOut,
-        LogIn: LogIn
       },
       {
         hideStatusBar: true,
@@ -202,21 +201,13 @@ export default class App extends React.Component {
       }
     );
     const Log = createSwitchNavigator({
-      mainStack: mainStack,
+      Splash: Splash,
+      Auth: mainStack,
       main: DrawerNavigator
     });
 
-    const AppNavigator = createSwitchNavigator(
-      {
-        Splash: Splash,
-        Auth: Log
-        // LogOut: LogOut
-      },
-      {
-        initialRouteName: "Splash"
-      }
-    );
-    const Navigator = createAppContainer(AppNavigator);
+ 
+    const Navigator = createAppContainer(Log);
     return (
       <EstateProvider>
         <Navigator />

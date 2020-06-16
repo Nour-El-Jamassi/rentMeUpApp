@@ -4,11 +4,7 @@
     "slug": "rentMeup",
     "privacy": "public",
     "sdkVersion": "36.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,11 +16,23 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rentmeup",
+      "buildNumber": "1",
+      "config": {
+        "googleMapsApiKey": "AIzaSyBULzIYzPa6iu71pBykX_a9E8vseUOf91Y"
+      }
+    },
+    "android": {
+      "package": "com.rentmeup",
+      "versionCode": 1,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBULzIYzPa6iu71pBykX_a9E8vseUOf91Y"
+        }
+      }
     }
   }
 }

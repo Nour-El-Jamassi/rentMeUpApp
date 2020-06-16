@@ -22,9 +22,9 @@ export default class FeedbacksWithFlatlist extends React.Component {
   _renderItem = (item, index) => {
     return (
       <View
-        style={{
+        style={{    // alert("WEEE")    // alert("WEEE")
           width: screenWidth - 60,
-          height: "95%",
+          height: "95%",    // alert("WEEE")
           elevation: 10,
           borderWidth: 6,
           borderColor: "#af9a7d",

@@ -16,7 +16,7 @@ import {
 // const signImg = require("../../assets/images/SignBack.png");
 export default class LogIn extends Component {
   static navigationOptions = {
-    drawerLabel: () => null
+    header: null
   };
   state = { email: "tes144@gmail.com", password: "123456789" };
 
@@ -26,9 +26,7 @@ export default class LogIn extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-
         navigation.navigate("welcome");
-
       })
       .catch(function(error) {
         // Handle Errors here.

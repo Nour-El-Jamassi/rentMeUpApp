@@ -3,24 +3,17 @@
 //price and space range slider
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useContext } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Slider,
-  TouchableOpacity,
-  Image
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Dropdown from "react-native-modal-dropdown";
 
 import * as theme from "../../theme";
 import { FontAwesome } from "@expo/vector-icons";
 import { EstateContext } from "../../Provider/estateProvider";
+import { Slider } from "react-native-elements";
 // get all unique values
 const getUnique = (items, value) => {
   return [...new Set(items.map(item => item[value]))];
 };
-
 
 const Filter = ({ navigation }) => {
   console.disableYellowBox = true;
@@ -175,10 +168,11 @@ const Filter = ({ navigation }) => {
             </View>
             <View style={styles.container}>
               <Text style={styles.label}>Space: {estate.space}</Text>
+
               <Slider
                 step={10}
-                minimumValue={estate.minspac}
-                maximumValue={estate.maxspace}
+                minimumValue={0}
+                maximumValue={2000}
                 value={500}
                 onValueChange={slideValue =>
                   estate.handleChange(1, slideValue, "space")
@@ -191,8 +185,9 @@ const Filter = ({ navigation }) => {
             </View>
             <View>
               <TouchableOpacity
-                onPress={(navigation)=>{estate.filterEstates(navigation)} }
-
+                onPress={navigation => {
+                  estate.filterEstates(navigation);
+                }}
                 style={{
                   marginTop: 60,
                   height: 50,

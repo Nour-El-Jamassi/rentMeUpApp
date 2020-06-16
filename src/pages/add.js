@@ -20,6 +20,7 @@ import {
   CheckBox,
   Dimensions
 } from "react-native";
+
 export default class Add extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +44,7 @@ export default class Add extends Component {
         lng: 34.3088
       }
     };
+    console.log(" ============= add ");
   }
   componentDidMount = () => {
     YellowBox.ignoreWarnings(["VirtualizedLists should never be nested"]);
@@ -61,6 +63,7 @@ export default class Add extends Component {
     // value = our checked value
   };
   onMarkerDrag = e => {
+    console.log("marker moves =============== ");
     console.log("marker moves", e.nativeEvent.coordinate);
     let { markerPosition } = this.state;
     this.setState({
@@ -241,6 +244,8 @@ export default class Add extends Component {
                   }}
                   onDragEnd={e => this.onMarkerDrag(e)}
                 />
+                {/* onMarkerDrag={e => console.log("e =====", e)} */}
+                {/* onPress={e => this.onMarkerDrag(e)} */}
               </MapView>
               <TextInput
                 style={{
