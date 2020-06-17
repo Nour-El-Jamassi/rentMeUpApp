@@ -67,7 +67,7 @@ export default class FeedbacksWithFlatlist extends React.Component {
     if (feedbacks) {
       return (
         <LinearGradient
-          colors={["#0F3A5B", "#af9a7d"]}
+          colors={["#fff", "#fff"]}
           // start={[0, 0]}
           // end={[0, 50]}
           style={{

@@ -23,8 +23,6 @@ const { width: screenWidth } = Dimensions.get("window");
 console.disableYellowBox = true;
 export default class ImageCarousel extends React.Component {
   static navigationOptions = {
-    
-    drawerLabel: () => null,
     header: null
   };
   state = {
@@ -81,7 +79,7 @@ export default class ImageCarousel extends React.Component {
   render() {
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[50, 0]}
         // end={[0, 50]}
         style={{
@@ -105,9 +103,10 @@ export default class ImageCarousel extends React.Component {
           <Text
             style={{
               marginTop: 40,
-              color: "#fff",
+              color: "#0F3A5B",
               fontSize: 40,
-              alignSelf: "center"
+              alignSelf: "center",
+              fontFamily: "Podkova"
             }}
           >
             Welocme
@@ -117,10 +116,11 @@ export default class ImageCarousel extends React.Component {
               fontSize: 20,
               color: "#af9a7d",
               fontWeight: "bold",
-              marginLeft: 45,
+              alignSelf: "center",
               letterSpacing: 3,
-              marginBottom: 10,
-              marginTop: 10
+              fontFamily: "Tajawal",
+              marginTop: 30,
+              fontFamily: "Podkova"
             }}
           >
             Find Your Next Best Home!
@@ -143,7 +143,7 @@ export default class ImageCarousel extends React.Component {
             containerCustomStyle={{
               flex: 1,
               alignSelf: "center",
-              marginTop: 50
+              marginTop: 40
               // height:100
             }}
           />
@@ -151,16 +151,16 @@ export default class ImageCarousel extends React.Component {
 
           <View style={styles.fixToText}>
             <TouchableOpacity
+              style={styles.buttonRight}
+              onPress={() => this.props.navigation.navigate("Map")}
+            >
+              <Text style={styles.buttonText2}>Map</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               style={styles.buttonLeft}
               onPress={() => this.props.navigation.navigate("Add")}
             >
-              <Text style={styles.buttonText}> Add</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonRight}
-              onPress={() => this.props.navigation.navigate("Home")}
-            >
-              <Text style={styles.buttonText}>Map</Text>
+              <Text style={styles.buttonText}> Add Property</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -172,35 +172,34 @@ export default class ImageCarousel extends React.Component {
 const styles = StyleSheet.create({
   fixToText: {
     marginTop: 30,
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "space-between"
   },
   buttonLeft: {
-    marginTop: 30,
     height: 50,
-    width: 130,
+
     borderStyle: "solid",
     borderRadius: 50,
     paddingBottom: 4,
-    backgroundColor: "#0F3A5B",
+    borderWidth: 2,
+    borderColor: "#0F3A5B85",
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
     alignSelf: "center",
+    marginTop: 15,
+    marginBottom: 20,
     shadowOffset: {
       width: 1,
       height: 5
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-    marginBottom: 40,
-    marginLeft: 15
+    width: "80%",
+
+    elevation: 7
   },
   buttonRight: {
-    marginTop: 30,
     height: 50,
-    width: 130,
+    width: "80%",
     borderStyle: "solid",
     borderRadius: 50,
     paddingBottom: 4,
@@ -213,15 +212,19 @@ const styles = StyleSheet.create({
       width: 1,
       height: 5
     },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
-    marginBottom: 40,
-    marginRight: 15
+
+    elevation: 7
   },
   buttonText: {
     //fontFamily: "monospace",
-    color: "#ffffff",
-    fontSize: 20
+    color: "#0F3A5B",
+    fontSize: 20,
+    alignSelf: "center"
+  },
+  buttonText2: {
+    //fontFamily: "monospace",
+    color: "#fff",
+    fontSize: 20,
+    alignSelf: "center"
   }
 });

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { LinearGradient } from "expo-linear-gradient";
+import { Input } from "react-native-elements";
 import {
   ScrollView,
   StyleSheet,
@@ -25,8 +26,9 @@ export default class SignUp extends Component {
 
   addUser = () => {
     const { name, email, password, mobile } = this.state;
+    console.log(name, email, password, mobile);
     const db = firebase.firestore();
-    const { navigation } = this.props;
+
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -48,23 +50,23 @@ export default class SignUp extends Component {
 
     const user = firebase.auth().currentUser;
     console.log("user", user.uid);
-    // alert(mobile);
-    db.collection("users")
-      .doc(user.id)
-      .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
-      .catch(function(error) {
-        alert(error);
-      })
-      .then(() => {
-        navigation.navigate("welcome");
-      });
+    try {
+      db.collection("users")
+        .doc(user.uid)
+        .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
+        .then(() => {
+          this.propsnavigation.navigate("main");
+        });
+    } catch (error) {
+      alert(error);
+    }
   };
 
   render() {
     let { name, email, password, mobile } = this.state;
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[150, 0]}
         // end={[0, 50]}
         style={{
@@ -100,24 +102,22 @@ export default class SignUp extends Component {
                 // flex: 1
               }}
             >
+              <Image style={{ marginTop: 30 }} source={require("../assets/logo1.png")} />
               <View
                 style={{
-                  marginTop: "30%",
+                  // marginTop: "30%",
                   justifyContent: "center",
                   alignItems: "center",
                   width: "100%",
-                  //   width: 154,
-                  //   height: 36,
                   color: "#ffffff",
-                  //   fontFamily: "Tajawal",
                   fontSize: 30
                 }}
               >
                 <Text
                   style={{
-                    color: "#ffffff",
-                    //   fontFamily: "Tajawal",
-                    fontSize: 30,
+                    color: "#0F3A5B",
+                    fontFamily: "Podkova",
+                    fontSize: 40,
                     zIndex: 200
                   }}
                 >
@@ -133,36 +133,20 @@ export default class SignUp extends Component {
                 padding: 30
               }}
             >
-              <View>
-                <TextInput
-                  style={{
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    height: "8%",
-                    width: "100%",
-                    marginTop: "80%",
-                    padding: 10
-                  }}
+              <View
+                style={{
+                  marginTop: "85%"
+                }}
+              >
+                <Input
                   returnKeyType="done"
                   placeholder="Name"
                   defaultValue={name}
                   onChangeText={text => {
                     this.setState({ name: text });
                   }}
-                ></TextInput>
-                <TextInput
-                  style={{
-                    marginTop: "6%",
-                    height: "8%",
-                    width: "100%",
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    padding: 10
-                  }}
+                />
+                <Input
                   keyboardType="email-address"
                   returnKeyType="done"
                   placeholder="Email"
@@ -170,18 +154,9 @@ export default class SignUp extends Component {
                   onChangeText={text => {
                     this.setState({ email: text });
                   }}
-                ></TextInput>
-                <TextInput
-                  style={{
-                    marginTop: "6%",
-                    height: "8%",
-                    width: "100%",
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    padding: 10
-                  }}
+                />
+
+                <Input
                   secureTextEntry
                   returnKeyType="done"
                   placeholder="Password"
@@ -189,46 +164,31 @@ export default class SignUp extends Component {
                   onChangeText={text => {
                     this.setState({ password: text });
                   }}
-                ></TextInput>
-
-                <TextInput
-                  style={{
-                    marginTop: "6%",
-                    height: "8%",
-                    width: "100%",
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    padding: 10
-                    // placeholderColor:"#fff"
-                  }}
+                />
+                <Input
                   placeholder="Mobile"
                   defaultValue={mobile}
                   onChangeText={text => {
                     this.setState({ mobile: text });
                   }}
-                ></TextInput>
+                />
+             
 
                 <TouchableOpacity
                   onPress={this.addUser}
                   style={{
-                    marginTop: "6%",
-                    height: "8%",
+                    marginTop: "10%",
+                    height:55,
                     width: "100%",
-                    //borderColor: "#dd80d4",
                     borderStyle: "solid",
                     borderRadius: 50,
-                    // borderWidth: 2,
-                    // padding: 2,
                     paddingTop: 10,
                     backgroundColor: "#0F3A5B",
-                    // flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
                     shadowColor: "#000",
                     shadowOffset: {
-                      width: 0,
+                      width: 1,
                       height: 3
                     },
                     shadowOpacity: 0.29,
@@ -241,7 +201,8 @@ export default class SignUp extends Component {
                     style={{
                       color: "#ffffff",
                       //   fontFamily: "Tajawal",
-                      fontSize: 20
+                      fontSize: 20,
+                      marginBottom:35
                     }}
                   >
                     Sign Up

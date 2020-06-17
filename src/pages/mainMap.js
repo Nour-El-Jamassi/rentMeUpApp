@@ -19,7 +19,11 @@ import {
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import Modal from "react-native-modal";
 // import Dropdown from "react-native-modal-dropdown";
-import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons
+} from "@expo/vector-icons";
 import { EstateContext } from "../../Provider/estateProvider";
 
 import * as theme from "../../theme";
@@ -29,7 +33,6 @@ const { Callout } = MapView;
 const { height, width } = Dimensions.get("screen");
 
 class EstateMap extends Component {
-  
   static contextType = EstateContext;
   state = {
     active: null,
@@ -139,8 +142,8 @@ class EstateMap extends Component {
           backgroundColor: "silver",
           padding: 5,
           borderRadius: 5,
-          height: 150,
-          width: 150,
+          height: 200,
+          width: 200,
           margin: 3,
           resizeMode: "cover"
         }}
@@ -174,8 +177,8 @@ class EstateMap extends Component {
               style={{
                 color: theme.COLORS.gray,
                 fontSize: theme.SIZES.font * 1.1,
-                marginBottom:"10%",
-                marginTop:20
+                marginBottom: "5%",
+                marginTop: 10
               }}
             >
               {activeModal.phone}
@@ -184,21 +187,20 @@ class EstateMap extends Component {
 
           <View style={styles.modalInfo}>
             <View style={[styles.estateIcon, { justifyContent: "flex-start" }]}>
-              <Ionicons
-                name="ios-pricetag"
+              <FontAwesome
+                name="dollar"
                 size={theme.SIZES.icon * 1.1}
-                color={theme.COLORS.gray}
+                color="black"
               />
               <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}>
-                {" "}
-                ${activeModal.price}
+                {activeModal.price}
               </Text>
             </View>
             <View style={[styles.estateIcon, { justifyContent: "flex-start" }]}>
               <Ionicons
                 name="ios-star"
                 size={theme.SIZES.icon * 1.1}
-                color={theme.COLORS.gray}
+                color={"gold"}
               />
               <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}>
                 {" "}
@@ -206,30 +208,32 @@ class EstateMap extends Component {
               </Text>
             </View>
             <View style={[styles.estateIcon, { justifyContent: "flex-start" }]}>
-              <Ionicons
-                name="ios-pin"
-                size={theme.SIZES.icon * 1.1}
-                color={theme.COLORS.gray}
+              <MaterialCommunityIcons
+                name="ruler-square"
+                size={24}
+                color="black"
               />
+
               <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}>
                 {" "}
-                {activeModal.price}km
+                {activeModal.space}m
               </Text>
             </View>
             <View style={[styles.estateIcon, { justifyContent: "flex-start" }]}>
               <Ionicons
                 name="ios-bed"
                 size={theme.SIZES.icon * 1.3}
-                color={theme.COLORS.gray}
+                color="black"
               />
               <Text style={{ fontSize: theme.SIZES.icon * 1.15 }}>
                 {" "}
-                {activeModal.roomNum}/{activeModal.space}
+                {activeModal.roomNum}
               </Text>
             </View>
           </View>
-          <View style={{marginTop:"10%"}}>
+          <View style={{ marginTop: "5%" }}>
             <Text>More Images</Text>
+
             <FlatList
               horizontal
               pagingEnabled
@@ -325,7 +329,6 @@ class EstateMap extends Component {
         </MapView>
         {this.renderEstates()}
         {this.renderModal()}
-   
       </View>
     );
   }
@@ -479,7 +482,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     padding: theme.SIZES.base * 1,
     backgroundColor: "#af9a7d",
-    marginTop: theme.SIZES.base *2
+    marginTop: theme.SIZES.base * 2
   },
   payText: {
     fontWeight: "600",
@@ -488,7 +491,7 @@ const styles = StyleSheet.create({
   },
 
   buttonLeft: {
-    backgroundColor: "#af9a7d",
+    backgroundColor: "#af9a7d99",
     padding: 10,
     marginLeft: 8,
     // position: "absolute",
@@ -499,7 +502,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
     // position: "absolute", //use absolute position to show button on top of the map
     top: "20%", //for center align
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
+    alignItems: "center"
   },
 
   filterText: {

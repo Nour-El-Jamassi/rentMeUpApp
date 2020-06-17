@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { LinearGradient } from "expo-linear-gradient";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Input } from "react-native-elements";
 import {
   ScrollView,
   StyleSheet,
@@ -52,7 +53,7 @@ export default class LogIn extends Component {
     let { email, password } = this.state;
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[150, 0]}
         // end={[0, 50]}
         style={{
@@ -69,12 +70,8 @@ export default class LogIn extends Component {
           }}
           enabled
         >
-          <ScrollView
-            style={{
-              display: "flex"
-              //   flex: 1
-            }}
-          >
+          <ScrollView>
+           
             <View
               style={{
                 position: "absolute",
@@ -88,9 +85,10 @@ export default class LogIn extends Component {
                 // flex: 1
               }}
             >
+              <Image style={{marginTop:30}} source={require("../assets/logo1.png")} />
               <View
                 style={{
-                  marginTop: "40%",
+                  marginTop: "10%",
                   justifyContent: "center",
                   alignItems: "center",
                   width: "100%",
@@ -103,70 +101,48 @@ export default class LogIn extends Component {
               >
                 <Text
                   style={{
-                    color: "#ffffff",
-                    //   fontFamily: "Tajawal",
-                    fontSize: 30,
+                    color: "#0F3A5B",
+                    fontFamily: "Podkova",
+                    fontSize: 40,
                     zIndex: 200
                   }}
                 >
-                  Log In
+                  Login
                 </Text>
               </View>
             </View>
 
             <View
               style={{
-                marginTop: "80%",
+                marginTop: "90%",
                 flex: 1,
                 padding: 30
               }}
             >
               <View>
-                <TextInput
-                  style={{
-                    // marginTop: "15%",
-                    height: "38%",
-                    width: "100%",
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    padding: 10
-                  }}
+                <Input
                   placeholder="Email"
                   defaultValue={email}
                   onChange={this.handelChangeEmail}
-                ></TextInput>
-                <TextInput
-                  style={{
-                    marginTop: "6%",
-                    height: "38%",
-                    width: "100%",
-                    borderColor: "#af9a7d",
-                    borderStyle: "solid",
-                    borderRadius: 50,
-                    borderWidth: 2,
-                    padding: 10
-                  }}
+                />
+                <Input
                   placeholder="Password"
+       
                   defaultValue={password}
                   onChange={this.handelChangePassword}
-                ></TextInput>
+                />
+               
 
                 <TouchableOpacity
                   onPress={this.Login}
                   style={{
                     marginTop: "6%",
-                    height: "38%",
+                    height: 55,
                     width: "100%",
-                    //borderColor: "#dd80d4",
                     borderStyle: "solid",
                     borderRadius: 50,
-                    // borderWidth: 2,
                     paddingBottom: 10,
-                    // /paddingTop: 5,
                     backgroundColor: "#0F3A5B",
-                    // flex: 1,
                     justifyContent: "center",
                     alignItems: "center",
                     shadowColor: "#000",
@@ -187,24 +163,26 @@ export default class LogIn extends Component {
                       fontSize: 20
                     }}
                   >
-                    Log In
+                    login
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => this.props.navigation.navigate("SignIn")}
                   style={{
-                    marginTop: "1%",
-                    height: "38%",
+                    marginTop: 80,
+                    // height: 30,
                     width: "100%",
                     justifyContent: "center",
+
                     alignItems: "center"
                   }}
                 >
                   <Text
                     style={{
-                      color: "#ffffff",
+                      color: "#0F3A5B",
                       //   fontFamily: "Tajawal",
-                      fontSize: 20
+
+                      fontSize: 17
                     }}
                   >
                     Don't Have An Account?

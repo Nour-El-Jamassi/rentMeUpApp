@@ -4,6 +4,7 @@ import RadioGroup, { Radio } from "react-native-radio-input";
 import { LinearGradient } from "expo-linear-gradient";
 import * as ImagePicker from "expo-image-picker";
 import { YellowBox } from "react-native";
+import { Input } from "react-native-elements";
 import MapView from "react-native-maps";
 const { Marker } = MapView;
 
@@ -31,9 +32,9 @@ export default class Add extends Component {
       city: "",
       area: "",
       street: "",
-      price: "100",
-      space: "space",
-      roomNum: "rooms",
+      price: "",
+      space: "",
+      roomNum: "",
       downtown: false,
       overLookingSea: false,
 
@@ -184,7 +185,7 @@ export default class Add extends Component {
     } = this.state;
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[50, 0]}
         // end={[0, 50]}
         style={{
@@ -200,15 +201,6 @@ export default class Add extends Component {
             alignItems: "center"
           }}
         >
-          <Text
-            style={{
-              marginTop: 40,
-              color: "#fff",
-              fontSize: 40
-            }}
-          >
-            Add Property
-          </Text>
           <ScrollView
             style={{ width: "100%", padding: 5 }}
             showsVerticalScrollIndicator={false}
@@ -225,9 +217,11 @@ export default class Add extends Component {
             >
               <MapView
                 style={{
-                  width: "100%",
+                  width: "95%",
                   height: 200,
-                  alignSelf: "center"
+                  alignSelf: "center",
+                  marginBottom: 40,
+                  marginTop: 20
                 }}
                 initialRegion={{
                   latitude: 31.3547,
@@ -242,163 +236,72 @@ export default class Add extends Component {
                     latitude: this.state.markerPosition.lat,
                     longitude: this.state.markerPosition.lng
                   }}
-                  onDragEnd={e => this.onMarkerDrag(e)}
+                  onPress={e => this.onMarkerDrag(e)}
+                  // onDragEnd={e => this.onMarkerDrag(e)}
                 />
                 {/* onMarkerDrag={e => console.log("e =====", e)} */}
-                {/* onPress={e => this.onMarkerDrag(e)} */}
               </MapView>
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
                 onChangeText={text => {
                   this.setState({ city: text });
                 }}
                 returnKeyType="done"
                 placeholder="City"
-                placeholderTextColor="#fff"
                 defaultValue={city}
               />
 
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+              <Input
                 onChangeText={text => {
                   this.setState({ street: text });
                 }}
                 returnKeyType="done"
                 placeholder="Street"
-                placeholderTextColor="#fff"
                 defaultValue={street}
               />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
+                returnKeyType="done"
                 onChangeText={text => {
                   this.setState({ address: text });
                 }}
                 placeholder="Address"
-                placeholderTextColor="#fff"
                 defaultValue={address}
               />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
                 onChangeText={text => {
                   this.setState({ price: text });
                 }}
                 returnKeyType="done"
                 placeholder="Price"
-                placeholderTextColor="#fff"
                 defaultValue={price}
               />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
                 onChangeText={text => {
                   this.setState({ space: text });
                 }}
                 returnKeyType="done"
                 placeholder="Space"
-                placeholderTextColor="#fff"
                 defaultValue={space}
               />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
                 onChangeText={text => {
                   this.setState({ type: text });
                 }}
                 returnKeyType="done"
                 placeholder="write either buying or renting"
-                placeholderTextColor="#fff"
                 defaultValue={type}
               />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
+
+              <Input
                 onChangeText={text => {
                   this.setState({ roomNum: text });
                 }}
                 returnKeyType="done"
                 placeholder="Number Of Rooms"
-                placeholderTextColor="#fff"
                 defaultValue={roomNum}
               />
               <View style={{ marginLeft: 130, marginTop: 25 }}>
@@ -413,40 +316,14 @@ export default class Add extends Component {
               </View>
               <TouchableOpacity
                 style={{
-                  marginTop: 20,
-                  //  marginBottom: 20,
-                  width: "100%",
-                  alignItems: "center"
-                }}
-                onPress={() => this.handelChoosePhoto()}
-              >
-                <Text
-                  style={{
-                    alignSelf: "center",
-                    fontSize: 20,
-                    color: "white",
-                    borderColor: "#fff",
-                    borderStyle: "solid",
-                    borderRadius: 25,
-                    borderWidth: 2,
-                    width: 150,
-                    padding: 18
-                  }}
-                >
-                  chooes a pic
-                </Text>
-              </TouchableOpacity>
-              <View></View>
-              <TouchableOpacity
-                onPress={this.addPropertyToMap}
-                style={{
                   marginTop: 30,
                   height: 50,
                   width: "90%",
                   borderStyle: "solid",
                   borderRadius: 50,
                   paddingBottom: 5,
-                  backgroundColor: "#0F3A5B",
+                  borderColor: "#0F3A5B",
+                  borderWidth: 2,
                   justifyContent: "center",
                   alignItems: "center",
                   shadowColor: "#000",
@@ -458,6 +335,34 @@ export default class Add extends Component {
                   shadowOpacity: 0.29,
                   shadowRadius: 4.65,
                   elevation: 7,
+                  marginBottom: 20
+                }}
+                onPress={() => this.handelChoosePhoto()}
+              >
+                <Text
+                  style={{
+                    color: "#0F3A5B",
+                    fontSize: 20
+                  }}
+                >
+                  chooes a pic
+                </Text>
+              </TouchableOpacity>
+              <View></View>
+              <TouchableOpacity
+                onPress={this.addPropertyToMap}
+                style={{
+                  height: 50,
+                  width: "90%",
+                  borderStyle: "solid",
+                  borderRadius: 50,
+                  paddingBottom: 5,
+                  backgroundColor: "#0F3A5B",
+                  justifyContent: "center",
+                  alignItems: "center",
+
+                  alignSelf: "center",
+
                   marginBottom: 20
                 }}
               >

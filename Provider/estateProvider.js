@@ -76,6 +76,11 @@ class EstateProvider extends Component {
     this.setState({ [name]: value });
   };
   filterEstates = navigation => {
+    // alert();
+    console.log(
+      "====================================================================="
+    );
+
     // const { navigation } = this.props;
     let {
       type,
@@ -89,12 +94,13 @@ class EstateProvider extends Component {
       newEstates
     } = this.state; //all estates
     console.log(this.state.estates);
+    // alert(this.state.estates);
     // convert to integer
 
     roomNum = parseInt(roomNum);
     price = parseInt(price);
     console.log("state", type, city, street);
-    query = firebase.firestore().collection("estates");
+    var query = firebase.firestore().collection("estates");
     if (
       city !== "all"
       // && type !== "all"
@@ -115,7 +121,7 @@ class EstateProvider extends Component {
           });
         })
         .then(() => {
-          this.props.navigation.navigate("Home");
+          this.props.navigation.navigate("Map");
         });
 
       console.log("sortedEstates", this.state.sortedEstates);

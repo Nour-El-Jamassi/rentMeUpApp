@@ -7,6 +7,7 @@ import Navigator from "./Navigation";
 import firebase from "firebase";
 import "firebase/firestore";
 import "firebase/storage";
+import * as Font from "expo-font";
 var firebaseConfig = {
   apiKey: "AIzaSyD47xlalTqy3QK4fFgfD9jImnI5prteLfw",
   authDomain: "rentmeup.firebaseapp.com",
@@ -15,7 +16,7 @@ var firebaseConfig = {
   storageBucket: "rentmeup.appspot.com",
   messagingSenderId: "259373225502",
   appId: "1:259373225502:web:7e04123dc2de2f3e05000f",
-  measurementId: "G-K613V6TT4E",
+  measurementId: "G-K613V6TT4E"
 };
 // Initialize Firebase
 if (!firebase.apps.length) {
@@ -24,9 +25,9 @@ if (!firebase.apps.length) {
 
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false,
+    isLoadingComplete: false
   };
-  
+
   render() {
     console.disableYellowBox = true;
     if (!this.state.isLoadingComplete) {
@@ -39,27 +40,31 @@ export default class App extends React.Component {
         />
       );
     } else {
-       return <Navigator />;
+      return <Navigator />;
     }
   }
   _loadResourcesAsync = async () => {
     try {
       Expo.SplashScreen.hide();
       return Promise.all([
+        await Font.loadAsync({
+          Podkova: require("./assets/fonts/Podkova-VariableFont_wght.ttf"),
+          Tajawal: require("./assets/fonts/FontsFree-Net-SFProDisplay-Regular.ttf")
+        }),
         await Asset.loadAsync([
           Asset.fromModule(require("./assets/Gaza3.jpg")).uri,
           Asset.fromModule(require("./assets/Gaza1.jpg")).uri,
           Asset.fromModule(require("./assets/couch-.jpg")).uri,
           Asset.fromModule(require("./assets/kitchen.jpg")).uri,
-          Asset.fromModule(require("./assets/logo1.png")).uri,
-        ]),
+          Asset.fromModule(require("./assets/logo1.png")).uri
+        ])
       ]);
     } catch (error) {
       console.error(error);
     }
   };
 
-  _handleLoadingError = (error) => {
+  _handleLoadingError = error => {
     console.warn(error);
   };
 

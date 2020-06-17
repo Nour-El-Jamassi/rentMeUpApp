@@ -13,18 +13,15 @@ import MainMap from "./src/pages/mainMap";
 import Filter from "./src/pages/filter";
 import { TouchableWithoutFeedback } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { createDrawerNavigator } from "react-navigation-drawer";
+import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import LogOut from "./src/pages/logOut";
+import { Container, Content, Header, Body, Icon } from "native-base";
+
+import { Image } from "react-native";
 export default class App extends React.Component {
   render() {
     const mainStack = createStackNavigator({ login: LogIn, SignIn: SignUp });
-    // const main = createStackNavigator({
-    //   ImageCarousel: ImageCarousel,
-    //   Add: Add,
-    //   Home: MainMap,
 
-    //   Filter: Filter
-    // });
     const AddPage = createStackNavigator(
       {
         Add: Add
@@ -33,15 +30,17 @@ export default class App extends React.Component {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B"
+              backgroundColor: "#0F3A5B",
+
+              height: 70
             },
-            headerTitle: "Add",
+            headerTitle: "Add Property",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop: 10
+              marginTop: 15
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -64,7 +63,8 @@ export default class App extends React.Component {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B"
+              backgroundColor: "#0F3A5B",
+              height: 70
             },
             headerTitle: "Filter",
             headerTintColor: "white",
@@ -72,7 +72,7 @@ export default class App extends React.Component {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop: 10
+              marginTop: 15
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -96,7 +96,8 @@ export default class App extends React.Component {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B"
+              backgroundColor: "#0F3A5B",
+              height: 70
             },
             headerTitle: "ContactUs",
             headerTintColor: "white",
@@ -104,7 +105,7 @@ export default class App extends React.Component {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop: 10
+              marginTop: 15
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -127,7 +128,8 @@ export default class App extends React.Component {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B"
+              backgroundColor: "#0F3A5B",
+              height: 70
             },
             headerTitle: "ContactUs",
             headerTintColor: "white",
@@ -135,7 +137,7 @@ export default class App extends React.Component {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop: 10
+              marginTop: 15
             },
             headerLeft: () => (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -152,21 +154,22 @@ export default class App extends React.Component {
     );
     const HomePage = createStackNavigator(
       {
-        Home: MainMap
+        Map: MainMap
       },
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
             headerStyle: {
-              backgroundColor: "#0F3A5B"
+              backgroundColor: "#0F3A5B",
+              height: 70
             },
-            headerTitle: "Home",
+            headerTitle: "Map",
             headerTintColor: "white",
             headerTitleStyle: {
               fontWeight: "bold",
               textAlign: "center",
               flex: 1,
-              marginTop: 10
+              marginTop: 15
             },
             headerLeft: (
               <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
@@ -182,31 +185,55 @@ export default class App extends React.Component {
       }
     );
 
+    const Drawer = props => (
+      <Container>
+        <Header
+          style={{
+            height: 160,
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <Body>
+            <Image
+              style={{ height: 100, width: 100, alignSelf: "center" }}
+              source={require("./assets/userPic.png")}
+            />
+          </Body>
+        </Header>
+        <Content>
+          <DrawerItems {...props} />
+        </Content>
+      </Container>
+    );
     const DrawerNavigator = createDrawerNavigator(
       {
         welcome: ImageCarousel,
-        Home: HomePage,
+        Map: HomePage,
         Add: AddPage,
         Filter: FilterPage,
         Feedbacks: FeedbacksPage,
         ContactUS: ContactPage,
-        LogOut: LogOut,
+        LogOut: LogOut
       },
       {
-        hideStatusBar: true,
-        drawerBackgroundColor: "#404040",
-        contentOptions: {
-          activeBackgroundColor: "#af9a7d"
-        }
+        contentComponent: Drawer,
+        drawerOpenRoute: "DrawerOpen",
+        drawerCloseRoute: "DrawerClose",
+        // initialRouteName: "Map"
       }
     );
-    const Log = createSwitchNavigator({
-      Splash: Splash,
-      Auth: mainStack,
-      main: DrawerNavigator
-    });
+    const Log = createSwitchNavigator(
+      {
+        Splash: Splash,
+        Auth: mainStack,
+        main: DrawerNavigator
+      },
+      {
+        // initialRouteName: "main"
+      }
+    );
 
- 
     const Navigator = createAppContainer(Log);
     return (
       <EstateProvider>

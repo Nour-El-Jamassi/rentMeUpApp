@@ -215,12 +215,17 @@ const Filter = ({ navigation }) => {
                   style={{
                     color: "#ffffff",
                     fontSize: 20,
-                    marginRight: 15
+                    marginRight: 15,
+                    marginTop: 8,
+                    fontFamily: "Tajawal"
                   }}
                 >
                   Filter
                 </Text>
                 <FontAwesome
+                  style={{
+                    marginTop: 8
+                  }}
                   name="filter"
                   size={theme.SIZES.icon * 1.75}
                   color={theme.COLORS.white}
@@ -241,27 +246,28 @@ const styles = StyleSheet.create({
     // marginTop: 10,
     flexDirection: "row",
     marginTop: 45,
-    justifyContent: "center"
+    justifyContent: "space-between"
   },
   label: {
     fontSize: theme.SIZES.text,
     fontWeight: "bold",
     color: "#ffffff",
     paddingLeft: 10,
+    fontFamily: "Tajawal",
     marginLeft: theme.SIZES.base
     // marginTop: 20
   },
   DropdownMenu: {
-    flex: 1,
     borderRadius: theme.SIZES.base / 2,
     borderColor: theme.COLORS.overlay,
     borderWidth: 1,
     padding: theme.SIZES.base * 1.03,
     marginRight: theme.SIZES.base * 4,
-    marginLeft: theme.SIZES.base * 4,
+    marginLeft: 20,
     // marginTop: theme.SIZES.base,
     // marginBottom:10,
-    height: 40
+    height: 40,
+    width: "50%"
   },
   DropdownOption: {
     padding: 5,
@@ -289,7 +295,7 @@ const styles = StyleSheet.create({
   filterText: {
     fontWeight: "bold",
     fontSize: theme.SIZES.base * 1,
-    color: "white"
-    // fontFamily: "monospace"
+    color: "white",
+    fontFamily: "Tajawal"
   }
 });

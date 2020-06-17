@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "firebase";
 import { LinearGradient } from "expo-linear-gradient";
+import { Input } from "react-native-elements";
 import {
   ScrollView,
   StyleSheet,
@@ -66,7 +67,7 @@ export default class contactUs extends Component {
     const { Name, Email, Massage, rating } = this.state;
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[50, 0]}
         // end={[0, 50]}
         style={{
@@ -82,15 +83,6 @@ export default class contactUs extends Component {
             alignItems: "center"
           }}
         >
-          <Text
-            style={{
-              marginTop: 40,
-              color: "#fff",
-              fontSize: 40
-            }}
-          >
-            Contact Us
-          </Text>
           <ScrollView
             style={{ width: "100%", padding: 5 }}
             showsVerticalScrollIndicator={false}
@@ -105,113 +97,70 @@ export default class contactUs extends Component {
               behavior="padding"
               enabled
             >
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
-                onChangeText={text => {
-                  this.setState({ Name: text });
-                }}
-                returnKeyType="done"
-                placeholder="Name"
-                placeholderTextColor="#fff"
-                defaultValue={Name}
-              />
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
-                onChangeText={text => {
-                  this.setState({ Email: text });
-                }}
-                returnKeyType="done"
-                placeholder="Email"
-                placeholderTextColor="#fff"
-                defaultValue={Email}
-              />
+              <View style={{ marginTop: "20%" }}>
+                <Input
+                  onChangeText={text => {
+                    this.setState({ Name: text });
+                  }}
+                  returnKeyType="done"
+                  placeholder="Name"
+                  defaultValue={Name}
+                />
 
-              <TextInput
-                style={{
-                  marginTop: 30,
-                  borderColor: "#af9a7d",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  borderWidth: 2,
-                  height: 50,
-                  width: "90%",
-                  margin: 10,
-                  padding: 10,
-                  fontSize: 20,
-                  alignSelf: "center"
-                }}
-                onChangeText={text => {
-                  this.setState({ Massage: text });
-                }}
-                returnKeyType="done"
-                placeholder="Massage"
-                placeholderTextColor="#fff"
-                defaultValue={Massage}
-              />
-              <AirbnbRating
-                count={5}
-                defaultRating={0}
-                size={20}
-                onFinishRating={value => this.setState({ rating: value })}
-              />
+                <Input
+                  onChangeText={text => {
+                    this.setState({ Email: text });
+                  }}
+                  returnKeyType="done"
+                  placeholder="Email"
+                  defaultValue={Email}
+                  marginTop={20}
+                />
 
-              <TouchableOpacity
-                onPress={this.addFeedback}
-                style={{
-                  marginTop: 60,
-                  height: 50,
-                  width: "90%",
-                  borderStyle: "solid",
-                  borderRadius: 50,
-                  paddingBottom: 5,
-                  backgroundColor: "#0F3A5B",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  shadowColor: "#000",
-                  alignSelf: "center",
-                  shadowOffset: {
-                    width: 0,
-                    height: 3
-                  },
-                  shadowOpacity: 0.29,
-                  shadowRadius: 4.65,
-                  elevation: 7,
-                  marginBottom: 20
-                }}
-              >
-                <Text
+                <Input
+                  onChangeText={text => {
+                    this.setState({ Massage: text });
+                  }}
+                  returnKeyType="done"
+                  placeholder="Massage"
+                  defaultValue={Massage}
+                  marginTop={20}
+                />
+                <AirbnbRating
+                  style={{ marginTop: 50 }}
+                  count={5}
+                  defaultRating={0}
+                  size={20}
+                  onFinishRating={value => this.setState({ rating: value })}
+                />
+                <TouchableOpacity
+                  onPress={this.addFeedback}
                   style={{
-                    color: "#ffffff",
-                    fontSize: 20
+                    marginTop: 80,
+                    height: 50,
+                    width: "90%",
+                    borderStyle: "solid",
+                    borderRadius: 50,
+                    paddingBottom: 5,
+                    backgroundColor: "#0F3A5B",
+                    justifyContent: "center",
+                    alignItems: "center",
+
+                    alignSelf: "center",
+
+                    marginBottom: 20
                   }}
                 >
-                  Send Your FeedBack{" "}
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#ffffff",
+                      fontSize: 20
+                    }}
+                  >
+                    Send Your FeedBack{" "}
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </KeyboardAvoidingView>
           </ScrollView>
         </View>
