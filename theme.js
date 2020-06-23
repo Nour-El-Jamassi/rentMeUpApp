@@ -9,7 +9,7 @@ const COLORS = {
 const SIZES = {
   base: 12,
   icon: 16,
-  font: 16
+  font: 20  
 };
 
 export { COLORS, SIZES };

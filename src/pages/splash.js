@@ -19,7 +19,7 @@ export default class Splash extends Component {
     const splashImg = require("../../assets/logo1.png");
     return (
       <LinearGradient
-        colors={["#0F3A5B", "#af9a7d"]}
+        colors={["#fff", "#fff"]}
         // start={[150, 0]}
         // end={[0, 50]}
         style={{

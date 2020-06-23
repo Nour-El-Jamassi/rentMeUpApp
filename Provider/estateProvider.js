@@ -37,6 +37,7 @@ class EstateProvider extends Component {
   //   AsyncStorage.setItem("estates", JSON.stringify(nextState.estates));
   // }
   async componentDidMount() {
+    console.log("sortedEstates");
     //getting estates
     const { estates } = this.state;
     const snapshot = await firebase
@@ -75,6 +76,7 @@ class EstateProvider extends Component {
 
     this.setState({ [name]: value });
   };
+
   filterEstates = navigation => {
     // alert();
     console.log(
@@ -148,7 +150,8 @@ class EstateProvider extends Component {
             handleChange: this.handleChange,
             feedbacks: this.state.feedbacks,
             space: this.state.space,
-            filterEstates: this.filterEstates
+            filterEstates: this.filterEstates,
+            myFilterEstates: this.myFilterEstates
           }}
         >
           {this.props.children}

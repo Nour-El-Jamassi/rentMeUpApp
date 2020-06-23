@@ -16,9 +16,54 @@ import { Ionicons } from "@expo/vector-icons";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import LogOut from "./src/pages/logOut";
 import { Container, Content, Header, Body, Icon } from "native-base";
+import { Image, Text } from "react-native";
+import firebase from "firebase";
+// import App from "./App";
 
-import { Image } from "react-native";
 export default class App extends React.Component {
+  state = {
+    name: "Nour Mohammed"
+  };
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User logged in already or has just logged in.
+        console.log(user.uid);
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .get()
+          .then(doc => {
+            console.log(doc.data().name);
+            this.setState({ name: doc.data().name });
+          })
+          .catch(function(error) {
+            console.log("Error getting documents: ", error);
+          });
+      } else {
+        console.log("not logged in ");
+        // User not logged in or has just logged out.
+      }
+      // let uid = firebase.auth().currentUser.uid;
+      // if ((uid = null)) {
+      //   console.log("hi");
+      // } else {
+      //   firebase
+      //     .firestore()
+      //     .collection("users")
+      //     .doc(uid)
+      //     .get()
+      //     .then(doc => {
+      //       alert(doc.date().name);
+      //       let name;
+      //       this.setState({
+      //         name: doc.date().name
+      //       });
+      //     });
+    });
+  }
+
   render() {
     const mainStack = createStackNavigator({ login: LogIn, SignIn: SignUp });
 
@@ -199,6 +244,7 @@ export default class App extends React.Component {
               style={{ height: 100, width: 100, alignSelf: "center" }}
               source={require("./assets/userPic.png")}
             />
+            <Text style={{ marginTop: 10 }}>{this.state.name}</Text>
           </Body>
         </Header>
         <Content>
@@ -219,8 +265,8 @@ export default class App extends React.Component {
       {
         contentComponent: Drawer,
         drawerOpenRoute: "DrawerOpen",
-        drawerCloseRoute: "DrawerClose",
-        // initialRouteName: "Map"
+        drawerCloseRoute: "DrawerClose"
+        // initialRouteName: "Filter"
       }
     );
     const Log = createSwitchNavigator(

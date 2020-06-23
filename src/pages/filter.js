@@ -3,7 +3,16 @@
 //price and space range slider
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import * as firebase from "firebase";
+
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert
+} from "react-native";
 import Dropdown from "react-native-modal-dropdown";
 
 import * as theme from "../../theme";
@@ -14,6 +23,7 @@ import { Slider } from "react-native-elements";
 const getUnique = (items, value) => {
   return [...new Set(items.map(item => item[value]))];
 };
+
 
 const Filter = ({ navigation }) => {
   console.disableYellowBox = true;
@@ -41,10 +51,58 @@ const Filter = ({ navigation }) => {
   console.log("roomsNumber", roomsNumber);
   roomsNumber = ["all", ...roomsNumber]; //add all and whatever you have in types
   console.log(cities, streets, types, roomsNumber);
+  const myFilterEstates = navigation => {
+    // alert("jkguhgkjhgjhg");
+    let city = "all";
+    // let {
+    //   type,
+    //   city,
+    //   street,
+    //   price,
+    //   roomNum,
+    //   overLookingSea,
+    //   downtown,
+    //   sortedEstates,
+    //   newEstates
+    // } = this.state; //all estates
+    // console.log(this.state.estates);
+    // alert(this.state.estates);
+    // convert to integer
+
+    let roomNum = parseInt(roomsNumber);
+    // price = parseInt(price);
+    // console.log("state", type, city, street);
+    var query = firebase.firestore().collection("estates");
+    if (
+      city !== "all"
+      // && type !== "all"
+    ) {
+      query
+        .where("city", "==", city)
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            let data = doc.data();
+
+            data.id = doc.id;
+            newEstates.push(data);
+            this.setState({ newEstates });
+            this.setState({ sortedEstates: newEstates });
+            this.setState({ newEstates: [] });
+          });
+        })
+        .then(resp => {
+          navigation.navigate("Map", resp);
+        });
+      navigation.navigate("Map");
+
+      // console.log("sortedEstates", sortedEstates);
+    }
+  };
 
   return (
     <LinearGradient
-      colors={["#0F3A5B", "#af9a7d"]}
+      colors={["#fff", "#fff"]}
       // start={[150, 0]}
       // end={[0, 50]}
       style={{
@@ -61,17 +119,6 @@ const Filter = ({ navigation }) => {
               flex: 1
             }}
           >
-            <Text
-              style={{
-                marginTop: 50,
-                color: "#fff",
-                fontSize: 40,
-                alignSelf: "center",
-                marginBottom: 30
-              }}
-            >
-              Filter
-            </Text>
             {/* renderCities */}
             <View style={styles.container}>
               <Text style={styles.label}>City:</Text>
@@ -186,10 +233,15 @@ const Filter = ({ navigation }) => {
             <View>
               <TouchableOpacity
                 onPress={navigation => {
-                  estate.filterEstates(navigation);
+                  // alert(
+                  //   "sortedEstatessortedEstatessortedEstatessortedEstatessortedEstatessortedEstatessortedEstates"
+                  // );
+
+                  // estate.filterEstates(navigation);
+                  myFilterEstates(navigation);
                 }}
                 style={{
-                  marginTop: 60,
+                  marginTop: 80,
                   height: 50,
                   width: "90%",
                   borderStyle: "solid",
@@ -198,17 +250,9 @@ const Filter = ({ navigation }) => {
                   backgroundColor: "#0F3A5B",
                   justifyContent: "center",
                   alignItems: "center",
-                  shadowColor: "#000",
+
                   alignSelf: "center",
-                  flexDirection: "row",
-                  shadowOffset: {
-                    width: 0,
-                    height: 3
-                  },
-                  shadowOpacity: 0.29,
-                  shadowRadius: 4.65,
-                  elevation: 7
-                  // marginBottom: 20
+                  flexDirection: "row"
                 }}
               >
                 <Text
@@ -245,17 +289,17 @@ const styles = StyleSheet.create({
     flex: 0.0999,
     // marginTop: 10,
     flexDirection: "row",
-    marginTop: 45,
+    marginTop: 49,
     justifyContent: "space-between"
   },
   label: {
-    fontSize: theme.SIZES.text,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#ffffff",
+    color: "#000",
     paddingLeft: 10,
     fontFamily: "Tajawal",
-    marginLeft: theme.SIZES.base
-    // marginTop: 20
+    marginLeft: theme.SIZES.base,
+    marginTop: 5
   },
   DropdownMenu: {
     borderRadius: theme.SIZES.base / 2,

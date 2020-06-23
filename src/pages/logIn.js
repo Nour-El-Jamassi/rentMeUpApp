@@ -19,7 +19,7 @@ export default class LogIn extends Component {
   static navigationOptions = {
     header: null
   };
-  state = { email: "tes144@gmail.com", password: "123456789" };
+  state = { email: "", password: "" };
 
   Login = () => {
     const { navigation } = this.props;
@@ -71,7 +71,6 @@ export default class LogIn extends Component {
           enabled
         >
           <ScrollView>
-           
             <View
               style={{
                 position: "absolute",
@@ -85,7 +84,10 @@ export default class LogIn extends Component {
                 // flex: 1
               }}
             >
-              <Image style={{marginTop:30}} source={require("../assets/logo1.png")} />
+              <Image
+                style={{ marginTop: 30 }}
+                source={require("../assets/logo1.png")}
+              />
               <View
                 style={{
                   marginTop: "10%",
@@ -121,17 +123,17 @@ export default class LogIn extends Component {
             >
               <View>
                 <Input
+                  keyboardType="email-address"
                   placeholder="Email"
                   defaultValue={email}
                   onChange={this.handelChangeEmail}
                 />
                 <Input
                   placeholder="Password"
-       
+                  secureTextEntry
                   defaultValue={password}
                   onChange={this.handelChangePassword}
                 />
-               
 
                 <TouchableOpacity
                   onPress={this.Login}

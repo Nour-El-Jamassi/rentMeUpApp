@@ -18,10 +18,10 @@ export default class SignUp extends Component {
     header: null
   };
   state = {
-    name: "testtt",
-    email: "tes144@gmail.com",
-    password: "123456789",
-    mobile: "98754321"
+    name: "",
+    email: "",
+    password: "",
+    mobile: ""
   };
 
   addUser = () => {
@@ -48,14 +48,14 @@ export default class SignUp extends Component {
       console.log("wait!");
     }, 7000);
 
-    const user = firebase.auth().currentUser;
-    console.log("user", user.uid);
+    // console.log("user", user.uid);
     try {
+      const user = firebase.auth().currentUser;
       db.collection("users")
         .doc(user.uid)
         .set({ email: user.email, uid: user.uid, mobile: mobile, name: name })
         .then(() => {
-          this.propsnavigation.navigate("main");
+          this.props.navigation.navigate("Map");
         });
     } catch (error) {
       alert(error);
@@ -102,7 +102,10 @@ export default class SignUp extends Component {
                 // flex: 1
               }}
             >
-              <Image style={{ marginTop: 30 }} source={require("../assets/logo1.png")} />
+              <Image
+                style={{ marginTop: 30 }}
+                source={require("../assets/logo1.png")}
+              />
               <View
                 style={{
                   // marginTop: "30%",
@@ -172,13 +175,12 @@ export default class SignUp extends Component {
                     this.setState({ mobile: text });
                   }}
                 />
-             
 
                 <TouchableOpacity
                   onPress={this.addUser}
                   style={{
                     marginTop: "10%",
-                    height:55,
+                    height: 55,
                     width: "100%",
                     borderStyle: "solid",
                     borderRadius: 50,
@@ -202,7 +204,7 @@ export default class SignUp extends Component {
                       color: "#ffffff",
                       //   fontFamily: "Tajawal",
                       fontSize: 20,
-                      marginBottom:35
+                      marginBottom: 35
                     }}
                   >
                     Sign Up
