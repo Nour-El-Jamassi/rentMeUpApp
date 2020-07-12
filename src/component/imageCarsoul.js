@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import Constants from "expo-constants";
 import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel, {
   Pagination,
@@ -23,7 +24,13 @@ const { width: screenWidth } = Dimensions.get("window");
 console.disableYellowBox = true;
 export default class ImageCarousel extends React.Component {
   static navigationOptions = {
-    header: null
+    header: null,
+    drawerIcon: (
+      <Image
+        source={require("../assets/logo1.png")}
+        style={{ height: 50, width: 50 }}
+      />
+    )
   };
   state = {
     images: [

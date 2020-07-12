@@ -21,8 +21,14 @@ import {
   CheckBox,
   Dimensions
 } from "react-native";
-
+import { Ionicons } from "@expo/vector-icons";
 export default class Add extends Component {
+  static navigationOptions = {
+    drawerIcon: (
+      <Ionicons name="md-add-circle-outline" size={24} color="black" />
+    )
+  };
+
   constructor(props) {
     super(props);
 

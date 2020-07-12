@@ -22,8 +22,11 @@ import Modal from "react-native-modal";
 import {
   FontAwesome,
   Ionicons,
-  MaterialCommunityIcons
+  MaterialCommunityIcons,
+  Feather,
+  AntDesign
 } from "@expo/vector-icons";
+
 import { EstateContext } from "../../Provider/estateProvider";
 
 import * as theme from "../../theme";
@@ -33,6 +36,11 @@ const { Callout } = MapView;
 const { height, width } = Dimensions.get("screen");
 
 class EstateMap extends Component {
+  // static navigationOptions = {
+  //   drawerIcon: ({ tintColor }) => (
+  //     <AntDesign name="home" size={24} color="black" />
+  //   )
+  // };
   static contextType = EstateContext;
   state = {
     active: null,

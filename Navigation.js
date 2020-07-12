@@ -12,7 +12,13 @@ import FeedbacksWithFlatlist from "./src/pages/FeedbacksWithFlatlist";
 import MainMap from "./src/pages/mainMap";
 import Filter from "./src/pages/filter";
 import { TouchableWithoutFeedback } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Ionicons,
+  MaterialCommunityIcons,
+  Feather,
+  AntDesign
+} from "@expo/vector-icons";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import LogOut from "./src/pages/logOut";
 import { Container, Content, Header, Body, Icon } from "native-base";
@@ -204,6 +210,7 @@ export default class App extends React.Component {
       {
         defaultNavigationOptions: ({ navigation }) => {
           return {
+            drawerIcon: <Feather name="home" />,
             headerStyle: {
               backgroundColor: "#0F3A5B",
               height: 70
@@ -266,7 +273,9 @@ export default class App extends React.Component {
         contentComponent: Drawer,
         drawerOpenRoute: "DrawerOpen",
         drawerCloseRoute: "DrawerClose"
-        // initialRouteName: "Filter"
+      },
+      {
+        initialRouteName: "Add"
       }
     );
     const Log = createSwitchNavigator(
@@ -276,7 +285,7 @@ export default class App extends React.Component {
         main: DrawerNavigator
       },
       {
-        // initialRouteName: "main"
+        initialRouteName: "main"
       }
     );
 

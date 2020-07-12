@@ -19,13 +19,16 @@ export default class LogIn extends Component {
   static navigationOptions = {
     header: null
   };
+
   state = { email: "", password: "" };
 
   Login = () => {
+    let { email, password } = this.state;
+
     const { navigation } = this.props;
     firebase
       .auth()
-      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         navigation.navigate("welcome");
       })
@@ -36,17 +39,6 @@ export default class LogIn extends Component {
         // ...
         alert(errorCode, errorMessage);
       });
-  };
-
-  handelChangeEmail = e => {
-    this.setState({
-      email: e.target.value
-    });
-  };
-  handelChangePassword = e => {
-    this.setState({
-      password: e.target.value
-    });
   };
 
   render() {
@@ -104,7 +96,7 @@ export default class LogIn extends Component {
                 <Text
                   style={{
                     color: "#0F3A5B",
-                    fontFamily: "Podkova",
+                    fontFamily: "Podkova"     ,
                     fontSize: 40,
                     zIndex: 200
                   }}
@@ -126,13 +118,17 @@ export default class LogIn extends Component {
                   keyboardType="email-address"
                   placeholder="Email"
                   defaultValue={email}
-                  onChange={this.handelChangeEmail}
+                  onChangeText={text => {
+                    this.setState({ email: text });
+                  }}
                 />
                 <Input
                   placeholder="Password"
                   secureTextEntry
                   defaultValue={password}
-                  onChange={this.handelChangePassword}
+                  onChangeText={text => {
+                    this.setState({ password: text });
+                  }}
                 />
 
                 <TouchableOpacity
